@@ -2,14 +2,14 @@
 
 import { motion } from 'framer-motion';
 import { useUIStore } from '@/store';
-import { Home, Camera, Calendar, MessageSquare, User } from 'lucide-react';
+import { Flame, MessageSquare, Camera, Wrench, User } from 'lucide-react';
 import { UIState } from '@/types/ui';
 
 const navItems = [
-    { id: 'home', label: '홈', icon: Home },
-    { id: 'planner', label: '역추산', icon: Calendar },
+    { id: 'feed', label: '피드', icon: Flame },
+    { id: 'boards', label: '게시판', icon: MessageSquare },
     { id: 'record', label: '기록', icon: Camera, isCenter: true },
-    { id: 'community', label: '커뮤니티', icon: MessageSquare, badge: true },
+    { id: 'tools', label: '도구', icon: Wrench },
     { id: 'profile', label: '마이', icon: User },
 ];
 
@@ -64,10 +64,6 @@ export default function BottomNav() {
                                 <Icon
                                     className={`w-6 h-6 relative z-10 ${isActive ? 'text-primary-500' : ''}`}
                                 />
-                                {/* 알림 뱃지 */}
-                                {item.badge && (
-                                    <span className="absolute -top-1 -right-1 w-2 h-2 bg-orange-500 rounded-full z-20" />
-                                )}
                             </div>
                             <span className={`text-xs mt-1 relative z-10 ${isActive ? 'font-semibold text-primary-500' : ''}`}>
                                 {item.label}

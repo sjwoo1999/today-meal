@@ -41,7 +41,7 @@ const AD_CONTENT = {
     ],
 };
 
-export default function AdBanner({ size = 'banner', position = 'feed', className = '' }: AdBannerProps) {
+export default function AdBanner({ size = 'banner', className = '' }: AdBannerProps) {
     const getRandomAd = (ads: typeof AD_CONTENT.banner) => {
         return ads[Math.floor(Math.random() * ads.length)];
     };

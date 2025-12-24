@@ -6,11 +6,11 @@ import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
 
 // Mobile Components
 import BottomNav from '@/components/BottomNav';
-import HomePage from '@/components/HomePage';
+import FeedPage from '@/components/FeedPage';
 import RecordPage from '@/components/RecordPage';
 import ReversePlanner from '@/components/ReversePlanner';
-import LeaguePage from '@/components/LeaguePage';
 import ProfilePage from '@/components/ProfilePage';
+import ToolsHub from '@/components/ToolsHub';
 import { XPPopup, CelebrationModal } from '@/components/Gamification';
 import { CommunityPage } from '@/components/community';
 
@@ -18,7 +18,6 @@ import { CommunityPage } from '@/components/community';
 import Sidebar from '@/components/pc/Sidebar';
 import Header from '@/components/pc/Header';
 import HankiWidget from '@/components/pc/HankiWidget';
-import PCDashboard from '@/components/pc/Dashboard';
 import CalendarView from '@/components/pc/CalendarView';
 import PCReversePlanner from '@/components/pc/ReversePlanner';
 
@@ -31,48 +30,45 @@ export default function ResponsiveApp() {
     // Render mobile page based on active tab
     const renderMobilePage = () => {
         switch (activeTab) {
-            case 'home':
-                return <HomePage key="home" />;
+            case 'feed':
+                return <FeedPage key="feed" />;
+            case 'boards':
+                return <CommunityPage key="boards" />;
             case 'record':
                 return <RecordPage key="record" />;
+            case 'tools':
+                return <ToolsHub key="tools" />;
             case 'planner':
                 return <ReversePlanner key="planner" dailyCalorieGoal={1800} dailyProteinGoal={120} />;
-            case 'league':
-                return <LeaguePage key="league" />;
-            case 'community':
-                return <CommunityPage key="community" />;
             case 'profile':
                 return <ProfilePage key="profile" />;
             default:
-                return <HomePage key="home" />;
+                return <FeedPage key="feed" />;
         }
     };
 
     // Render PC page based on active tab
     const renderPCPage = () => {
         switch (activeTab) {
+            case 'feed':
             case 'home':
-                return <PCDashboard key="home" />;
-            case 'dashboard':
-                return <PCDashboard key="dashboard" />;
+                return <FeedPage key="feed" />;
+            case 'boards':
+            case 'community':
+                return <CommunityPage key="boards" />;
             case 'record':
                 return <RecordPage key="record" />;
+            case 'tools':
+            case 'dashboard':
+                return <ToolsHub key="tools" />;
             case 'planner':
                 return <PCReversePlanner key="planner" />;
             case 'calendar':
                 return <CalendarView key="calendar" />;
-            case 'league':
-                return <LeaguePage key="league" />;
-            case 'community':
-                return <CommunityPage key="community" />;
-            case 'quests':
-                return <PCDashboard key="quests" />; // Quests shown in dashboard
-            case 'analysis':
-                return <PCDashboard key="analysis" />; // Would be analysis page
             case 'profile':
                 return <ProfilePage key="profile" />;
             default:
-                return <PCDashboard key="home" />;
+                return <FeedPage key="feed" />;
         }
     };
 
