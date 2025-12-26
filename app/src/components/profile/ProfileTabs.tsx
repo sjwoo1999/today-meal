@@ -3,9 +3,11 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FileText, MessageSquare, Bookmark } from 'lucide-react';
+import { CommunityPost } from '@/types';
 import MyPosts from './MyPosts';
 import MyComments from './MyComments';
 import MyScraps from './MyScraps';
+import PostDetail from '@/components/community/PostDetail';
 
 type TabType = 'posts' | 'comments' | 'scraps';
 
@@ -21,15 +23,31 @@ const TABS = [
 
 export default function ProfileTabs({ userId }: ProfileTabsProps) {
     const [activeTab, setActiveTab] = useState<TabType>('posts');
+    const [selectedPost, setSelectedPost] = useState<CommunityPost | null>(null);
+
+    // 게시글 클릭 핸들러
+    const handlePostClick = (post: CommunityPost) => {
+        setSelectedPost(post);
+    };
+
+    // 게시글 상세에서 뒤로가기
+    if (selectedPost) {
+        return (
+            <PostDetail
+                post={selectedPost}
+                onBack={() => setSelectedPost(null)}
+            />
+        );
+    }
 
     const renderContent = () => {
         switch (activeTab) {
             case 'posts':
-                return <MyPosts userId={userId} />;
+                return <MyPosts userId={userId} onPostClick={handlePostClick} />;
             case 'comments':
-                return <MyComments userId={userId} />;
+                return <MyComments userId={userId} onPostClick={handlePostClick} />;
             case 'scraps':
-                return <MyScraps userId={userId} />;
+                return <MyScraps userId={userId} onPostClick={handlePostClick} />;
             default:
                 return null;
         }

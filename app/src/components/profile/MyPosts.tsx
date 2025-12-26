@@ -10,14 +10,14 @@ import { NoMyPosts } from '@/components/common/EmptyState';
 
 interface MyPostsProps {
     userId: string;
+    onPostClick?: (post: CommunityPost) => void;
 }
 
-export default function MyPosts({ userId }: MyPostsProps) {
+export default function MyPosts({ userId, onPostClick }: MyPostsProps) {
     const [posts, setPosts] = useState<CommunityPost[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        // 시뮬레이션: 데이터 로딩
         const timer = setTimeout(() => {
             const userPosts = getPostsByUser(userId);
             setPosts(userPosts);
@@ -57,8 +57,9 @@ export default function MyPosts({ userId }: MyPostsProps) {
                 return (
                     <motion.div
                         key={post.id}
-                        className="bg-white p-4"
+                        className="bg-white p-4 cursor-pointer"
                         whileHover={{ backgroundColor: '#fafafa' }}
+                        onClick={() => onPostClick?.(post)}
                     >
                         <div className="flex items-center gap-2 mb-2">
                             <span className="text-sm">{boardInfo?.emoji}</span>

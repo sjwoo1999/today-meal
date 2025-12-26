@@ -3,17 +3,18 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Heart, ChevronRight } from 'lucide-react';
-import { CommunityComment } from '@/types';
+import { CommunityComment, CommunityPost } from '@/types';
 import { getCommentsByUserId, getPostById } from '@/data';
 import { CommentSkeleton } from '@/components/common/Skeleton';
 import { NoMyComments } from '@/components/common/EmptyState';
 
 interface MyCommentsProps {
     userId: string;
+    onPostClick?: (post: CommunityPost) => void;
 }
 
-export default function MyComments({ userId }: MyCommentsProps) {
-    const [comments, setComments] = useState<(CommunityComment & { postTitle?: string })[]>([]);
+export default function MyComments({ userId, onPostClick }: MyCommentsProps) {
+    const [comments, setComments] = useState<(CommunityComment & { postTitle?: string; post?: CommunityPost })[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -25,6 +26,7 @@ export default function MyComments({ userId }: MyCommentsProps) {
                 return {
                     ...comment,
                     postTitle: post?.title || '삭제된 게시글',
+                    post,
                 };
             });
             setComments(enrichedComments);
@@ -33,6 +35,12 @@ export default function MyComments({ userId }: MyCommentsProps) {
 
         return () => clearTimeout(timer);
     }, [userId]);
+
+    const handleCommentClick = (comment: typeof comments[0]) => {
+        if (comment.post && onPostClick) {
+            onPostClick(comment.post);
+        }
+    };
 
     if (isLoading) {
         return (
@@ -62,8 +70,9 @@ export default function MyComments({ userId }: MyCommentsProps) {
             {comments.map(comment => (
                 <motion.div
                     key={comment.id}
-                    className="bg-white p-4"
+                    className="bg-white p-4 cursor-pointer"
                     whileHover={{ backgroundColor: '#fafafa' }}
+                    onClick={() => handleCommentClick(comment)}
                 >
                     {/* 원글 정보 */}
                     <div className="flex items-center gap-1 text-xs text-gray-400 mb-2">

@@ -10,9 +10,10 @@ import { NoMyScraps } from '@/components/common/EmptyState';
 
 interface MyScrapsProps {
     userId: string;
+    onPostClick?: (post: CommunityPost) => void;
 }
 
-export default function MyScraps({ userId }: MyScrapsProps) {
+export default function MyScraps({ userId, onPostClick }: MyScrapsProps) {
     const [scraps, setScraps] = useState<CommunityPost[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -29,7 +30,8 @@ export default function MyScraps({ userId }: MyScrapsProps) {
         return () => clearTimeout(timer);
     }, [userId]);
 
-    const handleUnscrap = (postId: string) => {
+    const handleUnscrap = (e: React.MouseEvent, postId: string) => {
+        e.stopPropagation(); // 상위 클릭 이벤트 방지
         setScraps(prev => prev.filter(post => post.id !== postId));
     };
 
@@ -63,8 +65,9 @@ export default function MyScraps({ userId }: MyScrapsProps) {
                 return (
                     <motion.div
                         key={post.id}
-                        className="bg-white p-4"
+                        className="bg-white p-4 cursor-pointer"
                         whileHover={{ backgroundColor: '#fafafa' }}
+                        onClick={() => onPostClick?.(post)}
                     >
                         <div className="flex items-start gap-3">
                             <div className="flex-1">
@@ -89,7 +92,7 @@ export default function MyScraps({ userId }: MyScrapsProps) {
                                 </div>
                             </div>
                             <motion.button
-                                onClick={() => handleUnscrap(post.id)}
+                                onClick={(e) => handleUnscrap(e, post.id)}
                                 className="p-2 text-primary-500 hover:bg-primary-50 rounded-lg"
                                 whileTap={{ scale: 0.9 }}
                             >
