@@ -6,6 +6,7 @@ import { Flame, Clock, ChevronRight, MessageSquare, Heart, Eye, Camera } from 'l
 import { CommunityPost, BOARD_LIST } from '@/types';
 import { useUIStore } from '@/store';
 import { UIState } from '@/types/ui';
+import PostDetail from '@/components/community/PostDetail';
 
 // HOT 게시글 Mock 데이터
 const HOT_POSTS: CommunityPost[] = [
@@ -191,6 +192,22 @@ function FeedPostCard({ post }: { post: CommunityPost }) {
 export default function FeedPage() {
     const { setActiveTab } = useUIStore();
     const [posts] = useState(RECENT_POSTS);
+    const [selectedPost, setSelectedPost] = useState<CommunityPost | null>(null);
+
+    // 게시글 클릭 핸들러
+    const handlePostClick = (post: CommunityPost) => {
+        setSelectedPost(post);
+    };
+
+    // 선택된 게시글이 있으면 상세 페이지로
+    if (selectedPost) {
+        return (
+            <PostDetail
+                post={selectedPost}
+                onBack={() => setSelectedPost(null)}
+            />
+        );
+    }
 
     return (
         <div className="min-h-screen bg-gray-50 pb-24">
@@ -238,7 +255,9 @@ export default function FeedPage() {
                 </div>
                 <div className="flex gap-3 overflow-x-auto scrollbar-hide -mx-4 px-4 pb-2">
                     {HOT_POSTS.map(post => (
-                        <HotPostCard key={post.id} post={post} />
+                        <div key={post.id} onClick={() => handlePostClick(post)} className="cursor-pointer">
+                            <HotPostCard post={post} />
+                        </div>
                     ))}
                 </div>
             </div>
@@ -257,7 +276,9 @@ export default function FeedPage() {
                 </div>
                 <div className="space-y-3">
                     {posts.map(post => (
-                        <FeedPostCard key={post.id} post={post} />
+                        <div key={post.id} onClick={() => handlePostClick(post)} className="cursor-pointer">
+                            <FeedPostCard post={post} />
+                        </div>
                     ))}
                 </div>
             </div>

@@ -3,32 +3,35 @@
 import { motion } from 'framer-motion';
 import { useUIStore } from '@/store';
 import {
-    Home, Camera, Calendar, Trophy, User,
-    BarChart3, Target, ChevronLeft, ChevronRight,
-    Settings, HelpCircle, PieChart, MessageSquare
+    Flame, Camera, Wrench, User,
+    ChevronLeft, ChevronRight,
+    Settings, HelpCircle, MessageSquare
 } from 'lucide-react';
 import { useState } from 'react';
 
 const navItems = [
-    { id: 'home', label: '홈', icon: Home, path: '/' },
-    { id: 'planner', label: '역추산 플래너', icon: Calendar, path: '/reverse-plan' },
-    { id: 'record', label: '기록하기', icon: Camera, path: '/record' },
-    { id: 'dashboard', label: '대시보드', icon: PieChart, path: '/dashboard' },
-    { id: 'calendar', label: '캘린더', icon: Calendar, path: '/calendar', isNew: true },
+    { id: 'feed', label: '피드', icon: Flame, path: '/' },
     {
-        id: 'community', label: '커뮤니티', icon: MessageSquare, path: '/community', badge: 3,
+        id: 'boards', label: '게시판', icon: MessageSquare, path: '/boards', badge: 3,
         submenu: [
-            { id: 'community-hot', label: '🔥 인기글', path: '/community/hot' },
-            { id: 'community-free', label: '💬 자유게시판', path: '/community/free' },
-            { id: 'community-info', label: '🥗 다이어트 정보', path: '/community/info' },
-            { id: 'community-qna', label: '❓ 질문게시판', path: '/community/qna' },
-            { id: 'community-challenge', label: '🎉 인증게시판', path: '/community/challenge' },
+            { id: 'boards-hot', label: '🔥 인기글', path: '/boards/hot' },
+            { id: 'boards-free', label: '💬 자유게시판', path: '/boards/free' },
+            { id: 'boards-info', label: '🥗 다이어트 정보', path: '/boards/info' },
+            { id: 'boards-qna', label: '❓ 질문게시판', path: '/boards/qna' },
+            { id: 'boards-challenge', label: '🎉 인증게시판', path: '/boards/challenge' },
         ]
     },
-    { id: 'league', label: '리그', icon: Trophy, path: '/league' },
-    { id: 'quests', label: '퀘스트', icon: Target, path: '/quests', badge: 2 },
-    { id: 'analysis', label: '분석', icon: BarChart3, path: '/analysis' },
-    { id: 'profile', label: '프로필', icon: User, path: '/profile' },
+    { id: 'record', label: '기록하기', icon: Camera, path: '/record' },
+    {
+        id: 'tools', label: '도구', icon: Wrench, path: '/tools',
+        submenu: [
+            { id: 'tools-planner', label: '📅 역추산 플래너', path: '/tools/planner' },
+            { id: 'tools-dashboard', label: '📊 영양 대시보드', path: '/tools/dashboard' },
+            { id: 'tools-analysis', label: '📈 분석', path: '/tools/analysis' },
+            { id: 'tools-hanki', label: '🤖 한끼 AI', path: '/tools/hanki' },
+        ]
+    },
+    { id: 'profile', label: '마이', icon: User, path: '/profile' },
 ];
 
 const footerItems = [
@@ -114,13 +117,6 @@ export default function Sidebar({ collapsed = false, onToggle }: SidebarProps) {
                       bg-primary-500 text-white text-xs font-bold rounded-full
                     `}>
                                             {item.badge}
-                                        </span>
-                                    )}
-
-                                    {/* New Badge */}
-                                    {item.isNew && !isCollapsed && (
-                                        <span className="ml-auto px-2 py-0.5 bg-secondary-100 text-secondary-700 text-xs font-medium rounded-full">
-                                            NEW
                                         </span>
                                     )}
 

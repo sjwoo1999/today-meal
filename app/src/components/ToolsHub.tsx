@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
     Calendar, PieChart, MessageSquare,
@@ -7,6 +8,7 @@ import {
 } from 'lucide-react';
 import { useUIStore } from '@/store';
 import { UIState } from '@/types/ui';
+import HankiChat from '@/components/HankiChat';
 
 interface Tool {
     id: string;
@@ -93,13 +95,28 @@ function ToolCard({ tool }: { tool: Tool }) {
 
 export default function ToolsHub() {
     const { setActiveTab } = useUIStore();
+    const [showHanki, setShowHanki] = useState(false);
 
     const handleToolClick = (toolId: string) => {
-        if (toolId === 'planner') {
-            setActiveTab('planner' as UIState['activeTab']);
+        switch (toolId) {
+            case 'planner':
+                setActiveTab('planner' as UIState['activeTab']);
+                break;
+            case 'dashboard':
+            case 'analysis':
+                // 같은 대시보드로 이동 (추후 분리 가능)
+                setActiveTab('planner' as UIState['activeTab']);
+                break;
+            case 'hanki':
+                setShowHanki(true);
+                break;
         }
-        // 다른 도구들도 연결 가능
     };
+
+    // 한끼 AI 채팅 화면
+    if (showHanki) {
+        return <HankiChat onClose={() => setShowHanki(false)} />;
+    }
 
     return (
         <div className="min-h-screen bg-gray-50 pb-24">
@@ -133,7 +150,7 @@ export default function ToolsHub() {
                 <h2 className="font-bold text-gray-900 mb-3">도구 모음</h2>
                 <div className="space-y-3">
                     {TOOLS.map(tool => (
-                        <div key={tool.id} onClick={() => handleToolClick(tool.id)}>
+                        <div key={tool.id} onClick={() => handleToolClick(tool.id)} className="cursor-pointer">
                             <ToolCard tool={tool} />
                         </div>
                     ))}
