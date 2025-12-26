@@ -9,6 +9,21 @@ export interface User {
     createdAt: Date;
 }
 
+// Simple User for mock data
+export interface SimpleUser {
+    id: string;
+    name: string;
+    nickname: string;
+    email: string;
+    level: number;
+    xp: number;
+    streak: number;
+    title: string;
+    profileImage?: string;
+    role: 'member' | 'trainer';
+    createdAt: Date;
+}
+
 export interface UserProfile {
     age?: number;
     gender?: 'male' | 'female' | 'other';
@@ -370,6 +385,7 @@ export interface Comment {
     likeCount: number;
     isAuthor: boolean; // 글쓴이 여부
     isAccepted?: boolean; // Q&A 채택 답변
+    isBest?: boolean; // 베스트 댓글
 }
 
 // 커뮤니티 유저 프로필
@@ -404,3 +420,7 @@ export type HotTimeFilter = 'realtime' | 'daily' | 'weekly';
 
 // 정렬 옵션
 export type PostSortOption = 'latest' | 'popular' | 'comments' | 'views';
+
+// Type aliases for compatibility
+export type BoardType = BoardCategory;
+export type CommunityComment = Comment;

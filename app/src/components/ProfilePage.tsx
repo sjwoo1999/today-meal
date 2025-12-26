@@ -7,6 +7,7 @@ import { LevelBadge, XPProgressBar } from '@/components/Gamification';
 import { NutritionBar } from '@/components/NutritionProgress';
 import { LEVEL_DATA, STREAK_MILESTONES, Badge } from '@/types';
 import { useUserStore, getLevelInfo, useHankiStore } from '@/store';
+import ProfileTabs from '@/components/profile/ProfileTabs';
 
 // Mock badges
 const MOCK_BADGES: Badge[] = [
@@ -281,9 +282,12 @@ export default function ProfilePage() {
                     />
                 </motion.div>
 
+                {/* Profile Tabs - 내 게시글, 댓글, 스크랩 */}
+                <ProfileTabs userId="u_001" />
+
                 {/* Menu Items */}
                 <motion.div
-                    className="card p-0 overflow-hidden"
+                    className="card p-0 overflow-hidden mt-4"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
