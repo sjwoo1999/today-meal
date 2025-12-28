@@ -66,14 +66,14 @@ export default function ProfileTabs({ userId }: ProfileTabsProps) {
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
                             className={`flex-1 flex items-center justify-center gap-2 py-3 relative
-                                ${isActive ? 'text-primary-600' : 'text-gray-500'}`}
+                                ${isActive ? 'text-coral-600' : 'text-gray-500'}`}
                         >
                             <Icon className="w-4 h-4" />
                             <span className="text-sm font-medium">{tab.label}</span>
                             {isActive && (
                                 <motion.div
                                     layoutId="profileTabIndicator"
-                                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary-500"
+                                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-coral-500"
                                 />
                             )}
                         </button>

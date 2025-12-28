@@ -93,7 +93,7 @@ export default function MyScraps({ userId, onPostClick }: MyScrapsProps) {
                             </div>
                             <motion.button
                                 onClick={(e) => handleUnscrap(e, post.id)}
-                                className="p-2 text-primary-500 hover:bg-primary-50 rounded-lg"
+                                className="p-2 text-coral-500 hover:bg-coral-50 rounded-lg"
                                 whileTap={{ scale: 0.9 }}
                             >
                                 <Bookmark className="w-5 h-5 fill-current" />

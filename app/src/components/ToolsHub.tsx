@@ -80,7 +80,7 @@ function ToolCard({ tool }: { tool: Tool }) {
                     <div className="flex items-center gap-2 mb-1">
                         <h3 className="font-bold text-gray-900">{tool.title}</h3>
                         {tool.badge && (
-                            <span className="px-2 py-0.5 bg-primary-100 text-primary-600 text-xs font-medium rounded-full">
+                            <span className="px-2 py-0.5 bg-coral-100 text-coral-600 text-xs font-medium rounded-full">
                                 {tool.badge}
                             </span>
                         )}
@@ -139,7 +139,7 @@ export default function ToolsHub() {
                         >
                             <span className="text-2xl">{action.emoji}</span>
                             <p className="text-xs text-gray-600 mt-1">{action.label}</p>
-                            <p className="text-xs font-medium text-primary-600">{action.count}</p>
+                            <p className="text-xs font-medium text-coral-600">{action.count}</p>
                         </motion.button>
                     ))}
                 </div>
@@ -159,9 +159,9 @@ export default function ToolsHub() {
 
             {/* 오늘의 통계 */}
             <div className="px-4 py-4">
-                <div className="bg-gradient-to-br from-primary-50 to-green-50 rounded-2xl p-4 border border-primary-100">
+                <div className="bg-gradient-to-br from-coral-50 to-green-50 rounded-2xl p-4 border border-coral-100">
                     <div className="flex items-center gap-3 mb-3">
-                        <div className="w-10 h-10 bg-primary-500 rounded-full flex items-center justify-center">
+                        <div className="w-10 h-10 bg-coral-500 rounded-full flex items-center justify-center">
                             <Target className="w-5 h-5 text-white" />
                         </div>
                         <div>
@@ -171,12 +171,12 @@ export default function ToolsHub() {
                     </div>
                     <div className="w-full bg-white rounded-full h-2">
                         <div
-                            className="bg-gradient-to-r from-primary-400 to-primary-600 h-2 rounded-full"
+                            className="bg-gradient-to-r from-coral-400 to-coral-600 h-2 rounded-full"
                             style={{ width: '80%' }}
                         />
                     </div>
                     <p className="text-sm text-gray-600 mt-2">
-                        저녁까지 <span className="font-bold text-primary-600">350 kcal</span> 남음
+                        저녁까지 <span className="font-bold text-coral-600">350 kcal</span> 남음
                     </p>
                 </div>
             </div>

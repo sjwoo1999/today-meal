@@ -76,11 +76,11 @@ export default function LeaguePage({
                 >
                     <div className="grid grid-cols-3 gap-4 text-center">
                         <div>
-                            <div className="text-2xl font-bold text-primary-500">{currentRank}</div>
+                            <div className="text-2xl font-bold text-coral-500">{currentRank}</div>
                             <div className="text-sm text-text-secondary">현재 순위</div>
                         </div>
                         <div>
-                            <div className="text-2xl font-bold text-secondary-500">{weeklyXP}</div>
+                            <div className="text-2xl font-bold text-sage-500">{weeklyXP}</div>
                             <div className="text-sm text-text-secondary">이번 주 XP</div>
                         </div>
                         <div>
@@ -121,7 +121,7 @@ export default function LeaguePage({
                         {MOCK_RANKINGS.map((ranking, index) => (
                             <motion.div
                                 key={ranking.userId}
-                                className={`flex items-center gap-4 px-4 py-3 ${ranking.isCurrentUser ? 'bg-primary-50' : ''
+                                className={`flex items-center gap-4 px-4 py-3 ${ranking.isCurrentUser ? 'bg-coral-50' : ''
                                     }`}
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
@@ -139,7 +139,7 @@ export default function LeaguePage({
                                 {/* User info */}
                                 <div className="flex-1">
                                     <div className="flex items-center gap-2">
-                                        <span className={`font-medium ${ranking.isCurrentUser ? 'text-primary-600' : 'text-text-primary'
+                                        <span className={`font-medium ${ranking.isCurrentUser ? 'text-coral-600' : 'text-text-primary'
                                             }`}>
                                             {ranking.userName}
                                         </span>
@@ -198,7 +198,7 @@ export default function LeaguePage({
                         {Object.entries(LEAGUE_INFO).reverse().map(([tier, info]) => (
                             <div
                                 key={tier}
-                                className={`flex items-center gap-3 p-2 rounded-xl ${tier === currentLeague ? 'bg-primary-50 border-2 border-primary-200' : ''
+                                className={`flex items-center gap-3 p-2 rounded-xl ${tier === currentLeague ? 'bg-coral-50 border-2 border-coral-200' : ''
                                     }`}
                             >
                                 <div
@@ -207,7 +207,7 @@ export default function LeaguePage({
                                 >
                                     <span className="text-lg">{info.icon}</span>
                                 </div>
-                                <span className={`font-medium ${tier === currentLeague ? 'text-primary-600' : 'text-text-secondary'
+                                <span className={`font-medium ${tier === currentLeague ? 'text-coral-600' : 'text-text-secondary'
                                     }`}>
                                     {info.nameKr}
                                 </span>

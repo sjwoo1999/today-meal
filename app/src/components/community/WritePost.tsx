@@ -57,7 +57,7 @@ export default function WritePost({ onClose, onSubmit, defaultBoard = 'free' }: 
                     disabled={!isValid}
                     className={`px-4 py-2 rounded-lg font-medium transition-colors
                         ${isValid
-                            ? 'bg-primary-500 text-white hover:bg-primary-600'
+                            ? 'bg-coral-500 text-white hover:bg-coral-600'
                             : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                         }`}
                 >
@@ -96,7 +96,7 @@ export default function WritePost({ onClose, onSubmit, defaultBoard = 'free' }: 
                                         setShowBoardPicker(false);
                                     }}
                                     className={`w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors
-                                        ${boardId === board.id ? 'bg-primary-50' : ''}`}
+                                        ${boardId === board.id ? 'bg-coral-50' : ''}`}
                                 >
                                     <span className="text-xl">{board.emoji}</span>
                                     <div className="flex-1 text-left">
@@ -104,7 +104,7 @@ export default function WritePost({ onClose, onSubmit, defaultBoard = 'free' }: 
                                         <div className="text-xs text-gray-500">{board.description}</div>
                                     </div>
                                     {boardId === board.id && (
-                                        <span className="text-primary-500">✓</span>
+                                        <span className="text-coral-500">✓</span>
                                     )}
                                 </button>
                             ))}

@@ -93,11 +93,11 @@ export default function Sidebar({ collapsed = false, onToggle }: SidebarProps) {
                                     onClick={() => setActiveTab(item.id as 'home' | 'planner' | 'record' | 'dashboard' | 'calendar' | 'league' | 'quests' | 'analysis' | 'profile')}
                                     className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 relative group
                     ${isActive
-                                            ? 'bg-primary-50 text-primary-600'
+                                            ? 'bg-coral-50 text-coral-600'
                                             : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                                         }`}
                                 >
-                                    <Icon className={`w-5 h-5 shrink-0 ${isActive ? 'text-primary-500' : ''}`} />
+                                    <Icon className={`w-5 h-5 shrink-0 ${isActive ? 'text-coral-500' : ''}`} />
 
                                     {!isCollapsed && (
                                         <motion.span
@@ -114,7 +114,7 @@ export default function Sidebar({ collapsed = false, onToggle }: SidebarProps) {
                                         <span className={`
                       ${isCollapsed ? 'absolute -top-1 -right-1' : 'ml-auto'}
                       w-5 h-5 flex items-center justify-center
-                      bg-primary-500 text-white text-xs font-bold rounded-full
+                      bg-coral-500 text-white text-xs font-bold rounded-full
                     `}>
                                             {item.badge}
                                         </span>

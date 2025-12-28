@@ -117,8 +117,8 @@ export default function PCDashboard() {
                     </div>
 
                     {/* Remaining for dinner */}
-                    <div className="mt-6 p-4 bg-secondary-50 rounded-2xl text-center">
-                        <p className="text-sm text-secondary-600">
+                    <div className="mt-6 p-4 bg-sage-50 rounded-2xl text-center">
+                        <p className="text-sm text-sage-600">
                             🍽️ 저녁까지 <span className="font-bold">{todayNutrition.calories.goal - todayNutrition.calories.current} kcal</span> 남음
                         </p>
                     </div>
@@ -138,7 +138,7 @@ export default function PCDashboard() {
                             <div className="flex items-center gap-2 text-sm">
                                 <span className="text-gray-500">평균</span>
                                 <span className="font-bold text-gray-900">1,764 kcal</span>
-                                <TrendingDown className="w-4 h-4 text-secondary-500" />
+                                <TrendingDown className="w-4 h-4 text-sage-500" />
                             </div>
                         </div>
 
@@ -151,13 +151,13 @@ export default function PCDashboard() {
                                 return (
                                     <div key={i} className="flex-1 flex flex-col items-center gap-2">
                                         <motion.div
-                                            className={`w-full rounded-t-lg ${isToday ? 'bg-primary-500' : isOver ? 'bg-red-400' : 'bg-secondary-400'
+                                            className={`w-full rounded-t-lg ${isToday ? 'bg-coral-500' : isOver ? 'bg-red-400' : 'bg-sage-400'
                                                 }`}
                                             initial={{ height: 0 }}
                                             animate={{ height: `${height}%` }}
                                             transition={{ delay: i * 0.05, duration: 0.5 }}
                                         />
-                                        <span className={`text-xs ${isToday ? 'font-bold text-primary-600' : 'text-gray-500'}`}>
+                                        <span className={`text-xs ${isToday ? 'font-bold text-coral-600' : 'text-gray-500'}`}>
                                             {day.day}
                                         </span>
                                     </div>
@@ -167,7 +167,7 @@ export default function PCDashboard() {
 
                         <div className="mt-4 flex items-center justify-center gap-6 text-xs text-gray-500">
                             <div className="flex items-center gap-1">
-                                <div className="w-3 h-3 rounded bg-secondary-400" />
+                                <div className="w-3 h-3 rounded bg-sage-400" />
                                 <span>목표 달성</span>
                             </div>
                             <div className="flex items-center gap-1">
@@ -175,7 +175,7 @@ export default function PCDashboard() {
                                 <span>초과</span>
                             </div>
                             <div className="flex items-center gap-1">
-                                <div className="w-3 h-3 rounded bg-primary-500" />
+                                <div className="w-3 h-3 rounded bg-coral-500" />
                                 <span>오늘</span>
                             </div>
                         </div>
@@ -195,7 +195,7 @@ export default function PCDashboard() {
                             <div className="space-y-4">
                                 {meals.map((meal, i) => (
                                     <div key={i} className={`flex items-center gap-4 p-3 rounded-xl ${meal.isPending ? 'bg-gray-50' : 'bg-white border border-gray-100'}`}>
-                                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${meal.isPending ? 'bg-gray-200 text-gray-400' : 'bg-primary-100 text-primary-600'
+                                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${meal.isPending ? 'bg-gray-200 text-gray-400' : 'bg-coral-100 text-coral-600'
                                             }`}>
                                             {meal.type === '아침' ? '🌅' : meal.type === '점심' ? '☀️' : '🌙'}
                                         </div>
@@ -210,7 +210,7 @@ export default function PCDashboard() {
                                                 <p className="text-sm text-gray-500">{meal.items.join(', ')}</p>
                                             )}
                                         </div>
-                                        <div className={`font-bold ${meal.isPending ? 'text-gray-300' : 'text-primary-600'}`}>
+                                        <div className={`font-bold ${meal.isPending ? 'text-gray-300' : 'text-coral-600'}`}>
                                             {meal.calories > 0 ? `${meal.calories} kcal` : '—'}
                                         </div>
                                     </div>
@@ -234,10 +234,10 @@ export default function PCDashboard() {
                                 {quests.map((quest) => (
                                     <div
                                         key={quest.id}
-                                        className={`flex items-center gap-3 p-3 rounded-xl ${quest.completed ? 'bg-secondary-50' : 'bg-gray-50'
+                                        className={`flex items-center gap-3 p-3 rounded-xl ${quest.completed ? 'bg-sage-50' : 'bg-gray-50'
                                             }`}
                                     >
-                                        <div className={`w-6 h-6 rounded-full flex items-center justify-center ${quest.completed ? 'bg-secondary-500 text-white' : 'bg-gray-200'
+                                        <div className={`w-6 h-6 rounded-full flex items-center justify-center ${quest.completed ? 'bg-sage-500 text-white' : 'bg-gray-200'
                                             }`}>
                                             {quest.completed ? '✓' : ''}
                                         </div>
@@ -248,13 +248,13 @@ export default function PCDashboard() {
                                             {quest.progress !== undefined && !quest.completed && (
                                                 <div className="mt-1 h-1.5 bg-gray-200 rounded-full overflow-hidden">
                                                     <div
-                                                        className="h-full bg-primary-500 rounded-full"
+                                                        className="h-full bg-coral-500 rounded-full"
                                                         style={{ width: `${(quest.progress / quest.max!) * 100}%` }}
                                                     />
                                                 </div>
                                             )}
                                         </div>
-                                        <span className={`text-sm font-medium ${quest.completed ? 'text-secondary-500' : 'text-primary-500'}`}>
+                                        <span className={`text-sm font-medium ${quest.completed ? 'text-sage-500' : 'text-coral-500'}`}>
                                             +{quest.xp} XP
                                         </span>
                                     </div>
@@ -262,8 +262,8 @@ export default function PCDashboard() {
                             </div>
 
                             {completedQuests === quests.length && (
-                                <div className="mt-4 p-3 bg-secondary-100 rounded-xl text-center">
-                                    <p className="text-secondary-700 font-medium">🎉 전부 클리어! +15 XP 보너스!</p>
+                                <div className="mt-4 p-3 bg-sage-100 rounded-xl text-center">
+                                    <p className="text-sage-700 font-medium">🎉 전부 클리어! +15 XP 보너스!</p>
                                 </div>
                             )}
                         </motion.div>

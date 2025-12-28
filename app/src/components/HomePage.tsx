@@ -61,15 +61,15 @@ export default function HomePage() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-primary-50/50 to-white pb-24">
+        <div className="min-h-screen bg-gradient-to-b from-coral-50/50 to-white pb-24">
             {/* Header */}
-            <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-white p-6 pb-20 rounded-b-3xl">
+            <div className="bg-gradient-to-r from-coral-500 to-coral-600 text-white p-6 pb-20 rounded-b-3xl">
                 <div className="flex items-center justify-between mb-4">
                     <div>
                         <h1 className="text-2xl font-bold">
                             안녕, {displayUser.name}! 👋
                         </h1>
-                        <p className="text-primary-100 text-sm">
+                        <p className="text-coral-100 text-sm">
                             오늘도 맛있게 건강해지자!
                         </p>
                     </div>
@@ -110,14 +110,14 @@ export default function HomePage() {
                                 {hankiState.message}
                             </p>
                             {reversePlan ? (
-                                <div className="flex items-center gap-2 text-sm text-secondary-600 bg-secondary-50 px-3 py-2 rounded-xl">
+                                <div className="flex items-center gap-2 text-sm text-sage-600 bg-sage-50 px-3 py-2 rounded-xl">
                                     <Calendar className="w-4 h-4" />
                                     <span>오늘 저녁: {reversePlan.dinnerChoice?.nameKr}</span>
                                 </div>
                             ) : (
                                 <button
                                     onClick={() => setActiveTab('planner')}
-                                    className="flex items-center gap-1 text-sm text-primary-500 font-medium hover:underline"
+                                    className="flex items-center gap-1 text-sm text-coral-500 font-medium hover:underline"
                                 >
                                     오늘 저녁 계획 세우기
                                     <ChevronRight className="w-4 h-4" />
@@ -131,7 +131,7 @@ export default function HomePage() {
                 {!reversePlan && (
                     <motion.button
                         onClick={() => setActiveTab('planner')}
-                        className="card-interactive w-full bg-gradient-to-r from-primary-500 to-primary-600 text-white"
+                        className="card-interactive w-full bg-gradient-to-r from-coral-500 to-coral-600 text-white"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
@@ -141,7 +141,7 @@ export default function HomePage() {
                                 <span className="text-3xl">🍽️</span>
                                 <div className="text-left">
                                     <h3 className="font-bold text-lg">오늘 저녁 뭐 먹고 싶어?</h3>
-                                    <p className="text-primary-100 text-sm">저녁을 선택하면 아침·점심을 추천해줄게!</p>
+                                    <p className="text-coral-100 text-sm">저녁을 선택하면 아침·점심을 추천해줄게!</p>
                                 </div>
                             </div>
                             <ChevronRight className="w-6 h-6" />
@@ -161,7 +161,7 @@ export default function HomePage() {
                             📊 오늘의 영양
                         </h3>
                         {reversePlan && (
-                            <span className="text-sm text-secondary-500 font-medium">
+                            <span className="text-sm text-sage-500 font-medium">
                                 저녁까지 {nutrition.calories.goal - nutrition.calories.current} kcal 남음
                             </span>
                         )}
@@ -173,7 +173,7 @@ export default function HomePage() {
                         fat={nutrition.fat}
                     />
                     {nutrition.calories.current >= nutrition.calories.goal * 0.9 && (
-                        <div className="mt-2 text-center text-secondary-600 font-medium bg-secondary-50 py-2 rounded-xl">
+                        <div className="mt-2 text-center text-sage-600 font-medium bg-sage-50 py-2 rounded-xl">
                             🎉 오늘 목표 거의 달성!
                         </div>
                     )}
@@ -236,7 +236,7 @@ export default function HomePage() {
                             </div>
                             <div className="text-right text-sm">
                                 <div className="text-text-muted">스트릭 프리즈</div>
-                                <div className="font-bold text-primary-500">
+                                <div className="font-bold text-coral-500">
                                     {displayUser.gamification.streakFreezes}개 보유
                                 </div>
                             </div>

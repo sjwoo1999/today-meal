@@ -53,7 +53,7 @@ export default function Header({ onSearch }: HeaderProps) {
                         placeholder="음식 검색... (/ 키로 포커스)"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2 bg-gray-100 border-0 rounded-xl focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all"
+                        className="w-full pl-10 pr-4 py-2 bg-gray-100 border-0 rounded-xl focus:ring-2 focus:ring-coral-500 focus:bg-white transition-all"
                     />
                     <kbd className="absolute right-3 top-1/2 transform -translate-y-1/2 px-1.5 py-0.5 text-xs text-gray-400 bg-white border border-gray-200 rounded">
                         /
@@ -74,11 +74,11 @@ export default function Header({ onSearch }: HeaderProps) {
 
                 {/* XP */}
                 <motion.div
-                    className="flex items-center gap-1.5 px-3 py-1.5 bg-primary-50 rounded-full cursor-pointer hover:bg-primary-100 transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-coral-50 rounded-full cursor-pointer hover:bg-coral-100 transition-colors"
                     whileHover={{ scale: 1.02 }}
                 >
-                    <Star className="w-4 h-4 text-primary-500" />
-                    <span className="font-semibold text-primary-700">{displayUser.gamification.xp} XP</span>
+                    <Star className="w-4 h-4 text-coral-500" />
+                    <span className="font-semibold text-coral-700">{displayUser.gamification.xp} XP</span>
                 </motion.div>
 
                 {/* League */}
@@ -138,7 +138,7 @@ export default function Header({ onSearch }: HeaderProps) {
                         onClick={() => setShowProfile(!showProfile)}
                         className="flex items-center gap-2 px-3 py-1.5 rounded-xl hover:bg-gray-100 transition-colors"
                     >
-                        <div className="w-8 h-8 bg-gradient-to-br from-primary-400 to-primary-600 rounded-full flex items-center justify-center text-white font-bold">
+                        <div className="w-8 h-8 bg-gradient-to-br from-coral-400 to-coral-600 rounded-full flex items-center justify-center text-white font-bold">
                             {displayUser.name[0]}
                         </div>
                         <span className="font-medium text-gray-700">{displayUser.name}</span>

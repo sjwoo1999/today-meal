@@ -225,7 +225,7 @@ export default function FeedPage() {
             <div className="px-4 py-3">
                 <motion.button
                     onClick={() => setActiveTab('record' as UIState['activeTab'])}
-                    className="w-full bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-xl p-4 flex items-center justify-between shadow-lg"
+                    className="w-full bg-gradient-to-r from-coral-500 to-coral-600 text-white rounded-xl p-4 flex items-center justify-between shadow-lg"
                     whileHover={{ scale: 1.01 }}
                     whileTap={{ scale: 0.99 }}
                 >
@@ -235,7 +235,7 @@ export default function FeedPage() {
                         </div>
                         <div className="text-left">
                             <p className="font-bold">오늘 뭐 먹었어? 📸</p>
-                            <p className="text-sm text-primary-100">사진 찍으면 자동 분석!</p>
+                            <p className="text-sm text-coral-100">사진 찍으면 자동 분석!</p>
                         </div>
                     </div>
                     <ChevronRight className="w-5 h-5" />
@@ -249,7 +249,7 @@ export default function FeedPage() {
                         <Flame className="w-5 h-5 text-orange-500" />
                         지금 뜨는 글
                     </h2>
-                    <button className="text-sm text-primary-500 flex items-center gap-1">
+                    <button className="text-sm text-coral-500 flex items-center gap-1">
                         더보기 <ChevronRight className="w-4 h-4" />
                     </button>
                 </div>

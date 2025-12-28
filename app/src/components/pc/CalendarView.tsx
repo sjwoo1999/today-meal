@@ -65,7 +65,7 @@ const generateCalendarData = (year: number, month: number) => {
 const getStatusColor = (calories?: number, goal?: number) => {
     if (!calories || !goal) return 'bg-gray-100';
     const ratio = calories / goal;
-    if (ratio >= 0.9 && ratio <= 1.1) return 'bg-secondary-100 border-secondary-300';
+    if (ratio >= 0.9 && ratio <= 1.1) return 'bg-sage-100 border-sage-300';
     if (ratio > 1.1 && ratio <= 1.3) return 'bg-yellow-100 border-yellow-300';
     if (ratio > 1.3) return 'bg-red-100 border-red-300';
     return 'bg-gray-100 border-gray-200';
@@ -115,7 +115,7 @@ export default function CalendarView() {
                     <button className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors text-sm font-medium">
                         주간 뷰
                     </button>
-                    <button className="px-4 py-2 bg-primary-500 text-white rounded-xl transition-colors text-sm font-medium">
+                    <button className="px-4 py-2 bg-coral-500 text-white rounded-xl transition-colors text-sm font-medium">
                         월간 뷰
                     </button>
                 </div>
@@ -170,8 +170,8 @@ export default function CalendarView() {
                                 className={`
                   aspect-square p-2 rounded-2xl border-2 transition-all relative
                   ${!day.isCurrentMonth ? 'opacity-30 cursor-default' : 'cursor-pointer hover:scale-105'}
-                  ${day.isToday ? 'ring-2 ring-primary-500 ring-offset-2' : ''}
-                  ${selectedDate === day.date && day.isCurrentMonth ? 'ring-2 ring-primary-500' : ''}
+                  ${day.isToday ? 'ring-2 ring-coral-500 ring-offset-2' : ''}
+                  ${selectedDate === day.date && day.isCurrentMonth ? 'ring-2 ring-coral-500' : ''}
                   ${getStatusColor(day.calories, day.goal)}
                 `}
                                 whileHover={day.isCurrentMonth ? { scale: 1.05 } : {}}
@@ -179,7 +179,7 @@ export default function CalendarView() {
                             >
                                 <div className="flex flex-col h-full">
                                     <div className="flex items-center justify-between">
-                                        <span className={`text-sm font-medium ${day.isToday ? 'text-primary-600' : 'text-gray-700'}`}>
+                                        <span className={`text-sm font-medium ${day.isToday ? 'text-coral-600' : 'text-gray-700'}`}>
                                             {day.date}
                                         </span>
                                         {day.streak && day.streak >= 7 && (
@@ -240,12 +240,12 @@ export default function CalendarView() {
                                 </div>
                                 <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
                                     <span className="text-gray-600">목표 대비</span>
-                                    <span className={`text-xl font-bold ${selectedDayData.calories <= selectedDayData.goal! * 1.1 ? 'text-secondary-600' : 'text-red-600'
+                                    <span className={`text-xl font-bold ${selectedDayData.calories <= selectedDayData.goal! * 1.1 ? 'text-sage-600' : 'text-red-600'
                                         }`}>
                                         {Math.round((selectedDayData.calories / selectedDayData.goal!) * 100)}%
                                     </span>
                                 </div>
-                                <button className="w-full py-3 bg-primary-500 text-white font-medium rounded-xl hover:bg-primary-600 transition-colors">
+                                <button className="w-full py-3 bg-coral-500 text-white font-medium rounded-xl hover:bg-coral-600 transition-colors">
                                     상세 기록 보기
                                 </button>
                             </div>
@@ -285,7 +285,7 @@ export default function CalendarView() {
                             </div>
                             <div className="flex items-center justify-between">
                                 <span className="text-gray-600">목표 달성률</span>
-                                <span className="font-bold text-secondary-600">78%</span>
+                                <span className="font-bold text-sage-600">78%</span>
                             </div>
                         </div>
                     </div>

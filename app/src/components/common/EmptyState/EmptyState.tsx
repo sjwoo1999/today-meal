@@ -29,7 +29,7 @@ export function EmptyState({ icon = '📭', title, description, action, classNam
             {action && (
                 <motion.button
                     onClick={action.onClick}
-                    className="px-6 py-2 bg-primary-500 text-white rounded-full font-medium"
+                    className="px-6 py-2 bg-coral-500 text-white rounded-full font-medium"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                 >

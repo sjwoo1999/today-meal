@@ -45,11 +45,11 @@ export default function RecordPage({ onRecordComplete }: RecordPageProps) {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-primary-50/50 to-white pb-24">
+        <div className="min-h-screen bg-gradient-to-b from-coral-50/50 to-white pb-24">
             {/* Header */}
-            <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-white p-6 pb-12 rounded-b-3xl">
+            <div className="bg-gradient-to-r from-coral-500 to-coral-600 text-white p-6 pb-12 rounded-b-3xl">
                 <h1 className="text-2xl font-bold mb-1">📸 식단 기록</h1>
-                <p className="text-primary-100">사진만 찍으면 자동으로 분석해줄게!</p>
+                <p className="text-coral-100">사진만 찍으면 자동으로 분석해줄게!</p>
             </div>
 
             <div className="px-4 -mt-6">
@@ -78,7 +78,7 @@ export default function RecordPage({ onRecordComplete }: RecordPageProps) {
                             <div className="flex justify-center">
                                 <motion.button
                                     onClick={handleCapture}
-                                    className="w-20 h-20 bg-gradient-to-r from-primary-400 to-primary-600 
+                                    className="w-20 h-20 bg-gradient-to-r from-coral-400 to-coral-600 
                              rounded-full flex items-center justify-center shadow-glow"
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
@@ -89,7 +89,7 @@ export default function RecordPage({ onRecordComplete }: RecordPageProps) {
 
                             {/* Upload Option */}
                             <div className="text-center">
-                                <button className="text-primary-500 font-medium flex items-center gap-2 mx-auto">
+                                <button className="text-coral-500 font-medium flex items-center gap-2 mx-auto">
                                     <Upload className="w-4 h-4" />
                                     갤러리에서 선택
                                 </button>
@@ -117,11 +117,11 @@ export default function RecordPage({ onRecordComplete }: RecordPageProps) {
                             className="card text-center py-12"
                         >
                             <motion.div
-                                className="w-20 h-20 mx-auto mb-6 bg-primary-100 rounded-full flex items-center justify-center"
+                                className="w-20 h-20 mx-auto mb-6 bg-coral-100 rounded-full flex items-center justify-center"
                                 animate={{ rotate: 360 }}
                                 transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
                             >
-                                <Sparkles className="w-10 h-10 text-primary-500" />
+                                <Sparkles className="w-10 h-10 text-coral-500" />
                             </motion.div>
                             <h2 className="text-xl font-bold text-text-primary mb-2">
                                 AI가 분석 중...
@@ -131,7 +131,7 @@ export default function RecordPage({ onRecordComplete }: RecordPageProps) {
                             </p>
                             <div className="mt-6 h-2 bg-gray-200 rounded-full overflow-hidden max-w-xs mx-auto">
                                 <motion.div
-                                    className="h-full bg-gradient-to-r from-primary-400 to-primary-600 rounded-full"
+                                    className="h-full bg-gradient-to-r from-coral-400 to-coral-600 rounded-full"
                                     initial={{ width: '0%' }}
                                     animate={{ width: '100%' }}
                                     transition={{ duration: 2 }}
@@ -165,7 +165,7 @@ export default function RecordPage({ onRecordComplete }: RecordPageProps) {
                             <div className="card">
                                 <div className="flex items-center justify-between mb-4">
                                     <h3 className="text-lg font-bold text-text-primary">📊 분석 결과</h3>
-                                    <span className="text-sm text-secondary-500 font-medium">
+                                    <span className="text-sm text-sage-500 font-medium">
                                         정확도 {Math.round(analysisResult.confidence * 100)}%
                                     </span>
                                 </div>
@@ -178,7 +178,7 @@ export default function RecordPage({ onRecordComplete }: RecordPageProps) {
                                                 <p className="text-sm text-text-secondary">{food.servingSize}</p>
                                             </div>
                                             <div className="text-right">
-                                                <div className="text-2xl font-bold text-primary-500">
+                                                <div className="text-2xl font-bold text-coral-500">
                                                     {food.calories}
                                                 </div>
                                                 <div className="text-xs text-text-muted">kcal</div>
@@ -187,7 +187,7 @@ export default function RecordPage({ onRecordComplete }: RecordPageProps) {
 
                                         <div className="grid grid-cols-3 gap-4 text-center">
                                             <div>
-                                                <div className="text-lg font-bold text-secondary-500">{food.protein}g</div>
+                                                <div className="text-lg font-bold text-sage-500">{food.protein}g</div>
                                                 <div className="text-xs text-text-muted">단백질</div>
                                             </div>
                                             <div>
@@ -202,7 +202,7 @@ export default function RecordPage({ onRecordComplete }: RecordPageProps) {
                                     </div>
                                 ))}
 
-                                <button className="w-full text-center text-primary-500 text-sm font-medium mt-4 flex items-center justify-center gap-1">
+                                <button className="w-full text-center text-coral-500 text-sm font-medium mt-4 flex items-center justify-center gap-1">
                                     다르게 인식됐어? 수정하기
                                     <ChevronRight className="w-4 h-4" />
                                 </button>
@@ -244,7 +244,7 @@ export default function RecordPage({ onRecordComplete }: RecordPageProps) {
                             <p className="text-text-secondary mb-4">
                                 한끼가 너무 기뻐해! 💕
                             </p>
-                            <div className="inline-flex items-center gap-2 bg-primary-50 text-primary-600 
+                            <div className="inline-flex items-center gap-2 bg-coral-50 text-coral-600 
                               px-4 py-2 rounded-full font-semibold mb-6">
                                 <Sparkles className="w-5 h-5" />
                                 +10 XP 획득!

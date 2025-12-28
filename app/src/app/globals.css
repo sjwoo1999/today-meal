@@ -2,38 +2,80 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ===== Design System v2.0: CSS Variables ===== */
 @layer base {
   :root {
-    --background: #FFFFFF;
-    --foreground: #1E293B;
+    /* Primitives */
+    --color-coral-500: 255 140 90;
+    --color-sage-500: 127 154 131;
+    --color-slate-900: 37 75 90;
+    --color-cream: 249 247 242;
+    
+    /* Semantics - Light Mode */
+    --bg-canvas: 249 247 242;
+    --bg-surface: 255 255 255;
+    --text-primary: 33 33 33;
+    --text-secondary: 97 97 97;
+    --color-primary: 255 140 90;
+    --color-success: 127 154 131;
+    
+    --background: #F9F7F2;
+    --foreground: #212121;
+  }
+
+  .dark {
+    --bg-canvas: 18 18 18;
+    --bg-surface: 30 30 30;
+    --text-primary: 245 245 245;
+    --text-secondary: 158 158 158;
+    --color-primary: 255 176 122;
+    --color-success: 127 154 131;
+    
+    --background: #121212;
+    --foreground: #F5F5F5;
   }
 
   body {
     font-feature-settings: "rlig" 1, "calt" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: rgb(var(--bg-canvas));
+    color: rgb(var(--text-primary));
   }
 }
 
 @layer components {
+  /* ===== Button Variants (Design System v2.0) ===== */
   .btn-primary {
-    @apply bg-primary-500 text-white font-semibold py-3 px-6 rounded-2xl 
-           hover:bg-primary-600 active:scale-95 transition-all duration-200
+    @apply bg-coral-500 text-white font-semibold py-3 px-6 rounded-lg
+           hover:bg-coral-600 active:scale-95 transition-all duration-200
            shadow-glow hover:shadow-lg;
   }
 
   .btn-secondary {
-    @apply bg-secondary-500 text-white font-semibold py-3 px-6 rounded-2xl 
-           hover:bg-secondary-600 active:scale-95 transition-all duration-200;
+    @apply bg-gray-100 text-gray-900 font-semibold py-3 px-6 rounded-lg
+           hover:bg-gray-200 active:scale-95 transition-all duration-200;
   }
 
   .btn-outline {
-    @apply border-2 border-primary-500 text-primary-500 font-semibold py-3 px-6 rounded-2xl 
-           hover:bg-primary-50 active:scale-95 transition-all duration-200;
+    @apply border-2 border-coral-500 text-coral-500 font-semibold py-3 px-6 rounded-lg
+           hover:bg-coral-50 active:scale-95 transition-all duration-200 bg-transparent;
   }
 
+  .btn-ghost {
+    @apply text-coral-500 font-semibold py-3 px-6 rounded-lg
+           hover:bg-coral-50 active:scale-95 transition-all duration-200 bg-transparent;
+  }
+
+  .btn-success {
+    @apply bg-sage-500 text-white font-semibold py-3 px-6 rounded-lg
+           hover:bg-sage-600 active:scale-95 transition-all duration-200
+           shadow-glow-green hover:shadow-lg;
+  }
+
+  /* ===== Card Styles ===== */
   .card {
-    @apply bg-white rounded-3xl shadow-soft p-6 transition-all duration-200;
+    @apply bg-surface rounded-xl shadow-soft p-6 transition-all duration-200;
   }
 
   .card-interactive {
@@ -44,29 +86,31 @@
     @apply transition-all duration-500 ease-out;
   }
 
+  /* ===== Form Elements ===== */
   .input-field {
-    @apply w-full px-4 py-3 rounded-2xl border-2 border-gray-200 
-           focus:border-primary-500 focus:ring-4 focus:ring-primary-100
-           transition-all duration-200 outline-none;
+    @apply w-full px-4 py-3 rounded-lg border-2 border-gray-200
+           focus:border-coral-500 focus:ring-4 focus:ring-coral-100
+           transition-all duration-200 outline-none bg-surface;
   }
 
+  /* ===== Badges ===== */
   .badge {
     @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
   }
 
   .badge-primary {
-    @apply badge bg-primary-100 text-primary-700;
+    @apply badge bg-coral-100 text-coral-700;
   }
 
   .badge-secondary {
-    @apply badge bg-secondary-100 text-secondary-700;
+    @apply badge bg-sage-100 text-sage-700;
   }
 
   .badge-streak {
-    @apply badge bg-gradient-to-r from-orange-400 to-red-500 text-white;
+    @apply badge bg-gradient-to-r from-coral-400 to-sun-500 text-white;
   }
 
-  /* Hanki Mascot Styles */
+  /* ===== Hanki Mascot Styles ===== */
   .hanki-container {
     @apply relative inline-flex items-center justify-center;
   }
@@ -75,22 +119,22 @@
     @apply absolute -top-4 w-3 h-6 bg-gray-300/50 rounded-full blur-sm;
   }
 
-  /* Bottom Navigation */
+  /* ===== Bottom Navigation ===== */
   .bottom-nav {
-    @apply fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-lg 
+    @apply fixed bottom-0 left-0 right-0 bg-surface/90 backdrop-blur-lg
            border-t border-gray-100 px-4 py-2 pb-safe;
   }
 
   .bottom-nav-item {
-    @apply flex flex-col items-center justify-center py-2 px-4 rounded-xl
+    @apply flex flex-col items-center justify-center py-2 px-4 rounded-lg
            transition-all duration-200;
   }
 
   .bottom-nav-item.active {
-    @apply text-primary-500 bg-primary-50;
+    @apply text-coral-500 bg-coral-50;
   }
 
-  /* Streak Fire Effect */
+  /* ===== Streak Fire Effect ===== */
   .streak-fire {
     @apply relative;
   }
@@ -100,17 +144,17 @@
     @apply absolute -top-1 -right-1 text-sm animate-pulse-soft;
   }
 
-  /* XP Animation */
+  /* ===== XP Animation ===== */
   .xp-popup {
-    @apply fixed pointer-events-none font-bold text-primary-500 animate-bounce-soft;
+    @apply fixed pointer-events-none font-bold text-coral-500 animate-bounce-soft;
   }
 
-  /* League Badge */
+  /* ===== League Badge ===== */
   .league-badge {
     @apply w-12 h-12 rounded-full flex items-center justify-center font-bold text-white shadow-soft;
   }
 
-  /* Nutrition Progress */
+  /* ===== Nutrition Progress ===== */
   .nutrition-bar {
     @apply h-2 rounded-full bg-gray-200 overflow-hidden;
   }
@@ -122,7 +166,7 @@
 
 @layer utilities {
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-secondary-500;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-coral-500 to-sun-500;
   }
 
   .pb-safe {
@@ -130,7 +174,7 @@
   }
 
   .glass {
-    @apply bg-white/80 backdrop-blur-lg;
+    @apply bg-surface/80 backdrop-blur-lg;
   }
 
   .scrollbar-hide {
@@ -141,4 +185,10 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+
+  /* Touch target minimum size helper */
+  .touch-target {
+    @apply min-w-[44px] min-h-[44px];
+  }
 }
+

@@ -1,12 +1,18 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+// Plus Jakarta Sans for numbers and English
+const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-display",
+  weight: ["400", "600", "800"],
   display: "swap",
 });
+
+export const viewport: Viewport = {
+  themeColor: "#FF8C5A", // Today Coral
+};
 
 export const metadata: Metadata = {
   title: "오늘한끼 - TodayMeal",
@@ -19,7 +25,6 @@ export const metadata: Metadata = {
     type: "website",
   },
   manifest: "/manifest.json",
-  themeColor: "#FF9500",
 };
 
 export default function RootLayout({
@@ -29,9 +34,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <head>
+        {/* Pretendard Font from CDN */}
+        <link
+          rel="stylesheet"
+          as="style"
+          crossOrigin="anonymous"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
+        />
+      </head>
+      <body className={`${plusJakarta.variable} font-sans antialiased bg-canvas text-text-primary`}>
         {/* Mobile: Centered container with max-width */}
-        <div className="lg:hidden max-w-lg mx-auto min-h-screen bg-white shadow-2xl">
+        <div className="lg:hidden max-w-lg mx-auto min-h-screen bg-cream shadow-2xl">
           {children}
         </div>
 
@@ -43,3 +57,4 @@ export default function RootLayout({
     </html>
   );
 }
+

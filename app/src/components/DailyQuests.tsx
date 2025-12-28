@@ -14,7 +14,7 @@ export function QuestCard({ quest, onComplete }: QuestCardProps) {
 
     return (
         <motion.div
-            className={`card-interactive flex items-center gap-4 ${quest.isCompleted ? 'bg-secondary-50 border-secondary-200' : ''
+            className={`card-interactive flex items-center gap-4 ${quest.isCompleted ? 'bg-sage-50 border-sage-200' : ''
                 }`}
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -25,9 +25,9 @@ export function QuestCard({ quest, onComplete }: QuestCardProps) {
                 onClick={() => !quest.isCompleted && onComplete?.(quest.id)}
                 className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all
           ${quest.isCompleted
-                        ? 'bg-secondary-500 text-white'
+                        ? 'bg-sage-500 text-white'
                         : isChallenge
-                            ? 'bg-primary-100 border-2 border-primary-300 hover:bg-primary-200'
+                            ? 'bg-coral-100 border-2 border-coral-300 hover:bg-coral-200'
                             : 'bg-gray-100 border-2 border-gray-300 hover:bg-gray-200'
                     }`}
                 whileTap={{ scale: 0.9 }}
@@ -36,7 +36,7 @@ export function QuestCard({ quest, onComplete }: QuestCardProps) {
                 {quest.isCompleted ? (
                     <Check className="w-5 h-5" />
                 ) : isChallenge ? (
-                    <Target className="w-4 h-4 text-primary-500" />
+                    <Target className="w-4 h-4 text-coral-500" />
                 ) : null}
             </motion.button>
 
@@ -44,7 +44,7 @@ export function QuestCard({ quest, onComplete }: QuestCardProps) {
             <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
                     {isChallenge && !quest.isCompleted && (
-                        <span className="badge bg-primary-100 text-primary-700 text-xs px-2 py-0.5">
+                        <span className="badge bg-coral-100 text-coral-700 text-xs px-2 py-0.5">
                             챌린지
                         </span>
                     )}
@@ -64,7 +64,7 @@ export function QuestCard({ quest, onComplete }: QuestCardProps) {
                     <div className="mt-2">
                         <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
                             <motion.div
-                                className="h-full bg-primary-500 rounded-full"
+                                className="h-full bg-coral-500 rounded-full"
                                 initial={{ width: 0 }}
                                 animate={{ width: `${(quest.progress / quest.maxProgress) * 100}%` }}
                             />
@@ -77,7 +77,7 @@ export function QuestCard({ quest, onComplete }: QuestCardProps) {
             </div>
 
             {/* XP Reward */}
-            <div className={`flex items-center gap-1 text-sm font-semibold shrink-0 ${quest.isCompleted ? 'text-secondary-500' : 'text-primary-500'
+            <div className={`flex items-center gap-1 text-sm font-semibold shrink-0 ${quest.isCompleted ? 'text-sage-500' : 'text-coral-500'
                 }`}>
                 {quest.isCompleted ? (
                     <Check className="w-4 h-4" />
@@ -108,7 +108,7 @@ export default function DailyQuests({ quests, onQuestComplete }: DailyQuestsProp
                     <h3 className="text-lg font-bold text-text-primary">오늘의 퀘스트</h3>
                 </div>
                 <div className="flex items-center gap-1 text-sm text-text-secondary">
-                    <span className={completedCount > 0 ? 'text-secondary-500 font-semibold' : ''}>
+                    <span className={completedCount > 0 ? 'text-sage-500 font-semibold' : ''}>
                         {completedCount}
                     </span>
                     <span>/</span>
@@ -120,8 +120,8 @@ export default function DailyQuests({ quests, onQuestComplete }: DailyQuestsProp
             <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                 <motion.div
                     className={`h-full rounded-full ${allComplete
-                            ? 'bg-gradient-to-r from-secondary-400 to-secondary-500'
-                            : 'bg-gradient-to-r from-primary-400 to-primary-500'
+                            ? 'bg-gradient-to-r from-sage-400 to-sage-500'
+                            : 'bg-gradient-to-r from-coral-400 to-coral-500'
                         }`}
                     initial={{ width: 0 }}
                     animate={{ width: `${(completedCount / quests.length) * 100}%` }}
@@ -146,11 +146,11 @@ export default function DailyQuests({ quests, onQuestComplete }: DailyQuestsProp
             {/* All complete bonus */}
             {allComplete && (
                 <motion.div
-                    className="card bg-gradient-to-r from-secondary-50 to-secondary-100 border-2 border-secondary-200 text-center"
+                    className="card bg-gradient-to-r from-sage-50 to-sage-100 border-2 border-sage-200 text-center"
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                 >
-                    <div className="flex items-center justify-center gap-2 text-secondary-700 font-bold">
+                    <div className="flex items-center justify-center gap-2 text-sage-700 font-bold">
                         <Sparkles className="w-5 h-5" />
                         <span>전부 클리어! +15 XP 보너스!</span>
                         <Sparkles className="w-5 h-5" />

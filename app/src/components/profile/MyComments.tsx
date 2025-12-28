@@ -90,7 +90,7 @@ export default function MyComments({ userId, onPostClick }: MyCommentsProps) {
                             <Heart className="w-3 h-3" /> {comment.likeCount}
                         </span>
                         {comment.isBest && (
-                            <span className="px-1.5 py-0.5 bg-primary-100 text-primary-600 rounded text-[10px]">BEST</span>
+                            <span className="px-1.5 py-0.5 bg-coral-100 text-coral-600 rounded text-[10px]">BEST</span>
                         )}
                     </div>
                 </motion.div>

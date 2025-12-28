@@ -196,7 +196,7 @@ export default function HankiProactiveSuggestion({ compact = false }: HankiProac
                                 onClick={() => handleAction(currentSuggestion, action)}
                                 className={`flex-1 py-2 px-4 rounded-xl font-medium transition-colors flex items-center justify-center gap-1
                                     ${index === 0
-                                        ? 'bg-primary-500 text-white hover:bg-primary-600'
+                                        ? 'bg-coral-500 text-white hover:bg-coral-600'
                                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                                     }`}
                             >
@@ -214,7 +214,7 @@ export default function HankiProactiveSuggestion({ compact = false }: HankiProac
                             {activeSuggestions.slice(0, 3).map((_, index) => (
                                 <div
                                     key={index}
-                                    className={`w-2 h-2 rounded-full ${index === 0 ? 'bg-primary-500' : 'bg-gray-300'
+                                    className={`w-2 h-2 rounded-full ${index === 0 ? 'bg-coral-500' : 'bg-gray-300'
                                         }`}
                                 />
                             ))}

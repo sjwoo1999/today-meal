@@ -53,9 +53,9 @@ export default function ProfilePage() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-primary-50/50 to-white pb-24">
+        <div className="min-h-screen bg-gradient-to-b from-coral-50/50 to-white pb-24">
             {/* Header */}
-            <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-white p-6 pb-20 rounded-b-3xl">
+            <div className="bg-gradient-to-r from-coral-500 to-coral-600 text-white p-6 pb-20 rounded-b-3xl">
                 <div className="flex items-center justify-between mb-6">
                     <h1 className="text-2xl font-bold">프로필</h1>
                     <button className="p-2 hover:bg-white/20 rounded-xl transition-colors">
@@ -73,7 +73,7 @@ export default function ProfilePage() {
                     </motion.div>
                     <div>
                         <h2 className="text-xl font-bold">{displayUser.name}</h2>
-                        <p className="text-primary-100 text-sm">{displayUser.email}</p>
+                        <p className="text-coral-100 text-sm">{displayUser.email}</p>
                         <div className="flex items-center gap-2 mt-1">
                             <LevelBadge level={displayUser.gamification.level} title={levelInfo.title} showTitle={false} />
                             <span className="text-sm">{levelInfo.title}</span>
@@ -91,10 +91,10 @@ export default function ProfilePage() {
                 >
                     <div className="flex items-center justify-between mb-4">
                         <h3 className="text-lg font-bold text-text-primary flex items-center gap-2">
-                            <Star className="w-5 h-5 text-primary-500" />
+                            <Star className="w-5 h-5 text-coral-500" />
                             레벨 & XP
                         </h3>
-                        <span className="text-2xl font-bold text-primary-500">
+                        <span className="text-2xl font-bold text-coral-500">
                             {displayUser.gamification.xp} XP
                         </span>
                     </div>
@@ -116,7 +116,7 @@ export default function ProfilePage() {
                     </div>
 
                     {/* Hanki Evolution */}
-                    <div className="flex items-center gap-4 p-3 bg-primary-50 rounded-xl">
+                    <div className="flex items-center gap-4 p-3 bg-coral-50 rounded-xl">
                         <span className="text-3xl">🍚</span>
                         <div className="flex-1">
                             <div className="font-medium text-text-primary">한끼 성장 단계</div>
@@ -175,27 +175,27 @@ export default function ProfilePage() {
                             <div
                                 key={milestone.days}
                                 className={`flex items-center justify-between p-2 rounded-xl ${displayUser.gamification.streak >= milestone.days
-                                    ? 'bg-secondary-50'
+                                    ? 'bg-sage-50'
                                     : 'bg-gray-50'
                                     }`}
                             >
                                 <div className="flex items-center gap-2">
                                     <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${displayUser.gamification.streak >= milestone.days
-                                        ? 'bg-secondary-500 text-white'
+                                        ? 'bg-sage-500 text-white'
                                         : 'bg-gray-300 text-gray-600'
                                         }`}>
                                         {displayUser.gamification.streak >= milestone.days ? '✓' : milestone.days}
                                     </span>
                                     <span className={
                                         displayUser.gamification.streak >= milestone.days
-                                            ? 'text-secondary-700 font-medium'
+                                            ? 'text-sage-700 font-medium'
                                             : 'text-text-secondary'
                                     }>
                                         {milestone.badge}
                                     </span>
                                 </div>
                                 <span className={`text-sm ${displayUser.gamification.streak >= milestone.days
-                                    ? 'text-secondary-500'
+                                    ? 'text-sage-500'
                                     : 'text-text-muted'
                                     }`}>
                                     +{milestone.xp} XP
@@ -268,7 +268,7 @@ export default function ProfilePage() {
                             <div className="text-sm text-text-secondary">총 기록</div>
                         </div>
                         <div className="bg-surface-secondary rounded-xl p-4 text-center">
-                            <div className="text-2xl font-bold text-secondary-500">{stats.goalAchievementRate}%</div>
+                            <div className="text-2xl font-bold text-sage-500">{stats.goalAchievementRate}%</div>
                             <div className="text-sm text-text-secondary">목표 달성률</div>
                         </div>
                     </div>

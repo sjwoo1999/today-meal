@@ -108,11 +108,11 @@ export default function ReversePlanner({
         : POPULAR_MENUS;
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-primary-50 to-white pb-24">
+        <div className="min-h-screen bg-gradient-to-b from-coral-50 to-white pb-24">
             {/* Header */}
-            <div className="bg-gradient-to-r from-primary-500 to-primary-600 text-white p-6 pb-12 rounded-b-3xl">
+            <div className="bg-gradient-to-r from-coral-500 to-coral-600 text-white p-6 pb-12 rounded-b-3xl">
                 <h1 className="text-2xl font-bold mb-2">역추산 플래너</h1>
-                <p className="text-primary-100">먹고 싶은 저녁을 선택하면, 아침·점심을 추천해줄게!</p>
+                <p className="text-coral-100">먹고 싶은 저녁을 선택하면, 아침·점심을 추천해줄게!</p>
             </div>
 
             <div className="px-4 -mt-6">
@@ -156,7 +156,7 @@ export default function ReversePlanner({
                                         <motion.button
                                             key={menu.id}
                                             onClick={() => handleMenuSelect(menu)}
-                                            className="p-4 bg-surface-secondary rounded-2xl hover:bg-primary-50 
+                                            className="p-4 bg-surface-secondary rounded-2xl hover:bg-coral-50 
                                  transition-colors text-center group"
                                             whileHover={{ scale: 1.02 }}
                                             whileTap={{ scale: 0.98 }}
@@ -166,7 +166,7 @@ export default function ReversePlanner({
                                                     menu.category === 'western' ? '🍝' :
                                                         menu.category === 'japanese' ? '🍣' : '🍴'}
                                             </div>
-                                            <div className="text-sm font-medium text-text-primary group-hover:text-primary-600">
+                                            <div className="text-sm font-medium text-text-primary group-hover:text-coral-600">
                                                 {menu.nameKr}
                                             </div>
                                             <div className="text-xs text-text-muted mt-1">
@@ -189,7 +189,7 @@ export default function ReversePlanner({
                             className="space-y-4"
                         >
                             {/* Result Header */}
-                            <div className="card bg-gradient-to-r from-primary-500 to-primary-600 text-white">
+                            <div className="card bg-gradient-to-r from-coral-500 to-coral-600 text-white">
                                 <div className="flex items-center gap-2 mb-2">
                                     {recommendations.isFeasible ? (
                                         <motion.div
@@ -203,19 +203,19 @@ export default function ReversePlanner({
                                     )}
                                     <h2 className="text-xl font-bold">{selectedMenu.nameKr} OK! 🔥</h2>
                                 </div>
-                                <p className="text-primary-100">{recommendations.message}</p>
+                                <p className="text-coral-100">{recommendations.message}</p>
                             </div>
 
                             {/* Timeline */}
                             <div className="card space-y-6">
                                 <h3 className="text-lg font-bold text-text-primary flex items-center gap-2">
-                                    <Clock className="w-5 h-5 text-primary-500" />
+                                    <Clock className="w-5 h-5 text-coral-500" />
                                     오늘의 플랜
                                 </h3>
 
                                 {/* Breakfast */}
-                                <div className="relative pl-8 border-l-2 border-primary-200">
-                                    <div className="absolute left-0 top-0 w-4 h-4 bg-primary-500 rounded-full transform -translate-x-1/2" />
+                                <div className="relative pl-8 border-l-2 border-coral-200">
+                                    <div className="absolute left-0 top-0 w-4 h-4 bg-coral-500 rounded-full transform -translate-x-1/2" />
                                     <div className="text-sm text-text-secondary mb-1">⏰ 아침</div>
                                     <div className="bg-surface-secondary rounded-xl p-4">
                                         <div className="flex justify-between items-start mb-2">
@@ -227,7 +227,7 @@ export default function ReversePlanner({
                                                 ))}
                                             </div>
                                             <div className="text-right">
-                                                <div className="text-primary-500 font-bold">
+                                                <div className="text-coral-500 font-bold">
                                                     {recommendations.breakfast.totalCalories} kcal
                                                 </div>
                                                 <div className="text-xs text-text-muted">
@@ -257,8 +257,8 @@ export default function ReversePlanner({
                                 </div>
 
                                 {/* Lunch */}
-                                <div className="relative pl-8 border-l-2 border-primary-200">
-                                    <div className="absolute left-0 top-0 w-4 h-4 bg-primary-500 rounded-full transform -translate-x-1/2" />
+                                <div className="relative pl-8 border-l-2 border-coral-200">
+                                    <div className="absolute left-0 top-0 w-4 h-4 bg-coral-500 rounded-full transform -translate-x-1/2" />
                                     <div className="text-sm text-text-secondary mb-1">⏰ 점심</div>
                                     <div className="bg-surface-secondary rounded-xl p-4">
                                         <div className="flex justify-between items-start mb-2">
@@ -270,7 +270,7 @@ export default function ReversePlanner({
                                                 ))}
                                             </div>
                                             <div className="text-right">
-                                                <div className="text-primary-500 font-bold">
+                                                <div className="text-coral-500 font-bold">
                                                     {recommendations.lunch.totalCalories} kcal
                                                 </div>
                                                 <div className="text-xs text-text-muted">
@@ -301,12 +301,12 @@ export default function ReversePlanner({
 
                                 {/* Dinner */}
                                 <div className="relative pl-8">
-                                    <div className="absolute left-0 top-0 w-4 h-4 bg-secondary-500 rounded-full transform -translate-x-1/2 border-2 border-white" />
+                                    <div className="absolute left-0 top-0 w-4 h-4 bg-sage-500 rounded-full transform -translate-x-1/2 border-2 border-white" />
                                     <div className="text-sm text-text-secondary mb-1">⏰ 저녁</div>
-                                    <div className="bg-secondary-50 rounded-xl p-4 border-2 border-secondary-200">
+                                    <div className="bg-sage-50 rounded-xl p-4 border-2 border-sage-200">
                                         <div className="flex justify-between items-start">
                                             <div>
-                                                <div className="font-bold text-secondary-700 text-lg">
+                                                <div className="font-bold text-sage-700 text-lg">
                                                     {selectedMenu.nameKr} 🎉
                                                 </div>
                                                 <div className="text-sm text-text-secondary">
@@ -314,7 +314,7 @@ export default function ReversePlanner({
                                                 </div>
                                             </div>
                                             <div className="text-right">
-                                                <div className="text-secondary-600 font-bold">
+                                                <div className="text-sage-600 font-bold">
                                                     {selectedMenu.calories} kcal
                                                 </div>
                                                 <div className="text-xs text-text-muted">
@@ -331,7 +331,7 @@ export default function ReversePlanner({
                                 <h4 className="text-sm font-semibold text-text-secondary mb-2">📊 하루 총합</h4>
                                 <div className="grid grid-cols-2 gap-4 text-center">
                                     <div>
-                                        <div className="text-2xl font-bold text-primary-500">
+                                        <div className="text-2xl font-bold text-coral-500">
                                             {recommendations.breakfast.totalCalories +
                                                 recommendations.lunch.totalCalories +
                                                 selectedMenu.calories}
@@ -341,7 +341,7 @@ export default function ReversePlanner({
                                         </div>
                                     </div>
                                     <div>
-                                        <div className="text-2xl font-bold text-secondary-500">
+                                        <div className="text-2xl font-bold text-sage-500">
                                             {recommendations.breakfast.totalProtein +
                                                 recommendations.lunch.totalProtein +
                                                 selectedMenu.protein}g
@@ -394,7 +394,7 @@ export default function ReversePlanner({
                             <p className="text-text-secondary mb-4">
                                 점심시간에 알림으로 알려줄게 📱
                             </p>
-                            <div className="inline-flex items-center gap-2 bg-primary-50 text-primary-600 
+                            <div className="inline-flex items-center gap-2 bg-coral-50 text-coral-600 
                               px-4 py-2 rounded-full font-semibold">
                                 <Sparkles className="w-5 h-5" />
                                 +10 XP 획득!

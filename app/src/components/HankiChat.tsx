@@ -146,7 +146,7 @@ export default function HankiChat({ onClose }: HankiChatProps) {
             className="bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden flex flex-col h-[500px] max-h-[70vh]"
         >
             {/* Header */}
-            <div className="bg-gradient-to-r from-primary-500 to-primary-600 p-4 text-white flex items-center justify-between">
+            <div className="bg-gradient-to-r from-coral-500 to-coral-600 p-4 text-white flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <motion.span
                         className="text-3xl"
@@ -157,7 +157,7 @@ export default function HankiChat({ onClose }: HankiChatProps) {
                     </motion.span>
                     <div>
                         <h3 className="font-bold">한끼와 대화</h3>
-                        <div className="flex items-center gap-1 text-xs text-primary-100">
+                        <div className="flex items-center gap-1 text-xs text-coral-100">
                             <Sparkles className="w-3 h-3" />
                             <span>AI 식단 어시스턴트</span>
                         </div>
@@ -187,7 +187,7 @@ export default function HankiChat({ onClose }: HankiChatProps) {
                                 )}
                                 <div
                                     className={`rounded-2xl p-3 ${message.type === 'user'
-                                        ? 'bg-primary-500 text-white rounded-tr-none'
+                                        ? 'bg-coral-500 text-white rounded-tr-none'
                                         : 'bg-white shadow-sm rounded-tl-none'
                                         }`}
                                 >
@@ -201,7 +201,7 @@ export default function HankiChat({ onClose }: HankiChatProps) {
                                             <button
                                                 key={index}
                                                 onClick={() => handleQuickReply(reply)}
-                                                className="text-xs bg-white border border-primary-200 text-primary-600 px-3 py-1.5 rounded-full hover:bg-primary-50 transition-colors"
+                                                className="text-xs bg-white border border-coral-200 text-coral-600 px-3 py-1.5 rounded-full hover:bg-coral-50 transition-colors"
                                             >
                                                 {reply}
                                             </button>
@@ -252,12 +252,12 @@ export default function HankiChat({ onClose }: HankiChatProps) {
                         onChange={(e) => setInputValue(e.target.value)}
                         onKeyPress={handleKeyPress}
                         placeholder="한끼에게 메시지 보내기..."
-                        className="flex-1 bg-gray-100 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-300"
+                        className="flex-1 bg-gray-100 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-coral-300"
                     />
                     <button
                         onClick={handleSend}
                         disabled={!inputValue.trim()}
-                        className="p-2 bg-primary-500 text-white rounded-full hover:bg-primary-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="p-2 bg-coral-500 text-white rounded-full hover:bg-coral-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                     >
                         <Send className="w-5 h-5" />
                     </button>

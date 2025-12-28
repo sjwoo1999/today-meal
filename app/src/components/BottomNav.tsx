@@ -33,7 +33,7 @@ export default function BottomNav() {
                                 className="relative -mt-6"
                             >
                                 <motion.div
-                                    className="w-14 h-14 bg-gradient-to-br from-primary-400 to-primary-600 
+                                    className="w-14 h-14 bg-gradient-to-br from-coral-400 to-coral-600 
                                      rounded-full flex items-center justify-center shadow-lg"
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.95 }}
@@ -56,16 +56,16 @@ export default function BottomNav() {
                             {isActive && (
                                 <motion.div
                                     layoutId="activeTab"
-                                    className="absolute inset-0 bg-primary-50 rounded-xl"
+                                    className="absolute inset-0 bg-coral-50 rounded-lg"
                                     transition={{ type: 'spring', stiffness: 500, damping: 30 }}
                                 />
                             )}
                             <div className="relative">
                                 <Icon
-                                    className={`w-6 h-6 relative z-10 ${isActive ? 'text-primary-500' : ''}`}
+                                    className={`w-6 h-6 relative z-10 ${isActive ? 'text-coral-500' : ''}`}
                                 />
                             </div>
-                            <span className={`text-xs mt-1 relative z-10 ${isActive ? 'font-semibold text-primary-500' : ''}`}>
+                            <span className={`text-xs mt-1 relative z-10 ${isActive ? 'font-semibold text-coral-500' : ''}`}>
                                 {item.label}
                             </span>
                         </button>

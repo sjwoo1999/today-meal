@@ -28,7 +28,7 @@ export function XPPopup() {
                 >
                     <div className="flex flex-col items-center gap-1">
                         <motion.div
-                            className="text-4xl font-bold text-primary-500 flex items-center gap-2"
+                            className="text-4xl font-bold text-coral-500 flex items-center gap-2"
                             animate={{ scale: [1, 1.2, 1] }}
                             transition={{ duration: 0.3 }}
                         >
@@ -111,7 +111,7 @@ export function CelebrationModal() {
                 };
             case 'reverse_complete':
                 return {
-                    icon: <Star className="w-16 h-16 text-primary-500" />,
+                    icon: <Star className="w-16 h-16 text-coral-500" />,
                     title: '역추산 플랜 성공! ⭐',
                     message: '계획대로 완벽하게 해냈어!',
                 };
@@ -129,7 +129,7 @@ export function CelebrationModal() {
                 };
             default:
                 return {
-                    icon: <Sparkles className="w-16 h-16 text-primary-500" />,
+                    icon: <Sparkles className="w-16 h-16 text-coral-500" />,
                     title: '축하해! 🎊',
                     message: '잘했어!',
                 };
@@ -262,7 +262,7 @@ export function XPProgressBar({ currentXP, currentLevelXP, nextLevelXP }: XPProg
             </div>
             <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                 <motion.div
-                    className="h-full bg-gradient-to-r from-primary-400 to-primary-600 rounded-full"
+                    className="h-full bg-gradient-to-r from-coral-400 to-coral-600 rounded-full"
                     initial={{ width: 0 }}
                     animate={{ width: `${percentage}%` }}
                     transition={{ duration: 0.5, ease: 'easeOut' }}
