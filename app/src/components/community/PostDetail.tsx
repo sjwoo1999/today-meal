@@ -203,6 +203,58 @@ const MOCK_COMMENTS: Comment[] = [
     },
 ];
 
+// 이미지 갤러리 컴포넌트
+function ImageGallery({ images }: { images: string[] }) {
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+        const container = e.currentTarget;
+        const scrollLeft = container.scrollLeft;
+        const itemWidth = container.offsetWidth;
+        const newIndex = Math.round(scrollLeft / itemWidth);
+        setCurrentIndex(newIndex);
+    };
+
+    return (
+        <div className="mb-4 -mx-4">
+            {/* 이미지 스크롤 영역 */}
+            <div
+                className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide"
+                onScroll={handleScroll}
+            >
+                {images.map((image, index) => (
+                    <div
+                        key={index}
+                        className="flex-shrink-0 w-full snap-center"
+                    >
+                        <div className="relative bg-gray-100" style={{ paddingBottom: '75%' }}>
+                            <img
+                                src={image}
+                                alt={`이미지 ${index + 1}`}
+                                className="absolute inset-0 w-full h-full object-cover"
+                                loading={index === 0 ? 'eager' : 'lazy'}
+                            />
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {/* 도트 인디케이터 */}
+            {images.length > 1 && (
+                <div className="flex justify-center gap-1.5 mt-3">
+                    {images.map((_, index) => (
+                        <div
+                            key={index}
+                            className={`w-2 h-2 rounded-full transition-colors ${index === currentIndex ? 'bg-coral-500' : 'bg-gray-300'
+                                }`}
+                        />
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+}
+
 interface PostDetailProps {
     post: CommunityPost;
     onBack: () => void;
@@ -319,6 +371,11 @@ export default function PostDetail({ post, onBack }: PostDetailProps) {
                             </span>
                         ))}
                     </div>
+                )}
+
+                {/* 이미지 갤러리 */}
+                {post.images && post.images.length > 0 && (
+                    <ImageGallery images={post.images} />
                 )}
 
                 {/* 액션 바 */}

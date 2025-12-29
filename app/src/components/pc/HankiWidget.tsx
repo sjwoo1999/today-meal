@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Camera, Calendar, X, MessageCircle } from 'lucide-react';
 import { useHankiStore, useUIStore } from '@/store';
 import { HankiEmotion } from '@/types';
+import Image from 'next/image';
 
 const emotionEmojis: Record<HankiEmotion, string> = {
     default: '😊',
@@ -15,6 +16,18 @@ const emotionEmojis: Record<HankiEmotion, string> = {
     sad: '😢',
     upset: '😤',
     touched: '🥹',
+};
+
+// 감정별 마스코트 이미지 경로
+const emotionImages: Record<HankiEmotion, string> = {
+    default: '/mascot/hanki_default.png',
+    happy: '/mascot/hanki_happy.png',
+    excited: '/mascot/hanki_excited.png',
+    cheering: '/mascot/hanki_cheering.png',
+    worried: '/mascot/hanki_worried.png',
+    sad: '/mascot/hanki_sad.png',
+    upset: '/mascot/hanki_upset.png',
+    touched: '/mascot/hanki_touched.png',
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -64,16 +77,6 @@ export default function HankiWidget() {
         setCurrentMessage(message);
     }, [message]);
 
-    const getEvolutionEmoji = () => {
-        switch (evolutionStage) {
-            case 1: return '🍚';
-            case 2: return '🍚🥬';
-            case 3: return '🍱';
-            case 4: return '✨🍱✨';
-            default: return '🍚';
-        }
-    };
-
     return (
         <>
             {/* Mini Widget */}
@@ -90,8 +93,14 @@ export default function HankiWidget() {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
             >
-                <div className="w-20 h-20 bg-white rounded-full shadow-lg border-2 border-coral-200 flex items-center justify-center relative">
-                    <span className="text-4xl">{getEvolutionEmoji()}</span>
+                <div className="w-20 h-20 bg-white rounded-full shadow-lg border-2 border-coral-200 flex items-center justify-center relative overflow-hidden">
+                    <Image
+                        src={emotionImages[emotion]}
+                        alt="한끼 마스코트"
+                        width={64}
+                        height={64}
+                        className="object-contain"
+                    />
 
                     {/* Notification dot */}
                     {currentMessage && !isExpanded && (
@@ -135,7 +144,7 @@ export default function HankiWidget() {
 
                                 <div className="text-center">
                                     <motion.div
-                                        className="text-6xl mb-2"
+                                        className="w-24 h-24 mx-auto mb-2"
                                         animate={{
                                             scale: [1, 1.1, 1],
                                             rotate: [0, 5, -5, 0],
@@ -146,7 +155,13 @@ export default function HankiWidget() {
                                             repeatDelay: 3,
                                         }}
                                     >
-                                        {getEvolutionEmoji()}
+                                        <Image
+                                            src={emotionImages[emotion]}
+                                            alt="한끼 마스코트"
+                                            width={96}
+                                            height={96}
+                                            className="object-contain"
+                                        />
                                     </motion.div>
                                     <h3 className="font-bold text-lg">한끼</h3>
                                     <p className="text-coral-100 text-sm">Lv.{evolutionStage} • 단계 {evolutionStage}</p>

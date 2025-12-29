@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
 export type AdSize = 'banner' | 'card' | 'native' | 'interstitial';
 export type AdPosition = 'feed' | 'detail-top' | 'detail-middle' | 'sidebar';
@@ -42,13 +43,18 @@ const AD_CONTENT = {
 };
 
 export default function AdBanner({ size = 'banner', className = '' }: AdBannerProps) {
-    const getRandomAd = (ads: typeof AD_CONTENT.banner) => {
-        return ads[Math.floor(Math.random() * ads.length)];
-    };
+    // 클라이언트에서만 랜덤 인덱스 결정 (hydration 에러 방지)
+    const [bannerIndex, setBannerIndex] = useState(0);
+    const [cardIndex, setCardIndex] = useState(0);
+
+    useEffect(() => {
+        setBannerIndex(Math.floor(Math.random() * AD_CONTENT.banner.length));
+        setCardIndex(Math.floor(Math.random() * AD_CONTENT.card.length));
+    }, []);
 
     // 배너형 광고 (리스트 사이)
     if (size === 'banner') {
-        const ad = getRandomAd(AD_CONTENT.banner);
+        const ad = AD_CONTENT.banner[bannerIndex];
         return (
             <motion.div
                 initial={{ opacity: 0, y: 10 }}
@@ -74,7 +80,7 @@ export default function AdBanner({ size = 'banner', className = '' }: AdBannerPr
 
     // 카드형 광고 (게시글 상세 중간)
     if (size === 'card') {
-        const ad = AD_CONTENT.card[Math.floor(Math.random() * AD_CONTENT.card.length)];
+        const ad = AD_CONTENT.card[cardIndex];
         return (
             <motion.div
                 initial={{ opacity: 0 }}

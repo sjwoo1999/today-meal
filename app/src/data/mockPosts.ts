@@ -1,6 +1,21 @@
 // Mock Posts Data - 15개의 게시글
 import { CommunityPost, BoardType } from '@/types';
 
+// 자체 생성된 로컬 이미지
+const FOOD_IMAGES = {
+    samgyeopsal: '/posts/samgyeopsal.png',
+    chicken: '/posts/samgyeopsal.png', // 재사용
+    salad: '/posts/salad.png',
+    proteinBar: '/posts/salad.png', // 재사용
+    healthyMeal: '/posts/meal_prep.png',
+    yogurt: '/posts/salad.png', // 재사용
+    salmon: '/posts/meal_prep.png', // 재사용
+    subway: '/posts/salad.png', // 재사용
+    bodyTransform: '/posts/transform.png',
+    convenienceStore: '/posts/meal_prep.png', // 재사용
+    streak: '/posts/transform.png', // 재사용
+};
+
 export const MOCK_POSTS: CommunityPost[] = [
     // 자유게시판 (5개)
     {
@@ -21,6 +36,7 @@ export const MOCK_POSTS: CommunityPost[] = [
         isHot: false,
         isPinned: false,
         hashtags: ['회식', '삼겹살', '도움'],
+        images: [FOOD_IMAGES.samgyeopsal],
     },
     {
         id: 'p_002',
@@ -78,6 +94,7 @@ export const MOCK_POSTS: CommunityPost[] = [
         isHot: true,
         isPinned: false,
         hashtags: ['다이어트성공', '역추산', '바디프로필'],
+        images: [FOOD_IMAGES.bodyTransform, FOOD_IMAGES.healthyMeal],
     },
     {
         id: 'p_005',
@@ -118,6 +135,7 @@ export const MOCK_POSTS: CommunityPost[] = [
         isHot: true,
         isPinned: true,
         hashtags: ['편의점', '단백질', '꿀조합', '정보'],
+        images: [FOOD_IMAGES.convenienceStore, FOOD_IMAGES.proteinBar],
     },
     {
         id: 'p_007',
@@ -236,6 +254,7 @@ export const MOCK_POSTS: CommunityPost[] = [
         isHot: false,
         isPinned: false,
         hashtags: ['식단인증', '오운완'],
+        images: [FOOD_IMAGES.yogurt, FOOD_IMAGES.salad, FOOD_IMAGES.salmon],
     },
     {
         id: 'p_013',
@@ -254,6 +273,7 @@ export const MOCK_POSTS: CommunityPost[] = [
         scrapCount: 18,
         isHot: false,
         isPinned: false,
+        images: [FOOD_IMAGES.streak],
         hashtags: ['스트릭', '30일', '달성'],
     },
     {
@@ -274,6 +294,7 @@ export const MOCK_POSTS: CommunityPost[] = [
         isHot: true,
         isPinned: false,
         hashtags: ['비포애프터', '목표달성', '다이어트'],
+        images: [FOOD_IMAGES.bodyTransform, FOOD_IMAGES.healthyMeal],
     },
 
     // 식당/제품 후기 (1개)
@@ -295,6 +316,7 @@ export const MOCK_POSTS: CommunityPost[] = [
         isHot: false,
         isPinned: false,
         hashtags: ['서브웨이', '다이어트', '칼로리'],
+        images: [FOOD_IMAGES.subway],
     },
 ];
 

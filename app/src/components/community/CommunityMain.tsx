@@ -4,107 +4,8 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Plus, MessageSquare, Flame, Eye, Heart, CheckCircle } from 'lucide-react';
 import { CommunityPost, BoardCategory, BOARD_LIST, HotTimeFilter, PostSortOption } from '@/types';
+import { MOCK_POSTS } from '@/data/mockPosts';
 import AdBanner from './AdBanner';
-
-// Mock 데이터
-const MOCK_POSTS: CommunityPost[] = [
-    {
-        id: '1',
-        boardId: 'free',
-        title: '다이어트 중 회식 부르면 어떻게 함?',
-        content: '팀장님이 갑자기 오늘 저녁 회식이래...',
-        authorId: 'u1',
-        authorName: 'ㅇㅇ',
-        authorLevel: 4,
-        authorTitle: '영양 탐험가',
-        authorStreak: 12,
-        createdAt: new Date(Date.now() - 10 * 60 * 1000),
-        viewCount: 342,
-        likeCount: 23,
-        dislikeCount: 1,
-        commentCount: 47,
-        scrapCount: 8,
-        isHot: true,
-        isPinned: false,
-    },
-    {
-        id: '2',
-        boardId: 'free',
-        title: '오늘 점심 뭐 먹을지 진짜 고민됨',
-        content: '배고파...',
-        authorId: 'u2',
-        authorName: '배고파',
-        authorLevel: 2,
-        authorTitle: '식단 입문자',
-        createdAt: new Date(Date.now() - 23 * 60 * 1000),
-        viewCount: 89,
-        likeCount: 3,
-        dislikeCount: 0,
-        commentCount: 12,
-        scrapCount: 1,
-        isHot: false,
-        isPinned: false,
-    },
-    {
-        id: '3',
-        boardId: 'info',
-        title: '편의점 단백질 조합 총정리 (2024년 ver)',
-        content: '편의점에서 단백질 30g 이상 채우는 조합 정리했음...',
-        authorId: 'u3',
-        authorName: '영양덕후',
-        authorLevel: 8,
-        authorTitle: '식단 챔피언',
-        authorStreak: 89,
-        createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000),
-        viewCount: 12453,
-        likeCount: 892,
-        dislikeCount: 5,
-        commentCount: 234,
-        scrapCount: 456,
-        isHot: true,
-        isPinned: true,
-        hashtags: ['편의점', '단백질', '다이어트'],
-    },
-    {
-        id: '4',
-        boardId: 'qna',
-        title: '저녁에 탄수화물 먹으면 진짜 살 찜?',
-        content: '다들 저녁에 탄수화물 안 먹던데...',
-        authorId: 'u4',
-        authorName: '다이어트초보',
-        authorLevel: 2,
-        authorTitle: '식단 입문자',
-        createdAt: new Date(Date.now() - 3 * 60 * 60 * 1000),
-        viewCount: 567,
-        likeCount: 34,
-        dislikeCount: 0,
-        commentCount: 8,
-        scrapCount: 12,
-        isHot: false,
-        isPinned: false,
-        isSolved: true,
-    },
-    {
-        id: '5',
-        boardId: 'challenge',
-        title: '3개월 -12kg 성공했습니다!!',
-        content: '드디어 목표 체중 달성...',
-        authorId: 'u5',
-        authorName: '드디어성공',
-        authorLevel: 5,
-        authorTitle: '뉴트리션 프로',
-        authorStreak: 92,
-        createdAt: new Date(Date.now() - 5 * 60 * 60 * 1000),
-        viewCount: 5678,
-        likeCount: 456,
-        dislikeCount: 2,
-        commentCount: 234,
-        scrapCount: 123,
-        isHot: true,
-        isPinned: false,
-        images: ['before.jpg', 'after.jpg'],
-    },
-];
 
 // 게시글 카드 컴포넌트
 function PostCard({
@@ -184,8 +85,26 @@ function PostCard({
 
                 {/* 썸네일 (이미지가 있는 경우) */}
                 {post.images && post.images.length > 0 && (
-                    <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center text-2xl">
-                        📷
+                    <div className="relative w-16 h-16 flex-shrink-0">
+                        <img
+                            src={post.images[0]}
+                            alt=""
+                            className="w-16 h-16 object-cover rounded-lg bg-gray-100"
+                            loading="lazy"
+                            onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                target.style.display = 'none';
+                                target.nextElementSibling?.classList.remove('hidden');
+                            }}
+                        />
+                        <div className="hidden w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center text-2xl absolute inset-0">
+                            📷
+                        </div>
+                        {post.images.length > 1 && (
+                            <div className="absolute bottom-1 right-1 bg-black/60 text-white text-xs px-1.5 py-0.5 rounded">
+                                +{post.images.length - 1}
+                            </div>
+                        )}
                     </div>
                 )}
             </div>

@@ -3,20 +3,35 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useHankiStore } from '@/store';
 import { HankiEmotion } from '@/types';
+import Image from 'next/image';
 
 interface HankiMascotProps {
     size?: 'sm' | 'md' | 'lg' | 'xl';
     showMessage?: boolean;
     animate?: boolean;
+    useImage?: boolean;
 }
 
-const sizeClasses = {
-    sm: 'w-16 h-16',
-    md: 'w-24 h-24',
-    lg: 'w-32 h-32',
-    xl: 'w-40 h-40',
+const sizeConfig = {
+    sm: { className: 'w-16 h-16', pixels: 64 },
+    md: { className: 'w-24 h-24', pixels: 96 },
+    lg: { className: 'w-32 h-32', pixels: 128 },
+    xl: { className: 'w-40 h-40', pixels: 160 },
 };
 
+// 감정별 이미지 경로
+const emotionImages: Record<HankiEmotion, string> = {
+    default: '/mascot/hanki_default.png',
+    happy: '/mascot/hanki_happy.png',
+    excited: '/mascot/hanki_excited.png',
+    cheering: '/mascot/hanki_cheering.png',
+    worried: '/mascot/hanki_worried.png',
+    sad: '/mascot/hanki_sad.png',
+    upset: '/mascot/hanki_upset.png',
+    touched: '/mascot/hanki_touched.png',
+};
+
+// 이모지 표현 (폴백용)
 const emotionExpressions: Record<HankiEmotion, { eyes: string; mouth: string; extras?: string }> = {
     default: { eyes: '◕ ◕', mouth: '◡', extras: '' },
     happy: { eyes: '◕ ◕', mouth: '▽', extras: '✨' },
@@ -31,7 +46,8 @@ const emotionExpressions: Record<HankiEmotion, { eyes: string; mouth: string; ex
 export default function HankiMascot({
     size = 'md',
     showMessage = true,
-    animate = true
+    animate = true,
+    useImage = true
 }: HankiMascotProps) {
     const { emotion, message, evolutionStage } = useHankiStore();
     const expression = emotionExpressions[emotion];
@@ -73,11 +89,67 @@ export default function HankiMascot({
     };
 
     const showSteam = emotion === 'happy' || emotion === 'excited' || emotion === 'touched';
+    const config = sizeConfig[size];
 
+    // 이미지 기반 렌더링 (useImage 또는 기본값이 true인 경우)
+    if (useImage !== false) {
+        return (
+            <div className="flex flex-col items-center gap-3">
+                <motion.div
+                    className={`relative ${config.className}`}
+                    animate={animate ? {
+                        y: emotion === 'excited' ? [0, -10, 0] : [0, -5, 0],
+                    } : {}}
+                    transition={{
+                        duration: emotion === 'excited' ? 0.5 : 3,
+                        repeat: Infinity,
+                        ease: 'easeInOut',
+                    }}
+                >
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={emotion}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.8 }}
+                            transition={{ duration: 0.3 }}
+                            className="w-full h-full"
+                        >
+                            <Image
+                                src={emotionImages[emotion]}
+                                alt={`한끼 - ${emotion}`}
+                                width={config.pixels}
+                                height={config.pixels}
+                                className="object-contain"
+                                priority
+                            />
+                        </motion.div>
+                    </AnimatePresence>
+                </motion.div>
+
+                {/* Message bubble */}
+                {showMessage && message && (
+                    <motion.div
+                        className="bg-white rounded-2xl px-4 py-2 shadow-soft max-w-xs text-center relative"
+                        initial={{ opacity: 0, y: 10, scale: 0.9 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        transition={{ delay: 0.2 }}
+                    >
+                        <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white rotate-45" />
+                        <p className="text-text-primary text-sm font-medium relative z-10">
+                            {message}
+                        </p>
+                    </motion.div>
+                )}
+            </div>
+        );
+    }
+
+    // 폴백: 이모지 기반 렌더링 (기존 방식)
     return (
         <div className="flex flex-col items-center gap-3">
             <motion.div
-                className={`hanki-container ${sizeClasses[size]}`}
+                className={`hanki-container ${config.className}`}
                 animate={animate ? {
                     y: emotion === 'excited' ? [0, -10, 0] : [0, -5, 0],
                 } : {}}

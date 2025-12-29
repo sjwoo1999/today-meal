@@ -44,15 +44,8 @@ export default function RootLayout({
         />
       </head>
       <body className={`${plusJakarta.variable} font-sans antialiased bg-canvas text-text-primary`}>
-        {/* Mobile: Centered container with max-width */}
-        <div className="lg:hidden max-w-lg mx-auto min-h-screen bg-cream shadow-2xl">
-          {children}
-        </div>
-
-        {/* Desktop: Full width */}
-        <div className="hidden lg:block min-h-screen bg-gray-50">
-          {children}
-        </div>
+        {/* ResponsiveApp handles its own PC/Mobile layout switching */}
+        {children}
       </body>
     </html>
   );
