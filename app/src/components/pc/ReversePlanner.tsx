@@ -1,46 +1,45 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Search, MapPin, Clock, Check, Sparkles } from 'lucide-react';
 import { FoodItem, MealRecommendation } from '@/types';
+import {
+    getPopularMenusFromRestaurants,
+    getBreakfastLocations,
+    getLunchLocations,
+    type MockRestaurant,
+    type PopularMenuItem
+} from '@/data';
 
-// Popular menus
-const POPULAR_MENUS: FoodItem[] = [
-    { id: '1', name: 'Samgyeopsal', nameKr: '삼겹살', calories: 580, protein: 28, carbs: 0, fat: 52, servingSize: '200g', category: 'meat' },
-    { id: '2', name: 'Chicken', nameKr: '치킨', calories: 730, protein: 45, carbs: 25, fat: 48, servingSize: '반마리', category: 'meat' },
-    { id: '3', name: 'Pizza', nameKr: '피자', calories: 850, protein: 35, carbs: 85, fat: 38, servingSize: '3조각', category: 'western' },
-    { id: '4', name: 'Pasta', nameKr: '파스타', calories: 620, protein: 18, carbs: 75, fat: 26, servingSize: '1인분', category: 'western' },
-    { id: '5', name: 'Jokbal', nameKr: '족발', calories: 680, protein: 42, carbs: 8, fat: 54, servingSize: '300g', category: 'meat' },
-    { id: '6', name: 'Sushi', nameKr: '초밥', calories: 450, protein: 22, carbs: 58, fat: 12, servingSize: '10pcs', category: 'japanese' },
-    { id: '7', name: 'Bibimbap', nameKr: '비빔밥', calories: 580, protein: 22, carbs: 85, fat: 15, servingSize: '1인분', category: 'korean' },
-    { id: '8', name: 'Ramen', nameKr: '라멘', calories: 650, protein: 25, carbs: 70, fat: 28, servingSize: '1그릇', category: 'japanese' },
-];
-
-// Mock recommendations
-const MOCK_BREAKFAST: MealRecommendation = {
-    foods: [
-        { id: 'b1', name: 'Greek Yogurt', nameKr: '그릭요거트', calories: 150, protein: 15, carbs: 12, fat: 5, servingSize: '200g', category: 'dairy' },
-        { id: 'b2', name: 'Fruits', nameKr: '과일', calories: 130, protein: 2, carbs: 32, fat: 0, servingSize: '1컵', category: 'fruits' },
-    ],
-    totalCalories: 280,
-    totalProtein: 17,
-    locations: [
-        { name: 'GS25 회사점', address: '강남구 테헤란로 123', distance: '50m', mapUrl: '#' },
-    ],
+// Helper: Create FoodItem from restaurant menu
+const createMealFromRestaurant = (restaurant: MockRestaurant, calories: number, protein: number): FoodItem[] => {
+    if (!restaurant.menuItems || restaurant.menuItems.length === 0) return [];
+    const menuName = restaurant.menuItems[0].split(' ')[0];
+    return [{
+        id: `auto_${restaurant.id}`,
+        name: restaurant.name,
+        nameKr: `${restaurant.name} ${menuName}`,
+        calories,
+        protein,
+        carbs: 0,
+        fat: 0,
+        servingSize: '1인분',
+        category: restaurant.category[0] || 'korean',
+    }];
 };
 
-const MOCK_LUNCH: MealRecommendation = {
-    foods: [
-        { id: 'l1', name: 'Chicken Salad', nameKr: '닭가슴살 샐러드', calories: 350, protein: 35, carbs: 18, fat: 12, servingSize: '1인분', category: 'salad' },
-        { id: 'l2', name: 'Whole Wheat Bread', nameKr: '통밀빵', calories: 80, protein: 4, carbs: 15, fat: 1, servingSize: '1조각', category: 'bread' },
-    ],
-    totalCalories: 430,
-    totalProtein: 39,
-    locations: [
-        { name: '샐러디 강남점', address: '강남구 역삼로 45', distance: '200m', mapUrl: '#' },
-    ],
-};
+// Helper to convert MockRestaurant to RestaurantLocation format
+const toLocations = (restaurants: MockRestaurant[]) =>
+    restaurants.map(r => ({
+        name: r.name,
+        address: r.address,
+        distance: r.distance,
+        mapUrl: r.mapUrl,
+    }));
+
+// Get popular menus from restaurants
+const POPULAR_MENUS = getPopularMenusFromRestaurants();
 
 interface PCReversePlannerProps {
     dailyCalorieGoal?: number;
@@ -52,12 +51,39 @@ export default function PCReversePlanner({
     dailyProteinGoal = 120
 }: PCReversePlannerProps) {
     const [searchQuery, setSearchQuery] = useState('');
-    const [selectedMenu, setSelectedMenu] = useState<FoodItem | null>(null);
+    const [selectedMenu, setSelectedMenu] = useState<PopularMenuItem | null>(null);
     const [highlightedIndex, setHighlightedIndex] = useState(0);
     const [isPlanSaved, setIsPlanSaved] = useState(false);
 
+    // Generate breakfast and lunch recommendations dynamically
+    const breakfast = useMemo(() => {
+        const spots = getBreakfastLocations(2);
+        const foods = spots.length > 0
+            ? createMealFromRestaurant(spots[0], 280, 12)
+            : [{ id: 'b1', name: 'Light Breakfast', nameKr: '가벼운 아침', calories: 280, protein: 12, carbs: 35, fat: 8, servingSize: '1인분', category: 'cafe' as const }];
+        return {
+            foods,
+            totalCalories: 280,
+            totalProtein: 12,
+            locations: toLocations(spots),
+        } as MealRecommendation;
+    }, []);
+
+    const lunch = useMemo(() => {
+        const spots = getLunchLocations(2);
+        const foods = spots.length > 0
+            ? createMealFromRestaurant(spots[0], 450, 25)
+            : [{ id: 'l1', name: 'Light Lunch', nameKr: '가벼운 점심', calories: 450, protein: 25, carbs: 50, fat: 15, servingSize: '1인분', category: 'korean' as const }];
+        return {
+            foods,
+            totalCalories: 450,
+            totalProtein: 25,
+            locations: toLocations(spots),
+        } as MealRecommendation;
+    }, []);
+
     const filteredMenus = searchQuery
-        ? POPULAR_MENUS.filter(m =>
+        ? POPULAR_MENUS.filter((m: PopularMenuItem) =>
             m.nameKr.includes(searchQuery) || m.name.toLowerCase().includes(searchQuery.toLowerCase())
         )
         : POPULAR_MENUS;
@@ -82,13 +108,26 @@ export default function PCReversePlanner({
     }, [handleKeyDown]);
 
     // Calculate remaining nutrition
-    const dinnerCalories = selectedMenu?.calories || 0;
-    const totalCalories = MOCK_BREAKFAST.totalCalories + MOCK_LUNCH.totalCalories + dinnerCalories;
+    const dinnerCalories = selectedMenu?.estimatedCalories || 0;
+    const totalCalories = breakfast.totalCalories + lunch.totalCalories + dinnerCalories;
     const caloriePercentage = (totalCalories / dailyCalorieGoal) * 100;
 
     const handleSavePlan = () => {
         setIsPlanSaved(true);
         setTimeout(() => setIsPlanSaved(false), 3000);
+    };
+
+    // Category emoji helper
+    const getCategoryEmoji = (category: string) => {
+        switch (category) {
+            case 'snack': return '🍙';
+            case 'korean': return '🍚';
+            case 'western': return '🍝';
+            case 'japanese': return '🍣';
+            case 'chinese': return '🥟';
+            case 'cafe': return '☕';
+            default: return '🍴';
+        }
     };
 
     return (
@@ -124,7 +163,7 @@ export default function PCReversePlanner({
 
                     {/* Menu Grid */}
                     <div className="flex-1 overflow-y-auto space-y-2">
-                        {filteredMenus.map((menu, index) => (
+                        {filteredMenus.map((menu: PopularMenuItem, index: number) => (
                             <motion.button
                                 key={menu.id}
                                 onClick={() => setSelectedMenu(menu)}
@@ -137,18 +176,13 @@ export default function PCReversePlanner({
                                 whileHover={{ scale: 1.01 }}
                                 whileTap={{ scale: 0.99 }}
                             >
-                                <span className="text-2xl">
-                                    {menu.category === 'meat' ? '🥩' :
-                                        menu.category === 'western' ? '🍝' :
-                                            menu.category === 'japanese' ? '🍣' :
-                                                menu.category === 'korean' ? '🍚' : '🍴'}
-                                </span>
+                                <span className="text-2xl">{getCategoryEmoji(menu.category)}</span>
                                 <div className="flex-1">
                                     <div className="font-medium text-gray-900">{menu.nameKr}</div>
-                                    <div className="text-sm text-gray-500">{menu.servingSize}</div>
+                                    <div className="text-sm text-gray-500">{menu.restaurants.length}개 식당</div>
                                 </div>
                                 <div className="text-right">
-                                    <div className="font-bold text-coral-600">{menu.calories}</div>
+                                    <div className="font-bold text-coral-600">{menu.estimatedCalories}</div>
                                     <div className="text-xs text-gray-400">kcal</div>
                                 </div>
                             </motion.button>
@@ -206,20 +240,20 @@ export default function PCReversePlanner({
                                 <div className="p-4 bg-gray-50 rounded-xl">
                                     <div className="flex justify-between items-center">
                                         <span className="text-gray-600">🌅 아침</span>
-                                        <span className="font-bold">{MOCK_BREAKFAST.totalCalories} kcal</span>
+                                        <span className="font-bold">{breakfast.totalCalories} kcal</span>
                                     </div>
                                     <div className="text-sm text-gray-500 mt-1">
-                                        {MOCK_BREAKFAST.foods.map(f => f.nameKr).join(', ')}
+                                        {breakfast.foods.map((f: FoodItem) => f.nameKr).join(', ')}
                                     </div>
                                 </div>
 
                                 <div className="p-4 bg-gray-50 rounded-xl">
                                     <div className="flex justify-between items-center">
                                         <span className="text-gray-600">☀️ 점심</span>
-                                        <span className="font-bold">{MOCK_LUNCH.totalCalories} kcal</span>
+                                        <span className="font-bold">{lunch.totalCalories} kcal</span>
                                     </div>
                                     <div className="text-sm text-gray-500 mt-1">
-                                        {MOCK_LUNCH.foods.map(f => f.nameKr).join(', ')}
+                                        {lunch.foods.map((f: FoodItem) => f.nameKr).join(', ')}
                                     </div>
                                 </div>
 
@@ -239,7 +273,7 @@ export default function PCReversePlanner({
                                 <div className="flex justify-between items-center">
                                     <span className="text-sage-700">총 단백질</span>
                                     <span className="font-bold text-sage-700">
-                                        {MOCK_BREAKFAST.totalProtein + MOCK_LUNCH.totalProtein + selectedMenu.protein}g
+                                        {breakfast.totalProtein + lunch.totalProtein + selectedMenu.estimatedProtein}g
                                         / {dailyProteinGoal}g
                                     </span>
                                 </div>
@@ -271,7 +305,7 @@ export default function PCReversePlanner({
                                     <div className="absolute left-0 top-0 w-4 h-4 bg-coral-500 rounded-full transform -translate-x-1/2" />
                                     <div className="text-sm text-gray-500 mb-1">⏰ 08:00 - 아침</div>
                                     <div className="bg-gray-50 rounded-xl p-4">
-                                        {MOCK_BREAKFAST.foods.map((food, i) => (
+                                        {breakfast.foods.map((food: FoodItem, i: number) => (
                                             <div key={i} className="flex justify-between">
                                                 <span className="text-gray-700">{food.nameKr}</span>
                                                 <span className="text-gray-500">{food.calories} kcal</span>
@@ -279,7 +313,7 @@ export default function PCReversePlanner({
                                         ))}
                                         <div className="mt-2 pt-2 border-t border-gray-200 flex items-center gap-2 text-sm text-gray-500">
                                             <MapPin className="w-4 h-4" />
-                                            {MOCK_BREAKFAST.locations?.[0].name}
+                                            {breakfast.locations?.[0]?.name || '근처 편의점'}
                                         </div>
                                     </div>
                                 </div>
@@ -289,7 +323,7 @@ export default function PCReversePlanner({
                                     <div className="absolute left-0 top-0 w-4 h-4 bg-coral-500 rounded-full transform -translate-x-1/2" />
                                     <div className="text-sm text-gray-500 mb-1">⏰ 12:30 - 점심</div>
                                     <div className="bg-gray-50 rounded-xl p-4">
-                                        {MOCK_LUNCH.foods.map((food, i) => (
+                                        {lunch.foods.map((food: FoodItem, i: number) => (
                                             <div key={i} className="flex justify-between">
                                                 <span className="text-gray-700">{food.nameKr}</span>
                                                 <span className="text-gray-500">{food.calories} kcal</span>
@@ -297,7 +331,7 @@ export default function PCReversePlanner({
                                         ))}
                                         <div className="mt-2 pt-2 border-t border-gray-200 flex items-center gap-2 text-sm text-gray-500">
                                             <MapPin className="w-4 h-4" />
-                                            {MOCK_LUNCH.locations?.[0].name}
+                                            {lunch.locations?.[0]?.name || '근처 식당'}
                                         </div>
                                     </div>
                                 </div>
@@ -309,11 +343,17 @@ export default function PCReversePlanner({
                                     <div className="bg-sage-50 rounded-xl p-4 border-2 border-sage-200">
                                         <div className="flex justify-between">
                                             <span className="font-bold text-sage-700">{selectedMenu.nameKr}</span>
-                                            <span className="font-bold text-sage-600">{selectedMenu.calories} kcal</span>
+                                            <span className="font-bold text-sage-600">{selectedMenu.estimatedCalories} kcal</span>
                                         </div>
                                         <div className="text-sm text-sage-600 mt-1">
-                                            단백질 {selectedMenu.protein}g
+                                            단백질 {selectedMenu.estimatedProtein}g
                                         </div>
+                                        {selectedMenu.restaurants.length > 0 && (
+                                            <div className="mt-2 pt-2 border-t border-sage-200 flex items-center gap-2 text-sm text-sage-600">
+                                                <MapPin className="w-4 h-4" />
+                                                {selectedMenu.restaurants[0].name}
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             </div>

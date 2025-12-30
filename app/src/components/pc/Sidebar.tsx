@@ -5,7 +5,7 @@ import { useUIStore } from '@/store';
 import {
     Flame, Camera, Wrench, User,
     ChevronLeft, ChevronRight,
-    Settings, HelpCircle, MessageSquare
+    Settings, HelpCircle, MessageSquare, MapPin
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -31,6 +31,7 @@ const navItems = [
             { id: 'tools-hanki', label: '🤖 한끼 AI', path: '/tools/hanki' },
         ]
     },
+    { id: 'nearby', label: '주변 식당', icon: MapPin, path: '/nearby' },
     { id: 'profile', label: '마이', icon: User, path: '/profile' },
 ];
 

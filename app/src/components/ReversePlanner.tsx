@@ -2,49 +2,61 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, MapPin, Clock, Check, Sparkles, ShoppingCart } from 'lucide-react';
+import { Search, MapPin, Clock, Check, Sparkles, ShoppingCart, Navigation } from 'lucide-react';
 import { FoodItem, MealRecommendation, ReversePlan } from '@/types';
 import { handleOrderClick } from '@/utils/orderUtils';
+import {
+    getBreakfastLocations,
+    getLunchLocations,
+    getRestaurantsForMenu,
+    getPopularMenusFromRestaurants,
+    DEFAULT_LOCATION,
+    type MockRestaurant,
+    type PopularMenuItem
+} from '@/data';
+import StaticMap from '@/components/common/StaticMap';
 
-// Popular menu data
-const POPULAR_MENUS: FoodItem[] = [
-    { id: '1', name: 'Samgyeopsal', nameKr: '삼겹살', calories: 580, protein: 28, carbs: 0, fat: 52, servingSize: '200g', category: 'meat' },
-    { id: '2', name: 'Chicken', nameKr: '치킨', calories: 730, protein: 45, carbs: 25, fat: 48, servingSize: '반마리', category: 'meat' },
-    { id: '3', name: 'Pizza', nameKr: '피자', calories: 850, protein: 35, carbs: 85, fat: 38, servingSize: '3조각', category: 'western' },
-    { id: '4', name: 'Pasta', nameKr: '파스타', calories: 620, protein: 18, carbs: 75, fat: 26, servingSize: '1인분', category: 'western' },
-    { id: '5', name: 'Jokbal', nameKr: '족발', calories: 680, protein: 42, carbs: 8, fat: 54, servingSize: '300g', category: 'meat' },
-    { id: '6', name: 'Sushi', nameKr: '초밥', calories: 450, protein: 22, carbs: 58, fat: 12, servingSize: '10pcs', category: 'japanese' },
+// Menu categories - aligned with FoodCategory
+type MenuCategory = 'all' | 'snack' | 'korean' | 'western' | 'japanese' | 'chinese' | 'cafe';
+
+const MENU_CATEGORIES: { id: MenuCategory; label: string; emoji: string }[] = [
+    { id: 'all', label: '전체', emoji: '🍽️' },
+    { id: 'snack', label: '분식', emoji: '🍙' },
+    { id: 'korean', label: '한식', emoji: '🍚' },
+    { id: 'western', label: '양식', emoji: '🍝' },
+    { id: 'japanese', label: '일식', emoji: '🍣' },
+    { id: 'chinese', label: '중식', emoji: '🥟' },
+    { id: 'cafe', label: '카페', emoji: '☕' },
 ];
 
-// Mock recommendation data
-const MOCK_RECOMMENDATIONS: Record<string, { breakfast: MealRecommendation; lunch: MealRecommendation }> = {
-    '삼겹살': {
-        breakfast: {
-            foods: [
-                { id: 'b1', name: 'Greek Yogurt', nameKr: '그릭요거트', calories: 150, protein: 15, carbs: 12, fat: 5, servingSize: '200g', category: 'dairy' },
-                { id: 'b2', name: 'Fruits', nameKr: '과일', calories: 130, protein: 2, carbs: 32, fat: 0, servingSize: '1컵', category: 'fruits' },
-            ],
-            totalCalories: 280,
-            totalProtein: 17,
-            locations: [
-                { name: 'GS25 회사점', address: '강남구 테헤란로 123', distance: '50m', mapUrl: '#' },
-                { name: 'CU 편의점', address: '강남구 테헤란로 125', distance: '80m', mapUrl: '#' },
-            ],
-        },
-        lunch: {
-            foods: [
-                { id: 'l1', name: 'Chicken Salad', nameKr: '닭가슴살 샐러드', calories: 350, protein: 35, carbs: 18, fat: 12, servingSize: '1인분', category: 'salad' },
-                { id: 'l2', name: 'Whole Wheat Bread', nameKr: '통밀빵', calories: 80, protein: 4, carbs: 15, fat: 1, servingSize: '1조각', category: 'bread' },
-            ],
-            totalCalories: 430,
-            totalProtein: 39,
-            locations: [
-                { name: '샐러디 강남점', address: '강남구 역삼로 45', distance: '200m', mapUrl: '#' },
-                { name: '써브웨이', address: '강남구 테헤란로 130', distance: '150m', mapUrl: '#' },
-            ],
-        },
-    },
+// Helper: Create FoodItem from restaurant menu
+const createMealFromRestaurant = (restaurant: MockRestaurant, calories: number, protein: number): FoodItem[] => {
+    if (!restaurant.menuItems || restaurant.menuItems.length === 0) return [];
+    const menuName = restaurant.menuItems[0].split(' ')[0]; // Get menu name without price
+    return [{
+        id: `auto_${restaurant.id}`,
+        name: restaurant.name,
+        nameKr: `${restaurant.name} ${menuName}`,
+        calories,
+        protein,
+        carbs: 0,
+        fat: 0,
+        servingSize: '1인분',
+        category: restaurant.category[0] || 'korean',
+    }];
 };
+
+// Helper to convert MockRestaurant to RestaurantLocation format
+const toLocations = (restaurants: MockRestaurant[]) =>
+    restaurants.map(r => ({
+        name: r.name,
+        address: r.address,
+        distance: r.distance,
+        mapUrl: r.mapUrl,
+    }));
+
+// Get popular menus dynamically from restaurants
+const POPULAR_MENUS = getPopularMenusFromRestaurants();
 
 interface ReversePlannerProps {
     dailyCalorieGoal: number;
@@ -59,7 +71,11 @@ export default function ReversePlanner({
 }: ReversePlannerProps) {
     const [step, setStep] = useState<'search' | 'result' | 'saved'>('search');
     const [searchQuery, setSearchQuery] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState<MenuCategory>('all');
     const [selectedMenu, setSelectedMenu] = useState<FoodItem | null>(null);
+    const [dinnerRestaurants, setDinnerRestaurants] = useState<MockRestaurant[]>([]);
+    const [selectedRestaurantId, setSelectedRestaurantId] = useState<string | undefined>(undefined);
+    const showMap = true; // Always show map for now
     const [recommendations, setRecommendations] = useState<{
         breakfast: MealRecommendation;
         lunch: MealRecommendation;
@@ -68,22 +84,62 @@ export default function ReversePlanner({
         message: string;
     } | null>(null);
 
-    const handleMenuSelect = (menu: FoodItem) => {
-        setSelectedMenu(menu);
+    const handleMenuSelect = (menu: PopularMenuItem) => {
+        // Convert PopularMenuItem to FoodItem for compatibility
+        const foodItem: FoodItem = {
+            id: menu.id,
+            name: menu.name,
+            nameKr: menu.nameKr,
+            calories: menu.estimatedCalories,
+            protein: menu.estimatedProtein,
+            carbs: 0,
+            fat: 0,
+            servingSize: '1인분',
+            category: menu.category,
+        };
+        setSelectedMenu(foodItem);
 
         // Calculate reverse plan
-        const dinnerCalories = menu.calories;
+        const dinnerCalories = menu.estimatedCalories;
         const remainingCalories = dailyCalorieGoal - dinnerCalories;
 
         // Check if feasible
         const isFeasible = remainingCalories >= 400 && dinnerCalories < dailyCalorieGoal * 0.8;
 
-        // Get recommendations (mock)
-        const recs = MOCK_RECOMMENDATIONS[menu.nameKr] || MOCK_RECOMMENDATIONS['삼겹살'];
+        // Get restaurants that serve this menu (from PopularMenuItem or search)
+        const nearbyDinnerSpots = menu.restaurants.length > 0
+            ? menu.restaurants.slice(0, 3)
+            : getRestaurantsForMenu(menu.nameKr, 3);
+        setDinnerRestaurants(nearbyDinnerSpots);
 
+        // Get breakfast and lunch locations
+        const breakfastSpots = getBreakfastLocations(2);
+        const lunchSpots = getLunchLocations(2);
+
+        // Create meal items from actual restaurant menus
+        const breakfastFoods = breakfastSpots.length > 0
+            ? createMealFromRestaurant(breakfastSpots[0], 280, 12)
+            : [{ id: 'b1', name: 'Light Breakfast', nameKr: '가벼운 아침', calories: 280, protein: 12, carbs: 35, fat: 8, servingSize: '1인분', category: 'cafe' }];
+
+        const lunchFoods = lunchSpots.length > 0
+            ? createMealFromRestaurant(lunchSpots[0], 450, 25)
+            : [{ id: 'l1', name: 'Light Lunch', nameKr: '가벼운 점심', calories: 450, protein: 25, carbs: 50, fat: 15, servingSize: '1인분', category: 'korean' }];
+
+        // Build recommendations with real location and menu data
         setRecommendations({
-            ...recs,
-            dinnerBudget: { calories: dinnerCalories, protein: menu.protein },
+            breakfast: {
+                foods: breakfastFoods,
+                totalCalories: 280,
+                totalProtein: 12,
+                locations: toLocations(breakfastSpots),
+            },
+            lunch: {
+                foods: lunchFoods,
+                totalCalories: 450,
+                totalProtein: 25,
+                locations: toLocations(lunchSpots),
+            },
+            dinnerBudget: { calories: dinnerCalories, protein: menu.estimatedProtein },
             isFeasible,
             message: isFeasible
                 ? `${menu.nameKr} 먹어도 돼! 대신 이렇게 해보자 👇`
@@ -101,11 +157,13 @@ export default function ReversePlanner({
         }
     };
 
-    const filteredMenus = searchQuery
-        ? POPULAR_MENUS.filter(m =>
-            m.nameKr.includes(searchQuery) || m.name.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-        : POPULAR_MENUS;
+    const filteredMenus = POPULAR_MENUS.filter((menu: PopularMenuItem) => {
+        const matchesSearch = searchQuery
+            ? menu.nameKr.includes(searchQuery) || menu.name.toLowerCase().includes(searchQuery.toLowerCase())
+            : true;
+        const matchesCategory = selectedCategory === 'all' || menu.category === selectedCategory;
+        return matchesSearch && matchesCategory;
+    });
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-coral-50 to-white pb-24">
@@ -113,6 +171,11 @@ export default function ReversePlanner({
             <div className="bg-gradient-to-r from-coral-500 to-coral-600 text-white p-6 pb-12 rounded-b-3xl">
                 <h1 className="text-2xl font-bold mb-2">역추산 플래너</h1>
                 <p className="text-coral-100">먹고 싶은 저녁을 선택하면, 아침·점심을 추천해줄게!</p>
+                {/* Location Banner */}
+                <div className="mt-3 flex items-center gap-2 bg-white/10 rounded-lg px-3 py-2 text-sm">
+                    <Navigation className="w-4 h-4" />
+                    <span className="truncate">{DEFAULT_LOCATION.name}</span>
+                </div>
             </div>
 
             <div className="px-4 -mt-6">
@@ -148,11 +211,28 @@ export default function ReversePlanner({
 
                             {/* Popular Menus */}
                             <div className="card">
+                                {/* Category Tabs */}
+                                <div className="flex items-center gap-2 mb-4 overflow-x-auto pb-2 -mx-1 px-1">
+                                    {MENU_CATEGORIES.map((cat) => (
+                                        <button
+                                            key={cat.id}
+                                            onClick={() => setSelectedCategory(cat.id)}
+                                            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors
+                                                ${selectedCategory === cat.id
+                                                    ? 'bg-coral-500 text-white'
+                                                    : 'bg-surface-secondary text-text-secondary hover:bg-coral-50'}`}
+                                        >
+                                            <span>{cat.emoji}</span>
+                                            <span>{cat.label}</span>
+                                        </button>
+                                    ))}
+                                </div>
+
                                 <h3 className="text-sm font-semibold text-text-secondary mb-3">
-                                    🔥 인기 메뉴
+                                    {selectedCategory === 'all' ? '🔥 인기 메뉴' : `${MENU_CATEGORIES.find(c => c.id === selectedCategory)?.emoji} ${MENU_CATEGORIES.find(c => c.id === selectedCategory)?.label}`}
                                 </h3>
                                 <div className="grid grid-cols-3 gap-3">
-                                    {filteredMenus.map((menu) => (
+                                    {filteredMenus.length > 0 ? filteredMenus.map((menu) => (
                                         <motion.button
                                             key={menu.id}
                                             onClick={() => handleMenuSelect(menu)}
@@ -164,16 +244,22 @@ export default function ReversePlanner({
                                             <div className="text-2xl mb-1">
                                                 {menu.category === 'meat' ? '🥩' :
                                                     menu.category === 'western' ? '🍝' :
-                                                        menu.category === 'japanese' ? '🍣' : '🍴'}
+                                                        menu.category === 'japanese' ? '🍣' :
+                                                            menu.category === 'korean' ? '🍚' :
+                                                                menu.category === 'chinese' ? '🥟' : '🍴'}
                                             </div>
                                             <div className="text-sm font-medium text-text-primary group-hover:text-coral-600">
                                                 {menu.nameKr}
                                             </div>
                                             <div className="text-xs text-text-muted mt-1">
-                                                {menu.calories} kcal
+                                                {menu.estimatedCalories} kcal
                                             </div>
                                         </motion.button>
-                                    ))}
+                                    )) : (
+                                        <div className="col-span-3 text-center py-8 text-text-muted">
+                                            검색 결과가 없어요
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </motion.div>
@@ -205,6 +291,22 @@ export default function ReversePlanner({
                                 </div>
                                 <p className="text-coral-100">{recommendations.message}</p>
                             </div>
+
+                            {/* Static Map */}
+                            {showMap && dinnerRestaurants.length > 0 && (
+                                <motion.div
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: 'auto' }}
+                                    className="card p-0 overflow-hidden"
+                                >
+                                    <StaticMap
+                                        restaurants={dinnerRestaurants}
+                                        selectedRestaurantId={selectedRestaurantId}
+                                        onRestaurantClick={(r) => setSelectedRestaurantId(r.id)}
+                                        className="h-48"
+                                    />
+                                </motion.div>
+                            )}
 
                             {/* Timeline */}
                             <div className="card space-y-6">
@@ -304,13 +406,13 @@ export default function ReversePlanner({
                                     <div className="absolute left-0 top-0 w-4 h-4 bg-sage-500 rounded-full transform -translate-x-1/2 border-2 border-white" />
                                     <div className="text-sm text-text-secondary mb-1">⏰ 저녁</div>
                                     <div className="bg-sage-50 rounded-xl p-4 border-2 border-sage-200">
-                                        <div className="flex justify-between items-start">
+                                        <div className="flex justify-between items-start mb-3">
                                             <div>
                                                 <div className="font-bold text-sage-700 text-lg">
                                                     {selectedMenu.nameKr} 🎉
                                                 </div>
                                                 <div className="text-sm text-text-secondary">
-                                                    원하는 곳 어디든!
+                                                    근처 추천 맛집
                                                 </div>
                                             </div>
                                             <div className="text-right">
@@ -322,6 +424,35 @@ export default function ReversePlanner({
                                                 </div>
                                             </div>
                                         </div>
+                                        {/* Nearby Restaurant Recommendations */}
+                                        {dinnerRestaurants.length > 0 && (
+                                            <div className="space-y-2 pt-2 border-t border-sage-200">
+                                                <div className="text-xs font-medium text-sage-600 mb-2">📍 주변 {selectedMenu.nameKr} 맛집</div>
+                                                {dinnerRestaurants.map((restaurant) => (
+                                                    <a
+                                                        key={restaurant.id}
+                                                        href={restaurant.mapUrl}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="flex items-center justify-between p-2 bg-white rounded-lg hover:bg-sage-100 transition-colors"
+                                                    >
+                                                        <div className="flex items-center gap-2">
+                                                            <MapPin className="w-4 h-4 text-sage-500" />
+                                                            <div>
+                                                                <div className="text-sm font-medium text-text-primary">{restaurant.name}</div>
+                                                                <div className="text-xs text-text-muted">{restaurant.address}</div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex items-center gap-2">
+                                                            <span className="text-xs text-sage-600 font-medium">{restaurant.distance}</span>
+                                                            {restaurant.rating && (
+                                                                <span className="text-xs text-amber-500">⭐ {restaurant.rating}</span>
+                                                            )}
+                                                        </div>
+                                                    </a>
+                                                ))}
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             </div>

@@ -11,6 +11,7 @@ import RecordPage from '@/components/RecordPage';
 import ReversePlanner from '@/components/ReversePlanner';
 import ProfilePage from '@/components/ProfilePage';
 import ToolsHub from '@/components/ToolsHub';
+import NearbyRestaurantsMobile from '@/components/NearbyRestaurantsMobile';
 import { XPPopup, CelebrationModal } from '@/components/Gamification';
 import { CommunityPage } from '@/components/community';
 
@@ -20,6 +21,7 @@ import Header from '@/components/pc/Header';
 import HankiWidget from '@/components/pc/HankiWidget';
 import CalendarView from '@/components/pc/CalendarView';
 import PCReversePlanner from '@/components/pc/ReversePlanner';
+import NearbyRestaurants from '@/components/pc/NearbyRestaurants';
 
 export default function ResponsiveApp() {
     const { activeTab } = useUIStore();
@@ -40,6 +42,8 @@ export default function ResponsiveApp() {
                 return <ToolsHub key="tools" />;
             case 'planner':
                 return <ReversePlanner key="planner" dailyCalorieGoal={1800} dailyProteinGoal={120} />;
+            case 'nearby':
+                return <NearbyRestaurantsMobile key="nearby" />;
             case 'profile':
                 return <ProfilePage key="profile" />;
             default:
@@ -65,6 +69,8 @@ export default function ResponsiveApp() {
                 return <PCReversePlanner key="planner" />;
             case 'calendar':
                 return <CalendarView key="calendar" />;
+            case 'nearby':
+                return <NearbyRestaurants key="nearby" />;
             case 'profile':
                 return <ProfilePage key="profile" />;
             default:

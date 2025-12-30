@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
     Calendar, PieChart, MessageSquare,
-    ChevronRight, Target, BarChart3
+    ChevronRight, Target, BarChart3, MapPin
 } from 'lucide-react';
 import { useUIStore } from '@/store';
 import { UIState } from '@/types/ui';
@@ -54,6 +54,15 @@ const TOOLS: Tool[] = [
         color: 'text-orange-600',
         bgColor: 'bg-orange-50',
         badge: 'AI',
+    },
+    {
+        id: 'nearby',
+        title: '주변 식당 찾기',
+        description: '내 위치 기반 맛집 추천',
+        icon: MapPin,
+        color: 'text-coral-600',
+        bgColor: 'bg-coral-50',
+        badge: '🗺️ NEW',
     },
 ];
 
@@ -109,6 +118,9 @@ export default function ToolsHub() {
                 break;
             case 'hanki':
                 setShowHanki(true);
+                break;
+            case 'nearby':
+                setActiveTab('nearby' as UIState['activeTab']);
                 break;
         }
     };
