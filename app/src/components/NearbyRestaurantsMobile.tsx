@@ -59,7 +59,7 @@ export default function NearbyRestaurantsMobile() {
     return (
         <div className="min-h-screen bg-gray-50 pb-24">
             {/* Header */}
-            <div className="bg-gradient-to-r from-coral-500 to-coral-600 text-white p-4 pb-6">
+            <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-4 pb-6">
                 <div className="flex items-center gap-3 mb-4">
                     <button
                         onClick={() => setActiveTab('tools')}
@@ -69,7 +69,7 @@ export default function NearbyRestaurantsMobile() {
                     </button>
                     <div>
                         <h1 className="text-xl font-bold">내 주변 식당</h1>
-                        <div className="flex items-center gap-1 text-sm text-coral-100">
+                        <div className="flex items-center gap-1 text-sm text-green-100">
                             <Navigation className="w-3 h-3" />
                             <span className="truncate max-w-[200px]">{DEFAULT_LOCATION.name}</span>
                         </div>
@@ -110,7 +110,7 @@ export default function NearbyRestaurantsMobile() {
                             onClick={() => setSelectedCategory(cat.id)}
                             className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors
                                 ${selectedCategory === cat.id
-                                    ? 'bg-coral-500 text-white'
+                                    ? 'bg-green-500 text-white'
                                     : 'bg-white text-gray-600 border border-gray-200'}`}
                         >
                             <span>{cat.emoji}</span>
@@ -126,13 +126,13 @@ export default function NearbyRestaurantsMobile() {
                 <div className="flex gap-2">
                     <button
                         onClick={() => setSortBy('distance')}
-                        className={`text-xs px-2 py-1 rounded-lg ${sortBy === 'distance' ? 'bg-coral-50 text-coral-600 font-medium' : 'text-gray-500'}`}
+                        className={`text-xs px-2 py-1 rounded-lg ${sortBy === 'distance' ? 'bg-green-50 text-green-600 font-medium' : 'text-gray-500'}`}
                     >
                         거리순
                     </button>
                     <button
                         onClick={() => setSortBy('rating')}
-                        className={`text-xs px-2 py-1 rounded-lg ${sortBy === 'rating' ? 'bg-coral-50 text-coral-600 font-medium' : 'text-gray-500'}`}
+                        className={`text-xs px-2 py-1 rounded-lg ${sortBy === 'rating' ? 'bg-green-50 text-green-600 font-medium' : 'text-gray-500'}`}
                     >
                         평점순
                     </button>
@@ -161,7 +161,7 @@ export default function NearbyRestaurantsMobile() {
                                 {restaurant.tags && restaurant.tags.length > 0 && (
                                     <div className="flex flex-wrap gap-1 mt-1">
                                         {restaurant.tags.slice(0, 2).map((tag, i) => (
-                                            <span key={i} className="text-xs bg-coral-50 text-coral-600 px-1.5 py-0.5 rounded">
+                                            <span key={i} className="text-xs bg-green-50 text-green-600 px-1.5 py-0.5 rounded">
                                                 {tag}
                                             </span>
                                         ))}
@@ -170,8 +170,8 @@ export default function NearbyRestaurantsMobile() {
                             </div>
                             <div className="flex flex-col items-end gap-1">
                                 <div className="flex items-center gap-1 text-sm">
-                                    <MapPin className="w-3.5 h-3.5 text-coral-500" />
-                                    <span className="text-coral-600 font-medium">{restaurant.distance}</span>
+                                    <MapPin className="w-3.5 h-3.5 text-green-500" />
+                                    <span className="text-green-600 font-medium">{restaurant.distance}</span>
                                 </div>
                                 {restaurant.rating && (
                                     <div className="flex items-center gap-0.5">
@@ -229,7 +229,7 @@ export default function NearbyRestaurantsMobile() {
                             {/* Info */}
                             <div className="flex items-center gap-4 mb-4">
                                 <div className="flex items-center gap-1">
-                                    <MapPin className="w-4 h-4 text-coral-500" />
+                                    <MapPin className="w-4 h-4 text-green-500" />
                                     <span className="text-sm font-medium">{selectedRestaurant.distance}</span>
                                 </div>
                                 {selectedRestaurant.rating && (
@@ -252,7 +252,7 @@ export default function NearbyRestaurantsMobile() {
                             {selectedRestaurant.tags && (
                                 <div className="flex flex-wrap gap-2 mb-4">
                                     {selectedRestaurant.tags.map((tag, i) => (
-                                        <span key={i} className="text-xs bg-coral-50 text-coral-600 px-2 py-1 rounded-full">
+                                        <span key={i} className="text-xs bg-green-50 text-green-600 px-2 py-1 rounded-full">
                                             {tag}
                                         </span>
                                     ))}
@@ -286,7 +286,7 @@ export default function NearbyRestaurantsMobile() {
                                 href={selectedRestaurant.mapUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="w-full flex items-center justify-center gap-2 bg-coral-500 text-white py-3 rounded-xl font-medium"
+                                className="w-full flex items-center justify-center gap-2 bg-green-500 text-white py-3 rounded-xl font-medium"
                             >
                                 <ExternalLink className="w-4 h-4" />
                                 카카오맵에서 보기

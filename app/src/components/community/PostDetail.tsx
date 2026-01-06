@@ -245,7 +245,7 @@ function ImageGallery({ images }: { images: string[] }) {
                     {images.map((_, index) => (
                         <div
                             key={index}
-                            className={`w-2 h-2 rounded-full transition-colors ${index === currentIndex ? 'bg-coral-500' : 'bg-gray-300'
+                            className={`w-2 h-2 rounded-full transition-colors ${index === currentIndex ? 'bg-green-500' : 'bg-gray-300'
                                 }`}
                         />
                     ))}
@@ -333,7 +333,7 @@ export default function PostDetail({ post, onBack }: PostDetailProps) {
 
                 {/* 작성자 정보 */}
                 <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 bg-coral-100 rounded-full flex items-center justify-center">
+                    <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
                         <span className="text-lg">🍚</span>
                     </div>
                     <div className="flex-1">
@@ -366,7 +366,7 @@ export default function PostDetail({ post, onBack }: PostDetailProps) {
                 {post.hashtags && post.hashtags.length > 0 && (
                     <div className="flex flex-wrap gap-2 mb-4">
                         {post.hashtags.map((tag, i) => (
-                            <span key={i} className="text-coral-500 text-sm">
+                            <span key={i} className="text-green-500 text-sm">
                                 #{tag}
                             </span>
                         ))}
@@ -425,11 +425,11 @@ export default function PostDetail({ post, onBack }: PostDetailProps) {
                             className={`${comment.parentId ? 'ml-8' : ''}`}
                         >
                             <div className={`p-3 rounded-xl ${comment.isAuthor
-                                ? 'bg-coral-50 border border-coral-100'
+                                ? 'bg-green-50 border border-green-100'
                                 : 'bg-gray-50'
                                 }`}>
                                 <div className="flex items-center gap-2 mb-2">
-                                    <span className={`font-medium ${comment.isAuthor ? 'text-coral-600' : 'text-gray-900'}`}>
+                                    <span className={`font-medium ${comment.isAuthor ? 'text-green-600' : 'text-gray-900'}`}>
                                         {comment.authorName}
                                         {comment.isAuthor && <span className="text-xs ml-1">(글쓴이)</span>}
                                     </span>
@@ -444,7 +444,7 @@ export default function PostDetail({ post, onBack }: PostDetailProps) {
                                         <Heart className="w-3.5 h-3.5" />
                                         {comment.likeCount}
                                     </button>
-                                    <button className="hover:text-coral-500">답글</button>
+                                    <button className="hover:text-green-500">답글</button>
                                 </div>
                             </div>
                         </div>
@@ -470,7 +470,7 @@ export default function PostDetail({ post, onBack }: PostDetailProps) {
                         value={commentText}
                         onChange={(e) => setCommentText(e.target.value)}
                         placeholder="댓글을 입력하세요"
-                        className="flex-1 px-4 py-2.5 bg-gray-100 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-coral-500"
+                        className="flex-1 px-4 py-2.5 bg-gray-100 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                         onKeyPress={(e) => e.key === 'Enter' && handleSubmitComment()}
                     />
                     <motion.button
@@ -478,7 +478,7 @@ export default function PostDetail({ post, onBack }: PostDetailProps) {
                         disabled={!commentText.trim()}
                         className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors
                             ${commentText.trim()
-                                ? 'bg-coral-500 text-white'
+                                ? 'bg-green-500 text-white'
                                 : 'bg-gray-200 text-gray-400'
                             }`}
                         whileTap={{ scale: 0.9 }}

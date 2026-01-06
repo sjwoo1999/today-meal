@@ -93,7 +93,7 @@ export default function HankiWidget() {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
             >
-                <div className="w-20 h-20 bg-white rounded-full shadow-lg border-2 border-coral-200 flex items-center justify-center relative overflow-hidden">
+                <div className="w-20 h-20 bg-white rounded-full shadow-lg border-2 border-green-200 flex items-center justify-center relative overflow-hidden">
                     <Image
                         src={emotionImages[emotion]}
                         alt="한끼 마스코트"
@@ -107,7 +107,7 @@ export default function HankiWidget() {
                         <motion.div
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
-                            className="absolute -top-1 -right-1 w-4 h-4 bg-coral-500 rounded-full"
+                            className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full"
                         />
                     )}
                 </div>
@@ -134,7 +134,7 @@ export default function HankiWidget() {
                             className="fixed bottom-28 right-6 z-50 w-80 bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden hidden lg:block"
                         >
                             {/* Header */}
-                            <div className="bg-gradient-to-r from-coral-500 to-coral-600 text-white p-4 relative">
+                            <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-4 relative">
                                 <button
                                     onClick={() => setIsExpanded(false)}
                                     className="absolute top-3 right-3 p-1 hover:bg-white/20 rounded-full transition-colors"
@@ -164,7 +164,7 @@ export default function HankiWidget() {
                                         />
                                     </motion.div>
                                     <h3 className="font-bold text-lg">한끼</h3>
-                                    <p className="text-coral-100 text-sm">Lv.{evolutionStage} • 단계 {evolutionStage}</p>
+                                    <p className="text-green-100 text-sm">Lv.{evolutionStage} • 단계 {evolutionStage}</p>
                                 </div>
                             </div>
 
@@ -172,7 +172,7 @@ export default function HankiWidget() {
                             <div className="p-4 bg-gray-50 border-b border-gray-100">
                                 <div className="flex items-start gap-3">
                                     <div className="p-2 bg-white rounded-full shadow-sm">
-                                        <MessageCircle className="w-4 h-4 text-coral-500" />
+                                        <MessageCircle className="w-4 h-4 text-green-500" />
                                     </div>
                                     <div className="flex-1 bg-white rounded-2xl rounded-tl-none p-3 shadow-sm">
                                         <p className="text-gray-700">{currentMessage}</p>
@@ -187,11 +187,11 @@ export default function HankiWidget() {
                                         setActiveTab('record');
                                         setIsExpanded(false);
                                     }}
-                                    className="w-full flex items-center gap-3 p-3 bg-coral-50 hover:bg-coral-100 rounded-xl transition-colors"
+                                    className="w-full flex items-center gap-3 p-3 bg-green-50 hover:bg-green-100 rounded-xl transition-colors"
                                 >
-                                    <Camera className="w-5 h-5 text-coral-600" />
-                                    <span className="font-medium text-coral-700">식사 기록하기</span>
-                                    <span className="ml-auto text-xs text-coral-500">+10 XP</span>
+                                    <Camera className="w-5 h-5 text-green-600" />
+                                    <span className="font-medium text-green-700">식사 기록하기</span>
+                                    <span className="ml-auto text-xs text-green-500">+10 XP</span>
                                 </button>
 
                                 <button
@@ -199,11 +199,11 @@ export default function HankiWidget() {
                                         setActiveTab('planner');
                                         setIsExpanded(false);
                                     }}
-                                    className="w-full flex items-center gap-3 p-3 bg-sage-50 hover:bg-sage-100 rounded-xl transition-colors"
+                                    className="w-full flex items-center gap-3 p-3 bg-blue-50 hover:bg-blue-100 rounded-xl transition-colors"
                                 >
-                                    <Calendar className="w-5 h-5 text-sage-600" />
-                                    <span className="font-medium text-sage-700">역추산 플래너</span>
-                                    <span className="ml-auto text-xs text-sage-500">+10 XP</span>
+                                    <Calendar className="w-5 h-5 text-blue-600" />
+                                    <span className="font-medium text-blue-700">역추산 플래너</span>
+                                    <span className="ml-auto text-xs text-blue-500">+10 XP</span>
                                 </button>
                             </div>
 

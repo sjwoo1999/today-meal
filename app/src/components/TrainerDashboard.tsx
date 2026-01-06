@@ -164,7 +164,7 @@ export default function TrainerDashboard() {
                                 <div className="text-sm font-medium text-gray-900">김민수 트레이너</div>
                                 <div className="text-xs text-gray-500">담당 회원 {MOCK_MEMBERS.length}명</div>
                             </div>
-                            <div className="w-10 h-10 bg-coral-500 rounded-full flex items-center justify-center text-white font-bold">
+                            <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">
                                 민
                             </div>
                         </div>
@@ -276,10 +276,10 @@ export default function TrainerDashboard() {
                                 <div className="flex items-center gap-4">
                                     <button
                                         onClick={toggleSelectAll}
-                                        className="flex items-center gap-2 text-sm text-gray-600 hover:text-coral-600 transition-colors"
+                                        className="flex items-center gap-2 text-sm text-gray-600 hover:text-green-600 transition-colors"
                                     >
                                         {selectedMemberIds.size === MOCK_MEMBERS.length ? (
-                                            <CheckSquare className="w-5 h-5 text-coral-500" />
+                                            <CheckSquare className="w-5 h-5 text-green-500" />
                                         ) : (
                                             <Square className="w-5 h-5" />
                                         )}
@@ -299,7 +299,7 @@ export default function TrainerDashboard() {
                                     <select
                                         value={sortBy}
                                         onChange={(e) => setSortBy(e.target.value as SortOption)}
-                                        className="text-sm border-none bg-gray-100 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-coral-300"
+                                        className="text-sm border-none bg-gray-100 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-green-300"
                                     >
                                         <option value="risk">위험도순</option>
                                         <option value="streak">스트릭순</option>
@@ -316,9 +316,9 @@ export default function TrainerDashboard() {
                                         initial={{ opacity: 0, height: 0 }}
                                         animate={{ opacity: 1, height: 'auto' }}
                                         exit={{ opacity: 0, height: 0 }}
-                                        className="flex items-center gap-3 mb-4 p-3 bg-coral-50 rounded-xl"
+                                        className="flex items-center gap-3 mb-4 p-3 bg-green-50 rounded-xl"
                                     >
-                                        <span className="text-sm font-medium text-coral-700">
+                                        <span className="text-sm font-medium text-green-700">
                                             {selectedMemberIds.size}명 선택됨
                                         </span>
                                         <button
@@ -329,7 +329,7 @@ export default function TrainerDashboard() {
                                                 alert(`${names}에게 일괄 피드백을 보냈습니다: "오늘도 화이팅! 🔥"`);
                                                 setSelectedMemberIds(new Set());
                                             }}
-                                            className="flex items-center gap-1 px-3 py-1.5 bg-coral-500 text-white text-sm font-medium rounded-lg hover:bg-coral-600 transition-colors"
+                                            className="flex items-center gap-1 px-3 py-1.5 bg-green-500 text-white text-sm font-medium rounded-lg hover:bg-green-600 transition-colors"
                                         >
                                             <MessageSquare className="w-4 h-4" />
                                             일괄 피드백
@@ -384,14 +384,14 @@ export default function TrainerDashboard() {
                             transition={{ delay: 0.3 }}
                         >
                             <div className="flex items-center gap-2 mb-4">
-                                <Calendar className="w-5 h-5 text-coral-500" />
+                                <Calendar className="w-5 h-5 text-green-500" />
                                 <h3 className="font-bold text-gray-900">역추산 사용률</h3>
                             </div>
                             <div className="text-center mb-4">
-                                <div className="text-4xl font-bold text-coral-500">{avgReversePlanUsage}%</div>
+                                <div className="text-4xl font-bold text-green-500">{avgReversePlanUsage}%</div>
                                 <div className="text-sm text-gray-500">평균 사용률</div>
                             </div>
-                            <div className="text-sm text-gray-600 bg-coral-50 rounded-xl p-3">
+                            <div className="text-sm text-gray-600 bg-green-50 rounded-xl p-3">
                                 <strong>💡 인사이트:</strong> 역추산 기능 사용 시 목표 달성률이 평균 23% 높아요!
                             </div>
                         </motion.div>
@@ -418,7 +418,7 @@ export default function TrainerDashboard() {
                                                 {index + 1}
                                             </div>
                                             <span className="flex-1 font-medium">{member.name}</span>
-                                            <span className="text-coral-500 font-bold">{member.gamification.weeklyXP} XP</span>
+                                            <span className="text-green-500 font-bold">{member.gamification.weeklyXP} XP</span>
                                         </div>
                                     ))}
                             </div>
@@ -471,7 +471,7 @@ export default function TrainerDashboard() {
                                 <button
                                     key={template.id}
                                     onClick={() => handleSendFeedback(template.text)}
-                                    className="p-3 bg-gray-50 hover:bg-coral-50 hover:border-coral-300 
+                                    className="p-3 bg-gray-50 hover:bg-green-50 hover:border-green-300 
                              border-2 border-transparent rounded-xl text-left text-sm transition-colors"
                                 >
                                     <span className="mr-2">{template.emoji}</span>
@@ -486,7 +486,7 @@ export default function TrainerDashboard() {
                                 value={customFeedback}
                                 onChange={(e) => setCustomFeedback(e.target.value)}
                                 placeholder="직접 작성하기..."
-                                className="w-full p-3 border-2 border-gray-200 rounded-xl resize-none h-24 focus:border-coral-500 outline-none"
+                                className="w-full p-3 border-2 border-gray-200 rounded-xl resize-none h-24 focus:border-green-500 outline-none"
                             />
                             <button
                                 onClick={() => handleSendFeedback(customFeedback)}
@@ -519,7 +519,7 @@ function MemberCard({
     onToggleSelect?: () => void;
 }) {
     return (
-        <div className={`flex items-center gap-4 p-4 rounded-xl transition-colors ${isSelected ? 'bg-coral-50 border-2 border-coral-300' :
+        <div className={`flex items-center gap-4 p-4 rounded-xl transition-colors ${isSelected ? 'bg-green-50 border-2 border-green-300' :
             isRisk ? 'bg-white hover:bg-red-50' : 'bg-gray-50 hover:bg-gray-100'
             }`}>
             {/* Checkbox */}
@@ -532,7 +532,7 @@ function MemberCard({
                     className="flex-shrink-0"
                 >
                     {isSelected ? (
-                        <CheckSquare className="w-5 h-5 text-coral-500" />
+                        <CheckSquare className="w-5 h-5 text-green-500" />
                     ) : (
                         <Square className="w-5 h-5 text-gray-400" />
                     )}

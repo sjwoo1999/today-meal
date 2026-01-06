@@ -1,0 +1,1322 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "meta": {
+    "title": "OneMealToday 자동 테스트/시뮬레이션 프롬프트",
+    "version": "1.0.0",
+    "created": "2026-01-06",
+    "language": "ko",
+    "purpose": "전체 페이지 자동 시뮬레이션 및 테스트 수행을 위한 구조화된 프롬프트",
+    "target_app": "OneMealToday (오늘한끼)",
+    "framework": "Next.js 14 + React 18 + TypeScript"
+  },
+
+  "test_configuration": {
+    "breakpoints": {
+      "mobile": { "width": 375, "height": 812, "device": "iPhone 14" },
+      "tablet": { "width": 768, "height": 1024, "device": "iPad" },
+      "desktop": { "width": 1440, "height": 900, "device": "Desktop" }
+    },
+    "default_timeout": 5000,
+    "screenshot_on_failure": true,
+    "video_recording": false,
+    "retry_count": 2,
+    "base_url": "http://localhost:3000"
+  },
+
+  "state_mocking": {
+    "stores": [
+      {
+        "name": "useUserStore",
+        "initial_state": {
+          "user": {
+            "id": "test_user_1",
+            "name": "테스트 사용자",
+            "email": "test@example.com",
+            "goal": "lose",
+            "tdee": 1800,
+            "gamification": { "xp": 1500, "level": 5, "streak": 7 }
+          },
+          "isAuthenticated": true
+        }
+      },
+      {
+        "name": "useUIStore",
+        "initial_state": {
+          "activeTab": "home",
+          "showXPPopup": false,
+          "celebrationModal": null
+        }
+      },
+      {
+        "name": "useFeedStore",
+        "initial_state": {
+          "posts": [],
+          "feedState": "idle"
+        }
+      },
+      {
+        "name": "usePointStore",
+        "initial_state": {
+          "balance": { "available": 1500, "pending": 0, "total": 1500 }
+        }
+      },
+      {
+        "name": "useSquadStore",
+        "initial_state": {
+          "mySquads": [],
+          "currentSquad": null
+        }
+      },
+      {
+        "name": "useChallengeStore",
+        "initial_state": {
+          "activeChallenges": [],
+          "currentChallenge": null
+        }
+      }
+    ],
+    "mock_api_delay": 500
+  },
+
+  "pages": {
+    "AUTH-001": {
+      "id": "AUTH-001",
+      "name": "SplashScreen",
+      "path": "/",
+      "component": "components/auth/SplashScreen.tsx",
+      "description": "앱 시작 화면 - 로고 애니메이션 후 로그인/온보딩으로 이동",
+      "preconditions": {
+        "auth_state": "unauthenticated"
+      },
+      "test_cases": [
+        {
+          "id": "AUTH-001-TC01",
+          "name": "스플래시 애니메이션 완료",
+          "steps": [
+            { "action": "wait", "target": "logo-animation", "timeout": 2000 },
+            { "action": "verify", "target": "logo", "assertion": "visible" }
+          ],
+          "expected": "로고 애니메이션이 2초 내 완료됨"
+        },
+        {
+          "id": "AUTH-001-TC02",
+          "name": "자동 리다이렉트",
+          "steps": [
+            { "action": "wait", "duration": 3000 },
+            { "action": "verify", "target": "url", "assertion": "contains", "value": "/login" }
+          ],
+          "expected": "3초 후 로그인 페이지로 이동"
+        }
+      ],
+      "responsive_tests": ["mobile", "tablet", "desktop"]
+    },
+
+    "AUTH-002": {
+      "id": "AUTH-002",
+      "name": "LoginPage",
+      "path": "/login",
+      "component": "components/auth/LoginPage.tsx",
+      "description": "소셜 로그인 페이지 (카카오, 네이버, 구글, 애플)",
+      "preconditions": {
+        "auth_state": "unauthenticated"
+      },
+      "test_cases": [
+        {
+          "id": "AUTH-002-TC01",
+          "name": "소셜 로그인 버튼 렌더링",
+          "steps": [
+            { "action": "verify", "target": "[data-testid='kakao-login']", "assertion": "visible" },
+            { "action": "verify", "target": "[data-testid='naver-login']", "assertion": "visible" },
+            { "action": "verify", "target": "[data-testid='google-login']", "assertion": "visible" }
+          ],
+          "expected": "모든 소셜 로그인 버튼이 표시됨"
+        },
+        {
+          "id": "AUTH-002-TC02",
+          "name": "카카오 로그인 클릭",
+          "steps": [
+            { "action": "click", "target": "[data-testid='kakao-login']" },
+            { "action": "wait", "target": "oauth-redirect", "timeout": 3000 }
+          ],
+          "expected": "카카오 OAuth 페이지로 리다이렉트"
+        },
+        {
+          "id": "AUTH-002-TC03",
+          "name": "회원가입 링크",
+          "steps": [
+            { "action": "click", "target": "[data-testid='signup-link']" },
+            { "action": "verify", "target": "url", "assertion": "contains", "value": "/signup" }
+          ],
+          "expected": "회원가입 페이지로 이동"
+        }
+      ],
+      "responsive_tests": ["mobile", "tablet", "desktop"]
+    },
+
+    "AUTH-003": {
+      "id": "AUTH-003",
+      "name": "SignupPage",
+      "path": "/signup",
+      "component": "components/auth/SignupPage.tsx",
+      "description": "이메일 회원가입 페이지",
+      "preconditions": {
+        "auth_state": "unauthenticated"
+      },
+      "test_cases": [
+        {
+          "id": "AUTH-003-TC01",
+          "name": "이메일 유효성 검사",
+          "steps": [
+            { "action": "type", "target": "[data-testid='email-input']", "value": "invalid-email" },
+            { "action": "blur", "target": "[data-testid='email-input']" },
+            { "action": "verify", "target": "[data-testid='email-error']", "assertion": "visible" }
+          ],
+          "expected": "유효하지 않은 이메일에 에러 메시지 표시"
+        },
+        {
+          "id": "AUTH-003-TC02",
+          "name": "비밀번호 강도 검사",
+          "steps": [
+            { "action": "type", "target": "[data-testid='password-input']", "value": "weak" },
+            { "action": "verify", "target": "[data-testid='password-strength']", "assertion": "text", "value": "약함" },
+            { "action": "clear", "target": "[data-testid='password-input']" },
+            { "action": "type", "target": "[data-testid='password-input']", "value": "StrongP@ss123" },
+            { "action": "verify", "target": "[data-testid='password-strength']", "assertion": "text", "value": "강함" }
+          ],
+          "expected": "비밀번호 강도에 따라 표시기 변경"
+        },
+        {
+          "id": "AUTH-003-TC03",
+          "name": "회원가입 성공",
+          "steps": [
+            { "action": "type", "target": "[data-testid='email-input']", "value": "newuser@test.com" },
+            { "action": "type", "target": "[data-testid='password-input']", "value": "StrongP@ss123" },
+            { "action": "type", "target": "[data-testid='password-confirm']", "value": "StrongP@ss123" },
+            { "action": "click", "target": "[data-testid='signup-button']" },
+            { "action": "wait", "target": "api-response", "timeout": 3000 },
+            { "action": "verify", "target": "url", "assertion": "contains", "value": "/onboarding" }
+          ],
+          "expected": "회원가입 후 온보딩 페이지로 이동"
+        }
+      ],
+      "responsive_tests": ["mobile", "tablet", "desktop"]
+    },
+
+    "AUTH-004": {
+      "id": "AUTH-004",
+      "name": "OnboardingPage",
+      "path": "/onboarding",
+      "component": "components/auth/OnboardingPage.tsx",
+      "description": "사용자 온보딩 (4단계: 목표/신체정보/활동량/식이선호)",
+      "preconditions": {
+        "auth_state": "authenticated",
+        "onboarding_completed": false
+      },
+      "test_cases": [
+        {
+          "id": "AUTH-004-TC01",
+          "name": "Step 1: 목표 선택",
+          "steps": [
+            { "action": "verify", "target": "[data-testid='step-indicator']", "assertion": "text", "value": "1" },
+            { "action": "click", "target": "[data-testid='goal-lose']" },
+            { "action": "verify", "target": "[data-testid='goal-lose']", "assertion": "hasClass", "value": "border-green-500" },
+            { "action": "click", "target": "[data-testid='next-button']" }
+          ],
+          "expected": "목표 선택 후 다음 단계로 이동"
+        },
+        {
+          "id": "AUTH-004-TC02",
+          "name": "Step 2: 신체 정보 입력",
+          "steps": [
+            { "action": "verify", "target": "[data-testid='step-indicator']", "assertion": "text", "value": "2" },
+            { "action": "click", "target": "[data-testid='gender-male']" },
+            { "action": "type", "target": "[data-testid='height-input']", "value": "175" },
+            { "action": "type", "target": "[data-testid='weight-input']", "value": "70" },
+            { "action": "type", "target": "[data-testid='age-input']", "value": "28" },
+            { "action": "click", "target": "[data-testid='next-button']" }
+          ],
+          "expected": "신체 정보 입력 후 다음 단계로 이동"
+        },
+        {
+          "id": "AUTH-004-TC03",
+          "name": "Step 3: 활동량 선택",
+          "steps": [
+            { "action": "verify", "target": "[data-testid='step-indicator']", "assertion": "text", "value": "3" },
+            { "action": "click", "target": "[data-testid='activity-moderate']" },
+            { "action": "click", "target": "[data-testid='next-button']" }
+          ],
+          "expected": "활동량 선택 후 다음 단계로 이동"
+        },
+        {
+          "id": "AUTH-004-TC04",
+          "name": "Step 4: 식이 선호도 (선택사항)",
+          "steps": [
+            { "action": "verify", "target": "[data-testid='step-indicator']", "assertion": "text", "value": "4" },
+            { "action": "click", "target": "[data-testid='tag-lowcarb']" },
+            { "action": "click", "target": "[data-testid='next-button']" },
+            { "action": "verify", "target": "url", "assertion": "contains", "value": "/home" }
+          ],
+          "expected": "온보딩 완료 후 홈 화면으로 이동"
+        },
+        {
+          "id": "AUTH-004-TC05",
+          "name": "데스크톱 키보드 네비게이션",
+          "breakpoint": "desktop",
+          "steps": [
+            { "action": "click", "target": "[data-testid='goal-lose']" },
+            { "action": "keyboard", "key": "Enter" },
+            { "action": "verify", "target": "[data-testid='step-indicator']", "assertion": "text", "value": "2" },
+            { "action": "keyboard", "key": "Escape" },
+            { "action": "verify", "target": "[data-testid='step-indicator']", "assertion": "text", "value": "1" }
+          ],
+          "expected": "Enter로 다음 단계, Escape로 이전 단계"
+        },
+        {
+          "id": "AUTH-004-TC06",
+          "name": "건너뛰기 기능",
+          "steps": [
+            { "action": "click", "target": "[data-testid='skip-button']" },
+            { "action": "verify", "target": "url", "assertion": "contains", "value": "/home" }
+          ],
+          "expected": "건너뛰기 클릭 시 홈으로 이동"
+        }
+      ],
+      "responsive_tests": ["mobile", "tablet", "desktop"]
+    },
+
+    "MAIN-001": {
+      "id": "MAIN-001",
+      "name": "HomePage",
+      "path": "/home",
+      "tab_key": "home",
+      "component": "components/HomePage.tsx",
+      "description": "홈 대시보드 - 오늘 영양 현황, 퀘스트, 추천 메뉴",
+      "preconditions": {
+        "auth_state": "authenticated"
+      },
+      "test_cases": [
+        {
+          "id": "MAIN-001-TC01",
+          "name": "영양 진행률 표시",
+          "steps": [
+            { "action": "verify", "target": "[data-testid='calorie-progress']", "assertion": "visible" },
+            { "action": "verify", "target": "[data-testid='protein-progress']", "assertion": "visible" },
+            { "action": "verify", "target": "[data-testid='carb-progress']", "assertion": "visible" }
+          ],
+          "expected": "칼로리/단백질/탄수화물 진행률 표시"
+        },
+        {
+          "id": "MAIN-001-TC02",
+          "name": "데일리 퀘스트 표시",
+          "steps": [
+            { "action": "verify", "target": "[data-testid='daily-quests']", "assertion": "visible" },
+            { "action": "verify", "target": "[data-testid='quest-item']", "assertion": "count", "value": 3 }
+          ],
+          "expected": "데일리 퀘스트 3개 이상 표시"
+        },
+        {
+          "id": "MAIN-001-TC03",
+          "name": "한끼 마스코트 인사",
+          "steps": [
+            { "action": "verify", "target": "[data-testid='hanki-mascot']", "assertion": "visible" },
+            { "action": "verify", "target": "[data-testid='hanki-greeting']", "assertion": "not-empty" }
+          ],
+          "expected": "한끼 마스코트와 인사말 표시"
+        },
+        {
+          "id": "MAIN-001-TC04",
+          "name": "식사 기록 버튼",
+          "steps": [
+            { "action": "click", "target": "[data-testid='record-meal-button']" },
+            { "action": "verify", "target": "url", "assertion": "contains", "value": "/record" }
+          ],
+          "expected": "식사 기록 버튼 클릭 시 기록 페이지로 이동"
+        }
+      ],
+      "states": {
+        "loading": {
+          "test": "skeleton_display",
+          "assertions": ["칼로리 스켈레톤 표시", "퀘스트 스켈레톤 표시"]
+        },
+        "empty": {
+          "test": "no_meals_today",
+          "assertions": ["'아직 오늘 기록이 없어요' 메시지 표시", "기록하기 CTA 버튼 표시"]
+        },
+        "error": {
+          "test": "api_failure",
+          "assertions": ["에러 메시지 표시", "재시도 버튼 표시"]
+        }
+      },
+      "responsive_tests": ["mobile", "tablet", "desktop"]
+    },
+
+    "MAIN-002": {
+      "id": "MAIN-002",
+      "name": "FeedPage",
+      "path": "/feed",
+      "tab_key": "feed",
+      "component": "components/FeedPage.tsx",
+      "description": "피드 페이지 - HOT 게시글, 최신 피드, 스토리",
+      "preconditions": {
+        "auth_state": "authenticated"
+      },
+      "test_cases": [
+        {
+          "id": "MAIN-002-TC01",
+          "name": "스토리 바 표시",
+          "steps": [
+            { "action": "verify", "target": "[data-testid='story-bar']", "assertion": "visible" },
+            { "action": "scroll", "target": "[data-testid='story-bar']", "direction": "horizontal" }
+          ],
+          "expected": "스토리 바가 가로 스크롤 가능"
+        },
+        {
+          "id": "MAIN-002-TC02",
+          "name": "HOT 게시글 캐러셀",
+          "steps": [
+            { "action": "verify", "target": "[data-testid='hot-posts']", "assertion": "visible" },
+            { "action": "click", "target": "[data-testid='hot-post-card']:first-child" },
+            { "action": "verify", "target": "[data-testid='post-detail']", "assertion": "visible" }
+          ],
+          "expected": "HOT 게시글 클릭 시 상세 페이지로 이동"
+        },
+        {
+          "id": "MAIN-002-TC03",
+          "name": "피드 새로고침",
+          "steps": [
+            { "action": "click", "target": "[data-testid='refresh-button']" },
+            { "action": "verify", "target": "[data-testid='refresh-button']", "assertion": "hasClass", "value": "animate-spin" },
+            { "action": "wait", "duration": 1000 },
+            { "action": "verify", "target": "[data-testid='refresh-button']", "assertion": "not-hasClass", "value": "animate-spin" }
+          ],
+          "expected": "새로고침 버튼 클릭 시 로딩 애니메이션 후 피드 갱신"
+        },
+        {
+          "id": "MAIN-002-TC04",
+          "name": "포인트/알림 표시",
+          "steps": [
+            { "action": "verify", "target": "[data-testid='point-display']", "assertion": "visible" },
+            { "action": "verify", "target": "[data-testid='notification-badge']", "assertion": "visible" }
+          ],
+          "expected": "헤더에 포인트와 알림 배지 표시"
+        }
+      ],
+      "states": {
+        "loading": {
+          "test": "initial_load",
+          "assertions": ["HOT 게시글 스켈레톤 표시", "피드 카드 스켈레톤 표시"]
+        },
+        "empty": {
+          "test": "no_posts",
+          "assertions": ["'팔로우한 사용자의 글이 없어요' 메시지", "탐색하기 CTA 버튼"]
+        },
+        "error": {
+          "test": "api_failure",
+          "assertions": ["에러 상태 컨테이너 표시", "재시도 버튼 활성화"]
+        }
+      },
+      "responsive_tests": ["mobile", "tablet", "desktop"]
+    },
+
+    "MAIN-003": {
+      "id": "MAIN-003",
+      "name": "RecordPage",
+      "path": "/record",
+      "tab_key": "record",
+      "component": "components/RecordPage.tsx",
+      "description": "식사 기록 페이지 - 카메라/갤러리 선택, AI 분석, 영양 편집",
+      "preconditions": {
+        "auth_state": "authenticated"
+      },
+      "test_cases": [
+        {
+          "id": "MAIN-003-TC01",
+          "name": "이미지 선택 옵션",
+          "steps": [
+            { "action": "verify", "target": "[data-testid='camera-button']", "assertion": "visible" },
+            { "action": "verify", "target": "[data-testid='gallery-button']", "assertion": "visible" }
+          ],
+          "expected": "카메라와 갤러리 선택 버튼 표시"
+        },
+        {
+          "id": "MAIN-003-TC02",
+          "name": "AI 분석 로딩 상태",
+          "steps": [
+            { "action": "mock", "target": "file-input", "value": "test-food-image.jpg" },
+            { "action": "verify", "target": "[data-testid='ai-analyzing']", "assertion": "visible" },
+            { "action": "verify", "target": "[data-testid='analyzing-message']", "assertion": "text", "value": "AI가 음식을 분석 중이에요" }
+          ],
+          "expected": "이미지 업로드 시 AI 분석 로딩 표시"
+        },
+        {
+          "id": "MAIN-003-TC03",
+          "name": "인식 결과 표시",
+          "steps": [
+            { "action": "wait", "target": "[data-testid='recognition-result']", "timeout": 5000 },
+            { "action": "verify", "target": "[data-testid='food-name']", "assertion": "not-empty" },
+            { "action": "verify", "target": "[data-testid='calorie-estimate']", "assertion": "not-empty" }
+          ],
+          "expected": "AI 분석 완료 후 음식명과 칼로리 표시"
+        },
+        {
+          "id": "MAIN-003-TC04",
+          "name": "영양정보 수정",
+          "steps": [
+            { "action": "click", "target": "[data-testid='edit-nutrition-button']" },
+            { "action": "clear", "target": "[data-testid='calorie-input']" },
+            { "action": "type", "target": "[data-testid='calorie-input']", "value": "500" },
+            { "action": "click", "target": "[data-testid='save-nutrition']" },
+            { "action": "verify", "target": "[data-testid='calorie-display']", "assertion": "text", "value": "500" }
+          ],
+          "expected": "영양정보 수정 후 저장됨"
+        },
+        {
+          "id": "MAIN-003-TC05",
+          "name": "식사 시간 선택",
+          "steps": [
+            { "action": "click", "target": "[data-testid='meal-type-breakfast']" },
+            { "action": "verify", "target": "[data-testid='meal-type-breakfast']", "assertion": "hasClass", "value": "selected" }
+          ],
+          "expected": "식사 시간 선택 가능"
+        },
+        {
+          "id": "MAIN-003-TC06",
+          "name": "기록 완료 및 포인트 획득",
+          "steps": [
+            { "action": "click", "target": "[data-testid='complete-record']" },
+            { "action": "verify", "target": "[data-testid='xp-popup']", "assertion": "visible" },
+            { "action": "verify", "target": "[data-testid='xp-amount']", "assertion": "text", "value": "+10" }
+          ],
+          "expected": "기록 완료 시 포인트 획득 팝업 표시"
+        }
+      ],
+      "states": {
+        "loading": {
+          "test": "ai_analyzing",
+          "assertions": ["분석 중 애니메이션 표시", "취소 버튼 활성화"]
+        },
+        "error": {
+          "test": "recognition_failed",
+          "assertions": ["'인식에 실패했어요' 메시지", "수동 입력 전환 버튼"]
+        }
+      },
+      "responsive_tests": ["mobile", "tablet", "desktop"]
+    },
+
+    "MAIN-004": {
+      "id": "MAIN-004",
+      "name": "SquadPage",
+      "path": "/squad",
+      "tab_key": "squad",
+      "component": "components/SquadPage.tsx",
+      "description": "스쿼드 페이지 - 스쿼드 목록, 챌린지, 리더보드",
+      "preconditions": {
+        "auth_state": "authenticated"
+      },
+      "test_cases": [
+        {
+          "id": "MAIN-004-TC01",
+          "name": "탭 전환",
+          "steps": [
+            { "action": "click", "target": "[data-testid='tab-my']" },
+            { "action": "verify", "target": "[data-testid='my-squads-list']", "assertion": "visible" },
+            { "action": "click", "target": "[data-testid='tab-discover']" },
+            { "action": "verify", "target": "[data-testid='discover-list']", "assertion": "visible" },
+            { "action": "click", "target": "[data-testid='tab-challenges']" },
+            { "action": "verify", "target": "[data-testid='challenges-list']", "assertion": "visible" }
+          ],
+          "expected": "탭 전환 시 해당 콘텐츠 표시"
+        },
+        {
+          "id": "MAIN-004-TC02",
+          "name": "스쿼드 검색",
+          "steps": [
+            { "action": "click", "target": "[data-testid='tab-discover']" },
+            { "action": "type", "target": "[data-testid='squad-search']", "value": "다이어트" },
+            { "action": "verify", "target": "[data-testid='squad-card']", "assertion": "count-gt", "value": 0 }
+          ],
+          "expected": "검색어에 맞는 스쿼드 필터링"
+        },
+        {
+          "id": "MAIN-004-TC03",
+          "name": "스쿼드 생성 모달",
+          "steps": [
+            { "action": "click", "target": "[data-testid='create-squad-button']" },
+            { "action": "verify", "target": "[data-testid='create-squad-modal']", "assertion": "visible" },
+            { "action": "type", "target": "[data-testid='squad-name-input']", "value": "테스트 스쿼드" },
+            { "action": "click", "target": "[data-testid='create-squad-submit']" }
+          ],
+          "expected": "스쿼드 생성 모달에서 스쿼드 생성"
+        },
+        {
+          "id": "MAIN-004-TC04",
+          "name": "스쿼드 상세 페이지 이동",
+          "steps": [
+            { "action": "click", "target": "[data-testid='squad-card']:first-child" },
+            { "action": "verify", "target": "[data-testid='squad-detail']", "assertion": "visible" }
+          ],
+          "expected": "스쿼드 카드 클릭 시 상세 페이지로 이동"
+        }
+      ],
+      "states": {
+        "loading": {
+          "test": "initial_load",
+          "assertions": ["스켈레톤 카드 표시"]
+        },
+        "empty": {
+          "test": "no_squads",
+          "assertions": ["'아직 참여한 스쿼드가 없어요' 메시지", "'스쿼드 둘러보기' 버튼"]
+        },
+        "error": {
+          "test": "api_failure",
+          "assertions": ["에러 상태 컨테이너", "재시도 버튼"]
+        }
+      },
+      "responsive_tests": ["mobile", "tablet", "desktop"]
+    },
+
+    "MAIN-005": {
+      "id": "MAIN-005",
+      "name": "CoachPage",
+      "path": "/coach",
+      "tab_key": "coach",
+      "component": "components/coach/CoachPage.tsx",
+      "description": "AI 코치 페이지 - 한끼 AI와 대화, 식단 추천",
+      "preconditions": {
+        "auth_state": "authenticated"
+      },
+      "test_cases": [
+        {
+          "id": "MAIN-005-TC01",
+          "name": "AI 코치 인사",
+          "steps": [
+            { "action": "verify", "target": "[data-testid='coach-greeting']", "assertion": "visible" },
+            { "action": "verify", "target": "[data-testid='coach-avatar']", "assertion": "visible" }
+          ],
+          "expected": "AI 코치 인사말과 아바타 표시"
+        },
+        {
+          "id": "MAIN-005-TC02",
+          "name": "메시지 전송",
+          "steps": [
+            { "action": "type", "target": "[data-testid='chat-input']", "value": "오늘 점심 뭐 먹을까?" },
+            { "action": "click", "target": "[data-testid='send-button']" },
+            { "action": "verify", "target": "[data-testid='user-message']", "assertion": "text", "value": "오늘 점심 뭐 먹을까?" },
+            { "action": "verify", "target": "[data-testid='ai-typing']", "assertion": "visible" }
+          ],
+          "expected": "메시지 전송 후 AI 응답 대기 상태"
+        },
+        {
+          "id": "MAIN-005-TC03",
+          "name": "AI 응답 수신",
+          "steps": [
+            { "action": "wait", "target": "[data-testid='ai-response']", "timeout": 5000 },
+            { "action": "verify", "target": "[data-testid='ai-response']", "assertion": "not-empty" }
+          ],
+          "expected": "AI 응답 메시지 표시"
+        },
+        {
+          "id": "MAIN-005-TC04",
+          "name": "추천 액션 버튼",
+          "steps": [
+            { "action": "verify", "target": "[data-testid='suggestion-buttons']", "assertion": "visible" },
+            { "action": "click", "target": "[data-testid='suggestion-button']:first-child" }
+          ],
+          "expected": "추천 액션 버튼 클릭 시 해당 기능으로 이동"
+        }
+      ],
+      "states": {
+        "loading": {
+          "test": "ai_thinking",
+          "assertions": ["타이핑 인디케이터 표시", "입력 필드 비활성화"]
+        },
+        "error": {
+          "test": "ai_error",
+          "assertions": ["'응답을 받지 못했어요' 메시지", "재시도 버튼"]
+        }
+      },
+      "responsive_tests": ["mobile", "tablet", "desktop"]
+    },
+
+    "MAIN-006": {
+      "id": "MAIN-006",
+      "name": "ShopPage",
+      "path": "/shop",
+      "tab_key": "shop",
+      "component": "components/shop/ShopPage.tsx",
+      "description": "포인트 샵 - 배지, 스킨, 부스터 구매",
+      "preconditions": {
+        "auth_state": "authenticated"
+      },
+      "test_cases": [
+        {
+          "id": "MAIN-006-TC01",
+          "name": "포인트 잔액 표시",
+          "steps": [
+            { "action": "verify", "target": "[data-testid='user-points']", "assertion": "visible" },
+            { "action": "verify", "target": "[data-testid='user-points']", "assertion": "not-empty" }
+          ],
+          "expected": "현재 포인트 잔액 표시"
+        },
+        {
+          "id": "MAIN-006-TC02",
+          "name": "카테고리 필터",
+          "steps": [
+            { "action": "click", "target": "[data-testid='category-badge']" },
+            { "action": "verify", "target": "[data-testid='shop-item']", "assertion": "all-have-attr", "attr": "data-category", "value": "badge" }
+          ],
+          "expected": "카테고리 선택 시 해당 아이템만 표시"
+        },
+        {
+          "id": "MAIN-006-TC03",
+          "name": "아이템 상세 모달",
+          "steps": [
+            { "action": "click", "target": "[data-testid='shop-item']:first-child" },
+            { "action": "verify", "target": "[data-testid='item-detail-modal']", "assertion": "visible" },
+            { "action": "verify", "target": "[data-testid='item-name']", "assertion": "not-empty" },
+            { "action": "verify", "target": "[data-testid='item-price']", "assertion": "not-empty" }
+          ],
+          "expected": "아이템 클릭 시 상세 모달 표시"
+        },
+        {
+          "id": "MAIN-006-TC04",
+          "name": "구매 성공",
+          "steps": [
+            { "action": "mock", "target": "user-points", "value": 5000 },
+            { "action": "click", "target": "[data-testid='shop-item'][data-price='100']" },
+            { "action": "click", "target": "[data-testid='purchase-button']" },
+            { "action": "wait", "target": "[data-testid='purchase-success']", "timeout": 3000 },
+            { "action": "verify", "target": "[data-testid='purchase-success']", "assertion": "visible" }
+          ],
+          "expected": "포인트 충분 시 구매 성공"
+        },
+        {
+          "id": "MAIN-006-TC05",
+          "name": "구매 실패 (포인트 부족)",
+          "steps": [
+            { "action": "mock", "target": "user-points", "value": 10 },
+            { "action": "click", "target": "[data-testid='shop-item'][data-price='1000']" },
+            { "action": "click", "target": "[data-testid='purchase-button']" },
+            { "action": "verify", "target": "[data-testid='insufficient-points']", "assertion": "visible" }
+          ],
+          "expected": "포인트 부족 시 실패 메시지"
+        },
+        {
+          "id": "MAIN-006-TC06",
+          "name": "이미 보유한 아이템",
+          "steps": [
+            { "action": "verify", "target": "[data-testid='owned-item']", "assertion": "visible" },
+            { "action": "click", "target": "[data-testid='owned-item']" },
+            { "action": "verify", "target": "[data-testid='purchase-button']", "assertion": "disabled" }
+          ],
+          "expected": "보유 아이템은 구매 버튼 비활성화"
+        }
+      ],
+      "states": {
+        "loading": {
+          "test": "initial_load",
+          "assertions": ["아이템 그리드 스켈레톤 표시"]
+        },
+        "empty": {
+          "test": "no_items",
+          "assertions": ["'상품 준비 중입니다' 메시지"]
+        },
+        "error": {
+          "test": "api_failure",
+          "assertions": ["에러 상태 컨테이너", "재시도 버튼"]
+        }
+      },
+      "responsive_tests": ["mobile", "tablet", "desktop"]
+    },
+
+    "MAIN-007": {
+      "id": "MAIN-007",
+      "name": "ProfilePage",
+      "path": "/profile",
+      "tab_key": "profile",
+      "component": "components/ProfilePage.tsx",
+      "description": "프로필 페이지 - 통계, 내 게시글, 스크랩, 댓글",
+      "preconditions": {
+        "auth_state": "authenticated"
+      },
+      "test_cases": [
+        {
+          "id": "MAIN-007-TC01",
+          "name": "프로필 정보 표시",
+          "steps": [
+            { "action": "verify", "target": "[data-testid='profile-avatar']", "assertion": "visible" },
+            { "action": "verify", "target": "[data-testid='profile-name']", "assertion": "not-empty" },
+            { "action": "verify", "target": "[data-testid='profile-level']", "assertion": "not-empty" }
+          ],
+          "expected": "프로필 아바타, 이름, 레벨 표시"
+        },
+        {
+          "id": "MAIN-007-TC02",
+          "name": "통계 카드",
+          "steps": [
+            { "action": "verify", "target": "[data-testid='stat-streak']", "assertion": "visible" },
+            { "action": "verify", "target": "[data-testid='stat-total-records']", "assertion": "visible" },
+            { "action": "verify", "target": "[data-testid='stat-challenges']", "assertion": "visible" }
+          ],
+          "expected": "스트릭, 총 기록, 챌린지 통계 표시"
+        },
+        {
+          "id": "MAIN-007-TC03",
+          "name": "탭 전환 (내 글/스크랩/댓글)",
+          "steps": [
+            { "action": "click", "target": "[data-testid='tab-posts']" },
+            { "action": "verify", "target": "[data-testid='my-posts']", "assertion": "visible" },
+            { "action": "click", "target": "[data-testid='tab-scraps']" },
+            { "action": "verify", "target": "[data-testid='my-scraps']", "assertion": "visible" },
+            { "action": "click", "target": "[data-testid='tab-comments']" },
+            { "action": "verify", "target": "[data-testid='my-comments']", "assertion": "visible" }
+          ],
+          "expected": "탭 전환 시 해당 콘텐츠 표시"
+        },
+        {
+          "id": "MAIN-007-TC04",
+          "name": "설정 페이지 이동",
+          "steps": [
+            { "action": "click", "target": "[data-testid='settings-button']" },
+            { "action": "verify", "target": "[data-testid='settings-page']", "assertion": "visible" }
+          ],
+          "expected": "설정 버튼 클릭 시 설정 페이지로 이동"
+        }
+      ],
+      "states": {
+        "loading": {
+          "test": "initial_load",
+          "assertions": ["프로필 스켈레톤 표시", "탭 콘텐츠 스켈레톤"]
+        },
+        "empty": {
+          "test": "no_posts",
+          "assertions": ["'아직 기록이 없어요' 메시지"]
+        }
+      },
+      "responsive_tests": ["mobile", "tablet", "desktop"]
+    },
+
+    "MAIN-008": {
+      "id": "MAIN-008",
+      "name": "SettingsPage",
+      "path": "/settings",
+      "tab_key": "settings",
+      "component": "components/settings/SettingsPage.tsx",
+      "description": "설정 페이지 - 알림, 계정, 앱 정보",
+      "preconditions": {
+        "auth_state": "authenticated"
+      },
+      "test_cases": [
+        {
+          "id": "MAIN-008-TC01",
+          "name": "알림 설정 토글",
+          "steps": [
+            { "action": "click", "target": "[data-testid='notification-toggle']" },
+            { "action": "verify", "target": "[data-testid='notification-toggle']", "assertion": "checked" }
+          ],
+          "expected": "알림 토글 on/off 가능"
+        },
+        {
+          "id": "MAIN-008-TC02",
+          "name": "목표 변경",
+          "steps": [
+            { "action": "click", "target": "[data-testid='goal-setting']" },
+            { "action": "verify", "target": "[data-testid='goal-modal']", "assertion": "visible" }
+          ],
+          "expected": "목표 설정 클릭 시 모달 표시"
+        },
+        {
+          "id": "MAIN-008-TC03",
+          "name": "로그아웃",
+          "steps": [
+            { "action": "click", "target": "[data-testid='logout-button']" },
+            { "action": "verify", "target": "[data-testid='logout-confirm-modal']", "assertion": "visible" },
+            { "action": "click", "target": "[data-testid='logout-confirm']" },
+            { "action": "verify", "target": "url", "assertion": "contains", "value": "/login" }
+          ],
+          "expected": "로그아웃 후 로그인 페이지로 이동"
+        }
+      ],
+      "responsive_tests": ["mobile", "tablet", "desktop"]
+    },
+
+    "TOOL-001": {
+      "id": "TOOL-001",
+      "name": "ToolsHub",
+      "path": "/tools",
+      "tab_key": "tools",
+      "component": "components/ToolsHub.tsx",
+      "description": "도구 허브 - 역추산 플래너, 주변 맛집, 칼로리 계산기",
+      "preconditions": {
+        "auth_state": "authenticated"
+      },
+      "test_cases": [
+        {
+          "id": "TOOL-001-TC01",
+          "name": "도구 목록 표시",
+          "steps": [
+            { "action": "verify", "target": "[data-testid='tool-planner']", "assertion": "visible" },
+            { "action": "verify", "target": "[data-testid='tool-nearby']", "assertion": "visible" },
+            { "action": "verify", "target": "[data-testid='tool-calculator']", "assertion": "visible" }
+          ],
+          "expected": "3가지 도구 카드 표시"
+        },
+        {
+          "id": "TOOL-001-TC02",
+          "name": "역추산 플래너 이동",
+          "steps": [
+            { "action": "click", "target": "[data-testid='tool-planner']" },
+            { "action": "verify", "target": "[data-testid='reverse-planner']", "assertion": "visible" }
+          ],
+          "expected": "역추산 플래너 페이지로 이동"
+        }
+      ],
+      "responsive_tests": ["mobile", "tablet", "desktop"]
+    },
+
+    "TOOL-002": {
+      "id": "TOOL-002",
+      "name": "ReversePlanner",
+      "path": "/planner",
+      "tab_key": "planner",
+      "component": "components/ReversePlanner.tsx",
+      "description": "역추산 플래너 - 목표 칼로리/단백질에 맞는 메뉴 추천",
+      "preconditions": {
+        "auth_state": "authenticated"
+      },
+      "test_cases": [
+        {
+          "id": "TOOL-002-TC01",
+          "name": "목표 입력",
+          "steps": [
+            { "action": "type", "target": "[data-testid='calorie-goal']", "value": "500" },
+            { "action": "type", "target": "[data-testid='protein-goal']", "value": "30" },
+            { "action": "click", "target": "[data-testid='find-menu-button']" }
+          ],
+          "expected": "목표 입력 후 메뉴 검색"
+        },
+        {
+          "id": "TOOL-002-TC02",
+          "name": "추천 메뉴 표시",
+          "steps": [
+            { "action": "wait", "target": "[data-testid='recommended-menus']", "timeout": 3000 },
+            { "action": "verify", "target": "[data-testid='menu-card']", "assertion": "count-gt", "value": 0 }
+          ],
+          "expected": "조건에 맞는 메뉴 카드 표시"
+        },
+        {
+          "id": "TOOL-002-TC03",
+          "name": "주변 맛집 연동",
+          "steps": [
+            { "action": "click", "target": "[data-testid='menu-card']:first-child" },
+            { "action": "click", "target": "[data-testid='find-nearby']" },
+            { "action": "verify", "target": "[data-testid='nearby-restaurants']", "assertion": "visible" }
+          ],
+          "expected": "메뉴 선택 후 주변 맛집 표시"
+        }
+      ],
+      "responsive_tests": ["mobile", "tablet", "desktop"]
+    },
+
+    "TOOL-003": {
+      "id": "TOOL-003",
+      "name": "NearbyRestaurants",
+      "path": "/nearby",
+      "tab_key": "nearby",
+      "component": "components/NearbyRestaurantsMobile.tsx",
+      "description": "주변 맛집 - 현재 위치 기반 맛집 목록",
+      "preconditions": {
+        "auth_state": "authenticated",
+        "location_permission": "granted"
+      },
+      "test_cases": [
+        {
+          "id": "TOOL-003-TC01",
+          "name": "위치 권한 요청",
+          "steps": [
+            { "action": "mock", "target": "geolocation", "value": { "lat": 37.5665, "lng": 126.9780 } },
+            { "action": "verify", "target": "[data-testid='restaurant-list']", "assertion": "visible" }
+          ],
+          "expected": "위치 권한 승인 후 맛집 목록 표시"
+        },
+        {
+          "id": "TOOL-003-TC02",
+          "name": "맛집 카드 정보",
+          "steps": [
+            { "action": "verify", "target": "[data-testid='restaurant-card']", "assertion": "count-gt", "value": 0 },
+            { "action": "verify", "target": "[data-testid='restaurant-name']", "assertion": "not-empty" },
+            { "action": "verify", "target": "[data-testid='restaurant-distance']", "assertion": "not-empty" }
+          ],
+          "expected": "맛집 이름, 거리 정보 표시"
+        },
+        {
+          "id": "TOOL-003-TC03",
+          "name": "필터링",
+          "steps": [
+            { "action": "click", "target": "[data-testid='filter-korean']" },
+            { "action": "verify", "target": "[data-testid='restaurant-card']", "assertion": "all-have-attr", "attr": "data-category", "value": "korean" }
+          ],
+          "expected": "카테고리 필터 적용"
+        }
+      ],
+      "responsive_tests": ["mobile", "tablet", "desktop"]
+    },
+
+    "COMM-001": {
+      "id": "COMM-001",
+      "name": "CommunityPage",
+      "path": "/boards",
+      "tab_key": "boards",
+      "component": "components/community/CommunityPage.tsx",
+      "description": "커뮤니티 메인 - 게시판 목록, 게시글 목록",
+      "preconditions": {
+        "auth_state": "authenticated"
+      },
+      "test_cases": [
+        {
+          "id": "COMM-001-TC01",
+          "name": "게시판 탭 표시",
+          "steps": [
+            { "action": "verify", "target": "[data-testid='board-tabs']", "assertion": "visible" },
+            { "action": "verify", "target": "[data-testid='board-tab']", "assertion": "count-gt", "value": 2 }
+          ],
+          "expected": "게시판 탭 3개 이상 표시"
+        },
+        {
+          "id": "COMM-001-TC02",
+          "name": "게시판 전환",
+          "steps": [
+            { "action": "click", "target": "[data-testid='board-tab-diet']" },
+            { "action": "verify", "target": "[data-testid='post-list']", "assertion": "attr", "attr": "data-board", "value": "diet" }
+          ],
+          "expected": "게시판 탭 전환 시 해당 게시글 표시"
+        },
+        {
+          "id": "COMM-001-TC03",
+          "name": "글쓰기 버튼",
+          "steps": [
+            { "action": "click", "target": "[data-testid='write-post-button']" },
+            { "action": "verify", "target": "[data-testid='write-post-page']", "assertion": "visible" }
+          ],
+          "expected": "글쓰기 버튼 클릭 시 작성 페이지로 이동"
+        }
+      ],
+      "responsive_tests": ["mobile", "tablet", "desktop"]
+    },
+
+    "COMM-002": {
+      "id": "COMM-002",
+      "name": "PostDetail",
+      "path": "/boards/:id",
+      "component": "components/community/PostDetail.tsx",
+      "description": "게시글 상세 - 본문, 댓글, 좋아요",
+      "preconditions": {
+        "auth_state": "authenticated"
+      },
+      "test_cases": [
+        {
+          "id": "COMM-002-TC01",
+          "name": "게시글 본문 표시",
+          "steps": [
+            { "action": "verify", "target": "[data-testid='post-title']", "assertion": "not-empty" },
+            { "action": "verify", "target": "[data-testid='post-content']", "assertion": "not-empty" },
+            { "action": "verify", "target": "[data-testid='post-author']", "assertion": "not-empty" }
+          ],
+          "expected": "게시글 제목, 본문, 작성자 표시"
+        },
+        {
+          "id": "COMM-002-TC02",
+          "name": "좋아요 토글",
+          "steps": [
+            { "action": "click", "target": "[data-testid='like-button']" },
+            { "action": "verify", "target": "[data-testid='like-button']", "assertion": "hasClass", "value": "liked" },
+            { "action": "click", "target": "[data-testid='like-button']" },
+            { "action": "verify", "target": "[data-testid='like-button']", "assertion": "not-hasClass", "value": "liked" }
+          ],
+          "expected": "좋아요 버튼 토글 동작"
+        },
+        {
+          "id": "COMM-002-TC03",
+          "name": "북마크 토글",
+          "steps": [
+            { "action": "click", "target": "[data-testid='bookmark-button']" },
+            { "action": "verify", "target": "[data-testid='bookmark-button']", "assertion": "hasClass", "value": "bookmarked" }
+          ],
+          "expected": "북마크 저장 동작"
+        },
+        {
+          "id": "COMM-002-TC04",
+          "name": "댓글 작성",
+          "steps": [
+            { "action": "type", "target": "[data-testid='comment-input']", "value": "좋은 정보 감사합니다!" },
+            { "action": "click", "target": "[data-testid='comment-submit']" },
+            { "action": "wait", "duration": 1000 },
+            { "action": "verify", "target": "[data-testid='comment-item']", "assertion": "text", "value": "좋은 정보 감사합니다!" }
+          ],
+          "expected": "댓글 작성 후 목록에 표시"
+        },
+        {
+          "id": "COMM-002-TC05",
+          "name": "작성자 프로필 이동",
+          "steps": [
+            { "action": "click", "target": "[data-testid='post-author']" },
+            { "action": "verify", "target": "[data-testid='user-profile-page']", "assertion": "visible" }
+          ],
+          "expected": "작성자 클릭 시 프로필 페이지로 이동"
+        }
+      ],
+      "responsive_tests": ["mobile", "tablet", "desktop"]
+    },
+
+    "COMM-003": {
+      "id": "COMM-003",
+      "name": "WritePost",
+      "path": "/boards/write",
+      "component": "components/community/WritePost.tsx",
+      "description": "글 작성 페이지",
+      "preconditions": {
+        "auth_state": "authenticated"
+      },
+      "test_cases": [
+        {
+          "id": "COMM-003-TC01",
+          "name": "게시판 선택",
+          "steps": [
+            { "action": "click", "target": "[data-testid='board-select']" },
+            { "action": "click", "target": "[data-testid='board-option-diet']" },
+            { "action": "verify", "target": "[data-testid='board-select']", "assertion": "text", "value": "다이어트" }
+          ],
+          "expected": "게시판 선택 가능"
+        },
+        {
+          "id": "COMM-003-TC02",
+          "name": "제목/본문 입력",
+          "steps": [
+            { "action": "type", "target": "[data-testid='post-title-input']", "value": "테스트 게시글 제목" },
+            { "action": "type", "target": "[data-testid='post-content-input']", "value": "테스트 게시글 본문입니다." },
+            { "action": "verify", "target": "[data-testid='submit-button']", "assertion": "enabled" }
+          ],
+          "expected": "제목과 본문 입력 시 등록 버튼 활성화"
+        },
+        {
+          "id": "COMM-003-TC03",
+          "name": "이미지 첨부",
+          "steps": [
+            { "action": "mock", "target": "file-input", "value": "test-image.jpg" },
+            { "action": "verify", "target": "[data-testid='image-preview']", "assertion": "visible" }
+          ],
+          "expected": "이미지 첨부 시 미리보기 표시"
+        },
+        {
+          "id": "COMM-003-TC04",
+          "name": "게시글 등록",
+          "steps": [
+            { "action": "type", "target": "[data-testid='post-title-input']", "value": "새 게시글" },
+            { "action": "type", "target": "[data-testid='post-content-input']", "value": "게시글 내용" },
+            { "action": "click", "target": "[data-testid='submit-button']" },
+            { "action": "wait", "target": "api-response", "timeout": 3000 },
+            { "action": "verify", "target": "[data-testid='post-detail']", "assertion": "visible" }
+          ],
+          "expected": "게시글 등록 후 상세 페이지로 이동"
+        }
+      ],
+      "responsive_tests": ["mobile", "tablet", "desktop"]
+    }
+  },
+
+  "user_journeys": {
+    "UJ-001": {
+      "id": "UJ-001",
+      "name": "신규 사용자 온보딩",
+      "description": "앱 처음 실행 → 회원가입 → 온보딩 → 홈",
+      "steps": [
+        { "page": "AUTH-001", "action": "wait_animation" },
+        { "page": "AUTH-002", "action": "click_signup" },
+        { "page": "AUTH-003", "action": "complete_signup" },
+        { "page": "AUTH-004", "action": "complete_onboarding" },
+        { "page": "MAIN-001", "action": "verify_home" }
+      ],
+      "estimated_duration": "3-5분",
+      "critical_path": true
+    },
+
+    "UJ-002": {
+      "id": "UJ-002",
+      "name": "식사 기록 플로우",
+      "description": "홈 → 기록 → AI 분석 → 저장 → 포인트 획득",
+      "steps": [
+        { "page": "MAIN-001", "action": "click_record_button" },
+        { "page": "MAIN-003", "action": "select_image" },
+        { "page": "MAIN-003", "action": "wait_ai_analysis" },
+        { "page": "MAIN-003", "action": "edit_nutrition" },
+        { "page": "MAIN-003", "action": "complete_record" },
+        { "verify": "xp_popup_displayed" }
+      ],
+      "estimated_duration": "1-2분",
+      "critical_path": true
+    },
+
+    "UJ-003": {
+      "id": "UJ-003",
+      "name": "역방향 플래너 플로우",
+      "description": "도구 → 플래너 → 목표 입력 → 메뉴 추천 → 맛집 연동",
+      "steps": [
+        { "page": "TOOL-001", "action": "click_planner" },
+        { "page": "TOOL-002", "action": "input_goals" },
+        { "page": "TOOL-002", "action": "search_menus" },
+        { "page": "TOOL-002", "action": "select_menu" },
+        { "page": "TOOL-003", "action": "view_nearby_restaurants" }
+      ],
+      "estimated_duration": "2-3분",
+      "critical_path": false
+    },
+
+    "UJ-004": {
+      "id": "UJ-004",
+      "name": "커뮤니티 상호작용",
+      "description": "피드 → 게시글 → 좋아요/댓글 → 작성자 프로필 → 팔로우",
+      "steps": [
+        { "page": "MAIN-002", "action": "click_post" },
+        { "page": "COMM-002", "action": "toggle_like" },
+        { "page": "COMM-002", "action": "write_comment" },
+        { "page": "COMM-002", "action": "click_author" },
+        { "page": "MAIN-007", "action": "click_follow" }
+      ],
+      "estimated_duration": "2-3분",
+      "critical_path": false
+    },
+
+    "UJ-005": {
+      "id": "UJ-005",
+      "name": "스쿼드 챌린지 참여",
+      "description": "스쿼드 → 상세 → 챌린지 참여 → 기록 → 리더보드",
+      "steps": [
+        { "page": "MAIN-004", "action": "select_squad" },
+        { "page": "MAIN-004", "action": "view_challenge" },
+        { "page": "MAIN-004", "action": "join_challenge" },
+        { "page": "MAIN-003", "action": "record_meal" },
+        { "page": "MAIN-004", "action": "view_leaderboard" }
+      ],
+      "estimated_duration": "3-5분",
+      "critical_path": false
+    }
+  },
+
+  "responsive_test_matrix": {
+    "breakpoints": ["mobile", "tablet", "desktop"],
+    "test_aspects": [
+      {
+        "aspect": "layout",
+        "tests": [
+          "navigation_type (bottom_nav vs sidebar)",
+          "column_layout (1 vs 2 vs 3)",
+          "modal_vs_sidepanel"
+        ]
+      },
+      {
+        "aspect": "interaction",
+        "tests": [
+          "touch_vs_hover",
+          "swipe_gestures",
+          "keyboard_navigation"
+        ]
+      },
+      {
+        "aspect": "typography",
+        "tests": [
+          "font_sizes",
+          "line_heights",
+          "text_truncation"
+        ]
+      },
+      {
+        "aspect": "images",
+        "tests": [
+          "responsive_images",
+          "aspect_ratios",
+          "lazy_loading"
+        ]
+      }
+    ]
+  },
+
+  "state_test_scenarios": {
+    "loading": {
+      "description": "로딩 상태 테스트",
+      "assertions": [
+        "skeleton_displayed",
+        "no_content_flash",
+        "loading_indicator_visible"
+      ]
+    },
+    "empty": {
+      "description": "빈 상태 테스트",
+      "assertions": [
+        "empty_message_displayed",
+        "action_cta_visible",
+        "illustration_shown"
+      ]
+    },
+    "error": {
+      "description": "에러 상태 테스트",
+      "assertions": [
+        "error_message_displayed",
+        "retry_button_visible",
+        "error_details_available"
+      ]
+    },
+    "offline": {
+      "description": "오프라인 상태 테스트",
+      "assertions": [
+        "offline_banner_shown",
+        "cached_data_displayed",
+        "reconnect_indicator"
+      ]
+    }
+  },
+
+  "execution_instructions": {
+    "setup": [
+      "1. 개발 서버 실행 (npm run dev)",
+      "2. 테스트 환경 변수 설정 (NEXT_PUBLIC_TEST_MODE=true)",
+      "3. Mock 서버 활성화 (선택사항)",
+      "4. 테스트 데이터베이스 초기화"
+    ],
+    "run_all": {
+      "command": "npx playwright test",
+      "description": "모든 테스트 실행"
+    },
+    "run_page": {
+      "command": "npx playwright test --grep @{PAGE_ID}",
+      "description": "특정 페이지 테스트 실행",
+      "example": "npx playwright test --grep @MAIN-001"
+    },
+    "run_journey": {
+      "command": "npx playwright test --grep @{JOURNEY_ID}",
+      "description": "특정 User Journey 테스트 실행",
+      "example": "npx playwright test --grep @UJ-001"
+    },
+    "run_responsive": {
+      "command": "npx playwright test --project={breakpoint}",
+      "description": "특정 브레이크포인트 테스트",
+      "example": "npx playwright test --project=mobile"
+    }
+  },
+
+  "reporting": {
+    "formats": ["html", "json", "junit"],
+    "output_dir": "./test-results",
+    "screenshots": {
+      "on_failure": true,
+      "full_page": true
+    },
+    "video": {
+      "enabled": false,
+      "on_failure": true
+    },
+    "trace": {
+      "enabled": true,
+      "on_failure": true
+    }
+  }
+}

@@ -38,7 +38,7 @@ export default function StaticMap({
     };
 
     return (
-        <div className={`relative bg-gradient-to-br from-sage-100 to-sage-200 rounded-2xl overflow-hidden ${className}`}>
+        <div className={`relative bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl overflow-hidden ${className}`}>
             {/* Map Background Pattern - Simulating a map */}
             <div className="absolute inset-0 opacity-30">
                 {/* Grid lines to simulate map */}
@@ -60,7 +60,7 @@ export default function StaticMap({
             {/* Location Label */}
             <div className="absolute top-3 left-3 right-3 z-10">
                 <div className="bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2 shadow-sm flex items-center gap-2">
-                    <Navigation className="w-4 h-4 text-coral-500" />
+                    <Navigation className="w-4 h-4 text-green-500" />
                     <span className="text-xs font-medium text-text-primary truncate">
                         {DEFAULT_LOCATION.name}
                     </span>
@@ -75,12 +75,12 @@ export default function StaticMap({
                 transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             >
                 <div className="relative">
-                    <div className="w-8 h-8 bg-coral-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white">
+                    <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white">
                         <div className="w-2 h-2 bg-white rounded-full" />
                     </div>
                     {/* Pulse animation */}
                     <motion.div
-                        className="absolute inset-0 bg-coral-400 rounded-full"
+                        className="absolute inset-0 bg-green-400 rounded-full"
                         animate={{ scale: [1, 2], opacity: [0.5, 0] }}
                         transition={{ duration: 1.5, repeat: Infinity }}
                     />
@@ -108,15 +108,15 @@ export default function StaticMap({
                         <div className={`relative ${isSelected ? 'scale-125' : ''} transition-transform`}>
                             {/* Marker Pin */}
                             <div className={`w-8 h-10 flex flex-col items-center justify-start
-                                ${isSelected ? 'text-coral-500' : 'text-sage-600'}`}>
+                                ${isSelected ? 'text-green-500' : 'text-blue-600'}`}>
                                 <MapPin className="w-8 h-8 fill-current drop-shadow-md" />
                             </div>
                             {/* Number Badge */}
                             <div className={`absolute -top-1 -right-1 w-5 h-5 rounded-full 
                                 flex items-center justify-center text-xs font-bold
                                 ${isSelected
-                                    ? 'bg-coral-500 text-white'
-                                    : 'bg-white text-sage-700 border border-sage-300'}`}>
+                                    ? 'bg-green-500 text-white'
+                                    : 'bg-white text-blue-700 border border-blue-300'}`}>
                                 {index + 1}
                             </div>
                             {/* Restaurant Name Tooltip */}
@@ -146,17 +146,17 @@ export default function StaticMap({
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3 text-xs">
                             <div className="flex items-center gap-1">
-                                <div className="w-3 h-3 bg-coral-500 rounded-full" />
+                                <div className="w-3 h-3 bg-green-500 rounded-full" />
                                 <span className="text-text-muted">현재 위치</span>
                             </div>
                             <div className="flex items-center gap-1">
-                                <MapPin className="w-3 h-3 text-sage-600" />
+                                <MapPin className="w-3 h-3 text-blue-600" />
                                 <span className="text-text-muted">음식점</span>
                             </div>
                         </div>
                         <button
                             onClick={handleOpenInMap}
-                            className="flex items-center gap-1 text-xs text-coral-600 hover:text-coral-700 font-medium"
+                            className="flex items-center gap-1 text-xs text-green-600 hover:text-green-700 font-medium"
                         >
                             <ExternalLink className="w-3 h-3" />
                             지도에서 보기

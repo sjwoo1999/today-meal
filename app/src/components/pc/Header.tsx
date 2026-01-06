@@ -1,8 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Search, Bell, Flame, Star, Trophy, ChevronDown } from 'lucide-react';
-import { useUserStore, getLevelInfo } from '@/store';
+import { Search, Bell, Flame, Star, Trophy, ChevronDown, LogOut } from 'lucide-react';
+import { useUserStore, useAuthStore, getLevelInfo } from '@/store';
 import { LEAGUE_COLORS, LeagueTier } from '@/types';
 import { useState } from 'react';
 
@@ -12,9 +12,11 @@ interface HeaderProps {
 
 export default function Header({ onSearch }: HeaderProps) {
     const user = useUserStore((state) => state.user);
+    const { logout } = useAuthStore();
     const [searchQuery, setSearchQuery] = useState('');
     const [showNotifications, setShowNotifications] = useState(false);
     const [showProfile, setShowProfile] = useState(false);
+    const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
     // Mock user data
     const mockUser = {
@@ -53,7 +55,7 @@ export default function Header({ onSearch }: HeaderProps) {
                         placeholder="음식 검색... (/ 키로 포커스)"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2 bg-gray-100 border-0 rounded-xl focus:ring-2 focus:ring-coral-500 focus:bg-white transition-all"
+                        className="w-full pl-10 pr-4 py-2 bg-gray-100 border-0 rounded-xl focus:ring-2 focus:ring-green-500 focus:bg-white transition-all"
                     />
                     <kbd className="absolute right-3 top-1/2 transform -translate-y-1/2 px-1.5 py-0.5 text-xs text-gray-400 bg-white border border-gray-200 rounded">
                         /
@@ -74,11 +76,11 @@ export default function Header({ onSearch }: HeaderProps) {
 
                 {/* XP */}
                 <motion.div
-                    className="flex items-center gap-1.5 px-3 py-1.5 bg-coral-50 rounded-full cursor-pointer hover:bg-coral-100 transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-green-50 rounded-full cursor-pointer hover:bg-green-100 transition-colors"
                     whileHover={{ scale: 1.02 }}
                 >
-                    <Star className="w-4 h-4 text-coral-500" />
-                    <span className="font-semibold text-coral-700">{displayUser.gamification.xp} XP</span>
+                    <Star className="w-4 h-4 text-green-500" />
+                    <span className="font-semibold text-green-700">{displayUser.gamification.xp} XP</span>
                 </motion.div>
 
                 {/* League */}
@@ -138,7 +140,7 @@ export default function Header({ onSearch }: HeaderProps) {
                         onClick={() => setShowProfile(!showProfile)}
                         className="flex items-center gap-2 px-3 py-1.5 rounded-xl hover:bg-gray-100 transition-colors"
                     >
-                        <div className="w-8 h-8 bg-gradient-to-br from-coral-400 to-coral-600 rounded-full flex items-center justify-center text-white font-bold">
+                        <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center text-white font-bold">
                             {displayUser.name[0]}
                         </div>
                         <span className="font-medium text-gray-700">{displayUser.name}</span>
@@ -167,7 +169,13 @@ export default function Header({ onSearch }: HeaderProps) {
                                 </button>
                             </div>
                             <div className="border-t border-gray-100 py-2">
-                                <button className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50">
+                                <button
+                                    onClick={() => {
+                                        setShowProfile(false);
+                                        setShowLogoutConfirm(true);
+                                    }}
+                                    className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50"
+                                >
                                     로그아웃
                                 </button>
                             </div>
@@ -185,6 +193,46 @@ export default function Header({ onSearch }: HeaderProps) {
                         setShowProfile(false);
                     }}
                 />
+            )}
+
+            {/* Logout Confirmation Modal */}
+            {showLogoutConfirm && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+                    <motion.div
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        className="bg-white rounded-2xl p-6 w-full max-w-sm"
+                    >
+                        <div className="text-center mb-6">
+                            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <LogOut className="w-6 h-6 text-red-500" />
+                            </div>
+                            <h3 className="text-lg font-bold text-gray-900 mb-2">
+                                로그아웃 하시겠습니까?
+                            </h3>
+                            <p className="text-sm text-gray-500">
+                                로그아웃하면 다시 로그인해야 합니다.
+                            </p>
+                        </div>
+                        <div className="flex gap-3">
+                            <button
+                                onClick={() => setShowLogoutConfirm(false)}
+                                className="flex-1 py-3 px-4 bg-gray-100 text-gray-700 font-medium rounded-xl hover:bg-gray-200 transition-colors"
+                            >
+                                취소
+                            </button>
+                            <button
+                                onClick={() => {
+                                    logout();
+                                    setShowLogoutConfirm(false);
+                                }}
+                                className="flex-1 py-3 px-4 bg-red-500 text-white font-medium rounded-xl hover:bg-red-600 transition-colors"
+                            >
+                                로그아웃
+                            </button>
+                        </div>
+                    </motion.div>
+                </div>
             )}
         </header>
     );

@@ -93,7 +93,7 @@ export default function MorningCheckIn({ onComplete }: MorningCheckInProps) {
                     className="bg-white rounded-3xl shadow-2xl w-full max-w-sm overflow-hidden"
                 >
                     {/* Header */}
-                    <div className="bg-gradient-to-r from-coral-500 to-coral-600 p-6 text-white relative">
+                    <div className="bg-gradient-to-r from-green-500 to-green-600 p-6 text-white relative">
                         <button
                             onClick={handleSkip}
                             className="absolute top-4 right-4 p-2 hover:bg-white/20 rounded-full transition-colors"
@@ -117,7 +117,7 @@ export default function MorningCheckIn({ onComplete }: MorningCheckInProps) {
                         </motion.div>
 
                         <h2 className="text-xl font-bold text-center">좋은 아침! ☀️</h2>
-                        <p className="text-coral-100 text-center text-sm mt-1">
+                        <p className="text-green-100 text-center text-sm mt-1">
                             오늘 컨디션 어때?
                         </p>
                     </div>
@@ -139,8 +139,8 @@ export default function MorningCheckIn({ onComplete }: MorningCheckInProps) {
                                             onClick={() => handleConditionSelect(option.value)}
                                             className={`w-full flex items-center gap-4 p-4 rounded-2xl border-2 transition-all
                                                 ${selectedCondition === option.value
-                                                    ? 'border-coral-500 bg-coral-50'
-                                                    : 'border-gray-200 hover:border-coral-300 hover:bg-gray-50'
+                                                    ? 'border-green-500 bg-green-50'
+                                                    : 'border-gray-200 hover:border-green-300 hover:bg-gray-50'
                                                 }`}
                                             initial={{ opacity: 0, x: -20 }}
                                             animate={{ opacity: 1, x: 0 }}

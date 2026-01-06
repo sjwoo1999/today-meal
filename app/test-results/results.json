@@ -1,0 +1,3573 @@
+{
+  "config": {
+    "configFile": "/Users/_woo_s.j/Desktop/woo/workspace/today-meal/app/playwright.config.ts",
+    "rootDir": "/Users/_woo_s.j/Desktop/woo/workspace/today-meal/app/e2e",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 4
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "list",
+        {
+          "printSteps": true
+        }
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "playwright-report",
+          "open": "never"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/Users/_woo_s.j/Desktop/woo/workspace/today-meal/app/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "mobile",
+        "name": "mobile",
+        "testDir": "/Users/_woo_s.j/Desktop/woo/workspace/today-meal/app/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/_woo_s.j/Desktop/woo/workspace/today-meal/app/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "tablet",
+        "name": "tablet",
+        "testDir": "/Users/_woo_s.j/Desktop/woo/workspace/today-meal/app/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/_woo_s.j/Desktop/woo/workspace/today-meal/app/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "desktop",
+        "name": "desktop",
+        "testDir": "/Users/_woo_s.j/Desktop/woo/workspace/today-meal/app/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.57.0",
+    "workers": 4,
+    "webServer": {
+      "command": "npm run dev",
+      "url": "http://localhost:3000",
+      "reuseExistingServer": true,
+      "timeout": 120000
+    }
+  },
+  "suites": [
+    {
+      "title": "auth/onboarding.spec.ts",
+      "file": "auth/onboarding.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "@AUTH-004 Onboarding Page",
+          "file": "auth/onboarding.spec.ts",
+          "line": 8,
+          "column": 6,
+          "specs": [],
+          "suites": [
+            {
+              "title": "Step 1: Goal Selection",
+              "file": "auth/onboarding.spec.ts",
+              "line": 14,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "AUTH-004-TC01: should display step 1 indicator",
+                  "ok": true,
+                  "tags": [
+                    "AUTH-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1429,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:27.858Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "d899a1c95cfd0e603eb0-fb588229da49bbc23451",
+                  "file": "auth/onboarding.spec.ts",
+                  "line": 15,
+                  "column": 9
+                },
+                {
+                  "title": "should display all goal options",
+                  "ok": true,
+                  "tags": [
+                    "AUTH-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 1,
+                          "status": "passed",
+                          "duration": 1441,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:27.767Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "d899a1c95cfd0e603eb0-e5f38603cef5be19d4fb",
+                  "file": "auth/onboarding.spec.ts",
+                  "line": 22,
+                  "column": 9
+                },
+                {
+                  "title": "should select goal and highlight it",
+                  "ok": true,
+                  "tags": [
+                    "AUTH-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "parallelIndex": 2,
+                          "status": "passed",
+                          "duration": 1781,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:27.771Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "d899a1c95cfd0e603eb0-302a70be3bc97de52931",
+                  "file": "auth/onboarding.spec.ts",
+                  "line": 28,
+                  "column": 9
+                },
+                {
+                  "title": "should proceed to step 2 after goal selection",
+                  "ok": true,
+                  "tags": [
+                    "AUTH-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 3,
+                          "status": "passed",
+                          "duration": 1838,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:27.756Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "d899a1c95cfd0e603eb0-346e7b87d8eab79f9f13",
+                  "file": "auth/onboarding.spec.ts",
+                  "line": 36,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Step 2: Body Information",
+              "file": "auth/onboarding.spec.ts",
+              "line": 45,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "AUTH-004-TC02: should input body information",
+                  "ok": true,
+                  "tags": [
+                    "AUTH-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1974,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:29.905Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "d899a1c95cfd0e603eb0-b79aa56da444a1b5380c",
+                  "file": "auth/onboarding.spec.ts",
+                  "line": 52,
+                  "column": 9
+                },
+                {
+                  "title": "should validate numeric inputs",
+                  "ok": true,
+                  "tags": [
+                    "AUTH-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 1,
+                          "status": "passed",
+                          "duration": 1719,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:29.910Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "d899a1c95cfd0e603eb0-7cb038122e6024df3c92",
+                  "file": "auth/onboarding.spec.ts",
+                  "line": 68,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Step 3: Activity Level",
+              "file": "auth/onboarding.spec.ts",
+              "line": 83,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "AUTH-004-TC03: should select activity level",
+                  "ok": true,
+                  "tags": [
+                    "AUTH-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "parallelIndex": 2,
+                          "status": "passed",
+                          "duration": 2432,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:30.245Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "d899a1c95cfd0e603eb0-09a7f86ad162e5aedb91",
+                  "file": "auth/onboarding.spec.ts",
+                  "line": 95,
+                  "column": 9
+                },
+                {
+                  "title": "should display all activity options",
+                  "ok": true,
+                  "tags": [
+                    "AUTH-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 3,
+                          "status": "passed",
+                          "duration": 2179,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:30.318Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "d899a1c95cfd0e603eb0-08eca921ccf98faffa21",
+                  "file": "auth/onboarding.spec.ts",
+                  "line": 103,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Step 4: Diet Preferences",
+              "file": "auth/onboarding.spec.ts",
+              "line": 111,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "AUTH-004-TC04: should complete onboarding with diet preference",
+                  "ok": true,
+                  "tags": [
+                    "AUTH-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 1,
+                          "status": "passed",
+                          "duration": 2258,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:31.641Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "d899a1c95cfd0e603eb0-5f3add9c50427ffbb51d",
+                  "file": "auth/onboarding.spec.ts",
+                  "line": 125,
+                  "column": 9
+                },
+                {
+                  "title": "should allow skipping diet preferences",
+                  "ok": true,
+                  "tags": [
+                    "AUTH-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 2292,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:31.887Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "d899a1c95cfd0e603eb0-5f0e2597ba514badfa84",
+                  "file": "auth/onboarding.spec.ts",
+                  "line": 138,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Desktop Keyboard Navigation",
+              "file": "auth/onboarding.spec.ts",
+              "line": 147,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "AUTH-004-TC05: Enter key should advance to next step",
+                  "ok": true,
+                  "tags": [
+                    "AUTH-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "description": "Keyboard navigation only enabled on desktop (1280px+)",
+                          "location": {
+                            "file": "/Users/_woo_s.j/Desktop/woo/workspace/today-meal/app/e2e/auth/onboarding.spec.ts",
+                            "line": 149,
+                            "column": 10
+                          }
+                        }
+                      ],
+                      "expectedStatus": "skipped",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 3,
+                          "status": "skipped",
+                          "duration": 354,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:32.537Z",
+                          "annotations": [
+                            {
+                              "type": "skip",
+                              "description": "Keyboard navigation only enabled on desktop (1280px+)",
+                              "location": {
+                                "file": "/Users/_woo_s.j/Desktop/woo/workspace/today-meal/app/e2e/auth/onboarding.spec.ts",
+                                "line": 149,
+                                "column": 10
+                              }
+                            }
+                          ],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "d899a1c95cfd0e603eb0-2dfdadbfd9f8a99bea99",
+                  "file": "auth/onboarding.spec.ts",
+                  "line": 152,
+                  "column": 9
+                },
+                {
+                  "title": "AUTH-004-TC06: Escape key should go to previous step",
+                  "ok": true,
+                  "tags": [
+                    "AUTH-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "description": "Keyboard navigation only enabled on desktop (1280px+)",
+                          "location": {
+                            "file": "/Users/_woo_s.j/Desktop/woo/workspace/today-meal/app/e2e/auth/onboarding.spec.ts",
+                            "line": 149,
+                            "column": 10
+                          }
+                        }
+                      ],
+                      "expectedStatus": "skipped",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "parallelIndex": 2,
+                          "status": "skipped",
+                          "duration": 385,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:32.687Z",
+                          "annotations": [
+                            {
+                              "type": "skip",
+                              "description": "Keyboard navigation only enabled on desktop (1280px+)",
+                              "location": {
+                                "file": "/Users/_woo_s.j/Desktop/woo/workspace/today-meal/app/e2e/auth/onboarding.spec.ts",
+                                "line": 149,
+                                "column": 10
+                              }
+                            }
+                          ],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "d899a1c95cfd0e603eb0-fe817d2abb6b5dd4f8f9",
+                  "file": "auth/onboarding.spec.ts",
+                  "line": 160,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Skip Functionality",
+              "file": "auth/onboarding.spec.ts",
+              "line": 173,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "AUTH-004-TC06: should navigate to home when clicking skip",
+                  "ok": true,
+                  "tags": [
+                    "AUTH-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 3,
+                          "status": "passed",
+                          "duration": 805,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:32.904Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "d899a1c95cfd0e603eb0-cc0d274029fdcffa2a7c",
+                  "file": "auth/onboarding.spec.ts",
+                  "line": 174,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Progress Indicator",
+              "file": "auth/onboarding.spec.ts",
+              "line": 187,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should show progress bar or step dots",
+                  "ok": true,
+                  "tags": [
+                    "AUTH-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "parallelIndex": 2,
+                          "status": "passed",
+                          "duration": 400,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:33.083Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "d899a1c95cfd0e603eb0-eca4bfa64a842fc7045e",
+                  "file": "auth/onboarding.spec.ts",
+                  "line": 188,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Responsive Layout",
+              "file": "auth/onboarding.spec.ts",
+              "line": 195,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should display correctly on mobile",
+                  "ok": true,
+                  "tags": [
+                    "AUTH-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "parallelIndex": 2,
+                          "status": "passed",
+                          "duration": 435,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:33.494Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "d899a1c95cfd0e603eb0-093719caddaa9bef868a",
+                  "file": "auth/onboarding.spec.ts",
+                  "line": 196,
+                  "column": 9
+                },
+                {
+                  "title": "should display desktop layout with sidebar",
+                  "ok": true,
+                  "tags": [
+                    "AUTH-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 3,
+                          "status": "passed",
+                          "duration": 467,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:33.719Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "d899a1c95cfd0e603eb0-3fc9d24156fa7d1373e7",
+                  "file": "auth/onboarding.spec.ts",
+                  "line": 203,
+                  "column": 9
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "@UJ-001 New User Onboarding Journey",
+          "file": "auth/onboarding.spec.ts",
+          "line": 216,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should complete full onboarding flow",
+              "ok": true,
+              "tags": [
+                "UJ-001"
+              ],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "tablet",
+                  "projectName": "tablet",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 3168,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-06T13:10:33.910Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d899a1c95cfd0e603eb0-66eaa49b5cca7e4ae830",
+              "file": "auth/onboarding.spec.ts",
+              "line": 217,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "journeys/meal-recording.spec.ts",
+      "file": "journeys/meal-recording.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "@UJ-002 Meal Recording Journey",
+          "file": "journeys/meal-recording.spec.ts",
+          "line": 11,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should complete full meal recording flow",
+              "ok": true,
+              "tags": [
+                "UJ-002"
+              ],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "tablet",
+                  "projectName": "tablet",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 2525,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-06T13:10:33.945Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "03fdb3377e5103fc4a48-5887fe1daf27799c8d04",
+              "file": "journeys/meal-recording.spec.ts",
+              "line": 17,
+              "column": 7
+            },
+            {
+              "title": "should display camera and gallery options",
+              "ok": true,
+              "tags": [
+                "UJ-002"
+              ],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "tablet",
+                  "projectName": "tablet",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2291,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-06T13:10:34.199Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "03fdb3377e5103fc4a48-9619329804041f85173f",
+              "file": "journeys/meal-recording.spec.ts",
+              "line": 37,
+              "column": 7
+            },
+            {
+              "title": "should show AI analyzing state after image selection",
+              "ok": true,
+              "tags": [
+                "UJ-002"
+              ],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "tablet",
+                  "projectName": "tablet",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 1618,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-06T13:10:34.207Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "03fdb3377e5103fc4a48-8571d92932d7a8a61054",
+              "file": "journeys/meal-recording.spec.ts",
+              "line": 55,
+              "column": 7
+            },
+            {
+              "title": "should display recognition results after AI analysis",
+              "ok": true,
+              "tags": [
+                "UJ-002"
+              ],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "tablet",
+                  "projectName": "tablet",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 1280,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-06T13:10:35.845Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "03fdb3377e5103fc4a48-b2f2e8970e24465a84e6",
+              "file": "journeys/meal-recording.spec.ts",
+              "line": 71,
+              "column": 7
+            },
+            {
+              "title": "should allow editing nutrition information",
+              "ok": true,
+              "tags": [
+                "UJ-002"
+              ],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "tablet",
+                  "projectName": "tablet",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 1048,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-06T13:10:36.494Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "03fdb3377e5103fc4a48-14475e2d24a4c0d193ea",
+              "file": "journeys/meal-recording.spec.ts",
+              "line": 84,
+              "column": 7
+            },
+            {
+              "title": "should allow meal type selection",
+              "ok": true,
+              "tags": [
+                "UJ-002"
+              ],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "tablet",
+                  "projectName": "tablet",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1039,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-06T13:10:36.509Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "03fdb3377e5103fc4a48-054010e6921af2c832fb",
+              "file": "journeys/meal-recording.spec.ts",
+              "line": 108,
+              "column": 7
+            },
+            {
+              "title": "should show XP popup after successful record",
+              "ok": true,
+              "tags": [
+                "UJ-002"
+              ],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "tablet",
+                  "projectName": "tablet",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 896,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-06T13:10:37.096Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "03fdb3377e5103fc4a48-44c807ce82b053994996",
+              "file": "journeys/meal-recording.spec.ts",
+              "line": 129,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "@MAIN-003 Record Page",
+          "file": "journeys/meal-recording.spec.ts",
+          "line": 152,
+          "column": 6,
+          "specs": [],
+          "suites": [
+            {
+              "title": "Image Selection",
+              "file": "journeys/meal-recording.spec.ts",
+              "line": 158,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "MAIN-003-TC01: should display image selection options",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-003"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 3,
+                          "status": "passed",
+                          "duration": 1020,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:37.144Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "03fdb3377e5103fc4a48-c94829609c90807298d9",
+                  "file": "journeys/meal-recording.spec.ts",
+                  "line": 159,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "AI Analysis",
+              "file": "journeys/meal-recording.spec.ts",
+              "line": 174,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "MAIN-003-TC02: should show loading state during AI analysis",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-003"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "parallelIndex": 2,
+                          "status": "passed",
+                          "duration": 838,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:37.568Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "03fdb3377e5103fc4a48-dae8297c7dfc7fe0b0aa",
+                  "file": "journeys/meal-recording.spec.ts",
+                  "line": 175,
+                  "column": 9
+                },
+                {
+                  "title": "MAIN-003-TC03: should display recognition results",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-003"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 820,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:37.568Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "03fdb3377e5103fc4a48-bde4b1656ee94ed33b6f",
+                  "file": "journeys/meal-recording.spec.ts",
+                  "line": 184,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Nutrition Editing",
+              "file": "journeys/meal-recording.spec.ts",
+              "line": 191,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "MAIN-003-TC04: should allow editing nutrition values",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-003"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 1,
+                          "status": "passed",
+                          "duration": 798,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:38.004Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "03fdb3377e5103fc4a48-c08aba532b65bd94bbca",
+                  "file": "journeys/meal-recording.spec.ts",
+                  "line": 192,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Meal Time Selection",
+              "file": "journeys/meal-recording.spec.ts",
+              "line": 216,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "MAIN-003-TC05: should allow selecting meal time",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-003"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 3,
+                          "status": "passed",
+                          "duration": 1297,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:38.188Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "03fdb3377e5103fc4a48-4c765b12dc4b7f5aee95",
+                  "file": "journeys/meal-recording.spec.ts",
+                  "line": 217,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Record Completion",
+              "file": "journeys/meal-recording.spec.ts",
+              "line": 240,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "MAIN-003-TC06: should complete record and show reward",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-003"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 831,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:38.408Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "03fdb3377e5103fc4a48-2814353e975380b4c8e0",
+                  "file": "journeys/meal-recording.spec.ts",
+                  "line": 241,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "State Handling",
+              "file": "journeys/meal-recording.spec.ts",
+              "line": 257,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "loading state: should show animation during AI analysis",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-003"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "parallelIndex": 2,
+                          "status": "passed",
+                          "duration": 807,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:38.426Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "03fdb3377e5103fc4a48-9985be6f070c9896c9f2",
+                  "file": "journeys/meal-recording.spec.ts",
+                  "line": 258,
+                  "column": 9
+                },
+                {
+                  "title": "error state: should show manual input option on recognition failure",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-003"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 1,
+                          "status": "passed",
+                          "duration": 801,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:38.809Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "03fdb3377e5103fc4a48-da128e7fc4c2ba454a39",
+                  "file": "journeys/meal-recording.spec.ts",
+                  "line": 263,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Recent Records",
+              "file": "journeys/meal-recording.spec.ts",
+              "line": 274,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should display recent meal records",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-003"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "parallelIndex": 2,
+                          "status": "passed",
+                          "duration": 788,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:39.245Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "03fdb3377e5103fc4a48-03db8ec0eb361588854d",
+                  "file": "journeys/meal-recording.spec.ts",
+                  "line": 275,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Quick Record Options",
+              "file": "journeys/meal-recording.spec.ts",
+              "line": 284,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should provide quick record options for common meals",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-003"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 817,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:39.245Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "03fdb3377e5103fc4a48-6932045904736941021d",
+                  "file": "journeys/meal-recording.spec.ts",
+                  "line": 285,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Responsive Layout",
+              "file": "journeys/meal-recording.spec.ts",
+              "line": 295,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should display correctly on mobile",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-003"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 3,
+                          "status": "passed",
+                          "duration": 816,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:39.497Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "03fdb3377e5103fc4a48-a80a6d10d75781b27704",
+                  "file": "journeys/meal-recording.spec.ts",
+                  "line": 296,
+                  "column": 9
+                },
+                {
+                  "title": "should display correctly on desktop",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-003"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 1,
+                          "status": "passed",
+                          "duration": 773,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:39.636Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "03fdb3377e5103fc4a48-5fa1aa5e82b111adaf99",
+                  "file": "journeys/meal-recording.spec.ts",
+                  "line": 303,
+                  "column": 9
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Manual Meal Input",
+          "file": "journeys/meal-recording.spec.ts",
+          "line": 319,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should allow manual food entry",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "tablet",
+                  "projectName": "tablet",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 817,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-06T13:10:40.043Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "03fdb3377e5103fc4a48-5ba84e53ae6eb329c023",
+              "file": "journeys/meal-recording.spec.ts",
+              "line": 320,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "pages/feed.spec.ts",
+      "file": "pages/feed.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "@MAIN-002 Feed Page",
+          "file": "pages/feed.spec.ts",
+          "line": 8,
+          "column": 6,
+          "specs": [],
+          "suites": [
+            {
+              "title": "Story Bar",
+              "file": "pages/feed.spec.ts",
+              "line": 16,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "MAIN-002-TC01: should display story bar",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-002"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1336,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:40.076Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "2cb9b5d0b22a3dc36873-a27a6669d63917022b0d",
+                  "file": "pages/feed.spec.ts",
+                  "line": 17,
+                  "column": 9
+                },
+                {
+                  "title": "should allow horizontal scroll on story bar",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-002"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 3,
+                          "status": "passed",
+                          "duration": 1083,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:40.336Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "2cb9b5d0b22a3dc36873-5dc137d3344ec4990531",
+                  "file": "pages/feed.spec.ts",
+                  "line": 22,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "HOT Posts",
+              "file": "pages/feed.spec.ts",
+              "line": 33,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "MAIN-002-TC02: should display HOT posts carousel",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-002"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 1,
+                          "status": "passed",
+                          "duration": 993,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:40.421Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "2cb9b5d0b22a3dc36873-858ddedac246d4d8ddc9",
+                  "file": "pages/feed.spec.ts",
+                  "line": 34,
+                  "column": 9
+                },
+                {
+                  "title": "should navigate to post detail when clicking HOT post",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-002"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "parallelIndex": 2,
+                          "status": "passed",
+                          "duration": 815,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:40.874Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "2cb9b5d0b22a3dc36873-919a4ae77e17189267ed",
+                  "file": "pages/feed.spec.ts",
+                  "line": 39,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Refresh Functionality",
+              "file": "pages/feed.spec.ts",
+              "line": 49,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "MAIN-002-TC03: should show loading animation on refresh",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-002"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 2461,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:41.421Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "2cb9b5d0b22a3dc36873-c6045a8f96bc3e565aec",
+                  "file": "pages/feed.spec.ts",
+                  "line": 50,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Header Elements",
+              "file": "pages/feed.spec.ts",
+              "line": 65,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "MAIN-002-TC04: should display point balance",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-002"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 1,
+                          "status": "passed",
+                          "duration": 855,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:41.423Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "2cb9b5d0b22a3dc36873-c2886596569722d868ad",
+                  "file": "pages/feed.spec.ts",
+                  "line": 66,
+                  "column": 9
+                },
+                {
+                  "title": "should display notification badge",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-002"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 3,
+                          "status": "passed",
+                          "duration": 865,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:41.435Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "2cb9b5d0b22a3dc36873-81a8074ec746af2fdd50",
+                  "file": "pages/feed.spec.ts",
+                  "line": 71,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Feed Content",
+              "file": "pages/feed.spec.ts",
+              "line": 77,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should display feed posts",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-002"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "parallelIndex": 2,
+                          "status": "passed",
+                          "duration": 1732,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:41.702Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "2cb9b5d0b22a3dc36873-473b98a870f98d4dc7fa",
+                  "file": "pages/feed.spec.ts",
+                  "line": 78,
+                  "column": 9
+                },
+                {
+                  "title": "should scroll infinitely (load more)",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-002"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 1,
+                          "status": "passed",
+                          "duration": 1852,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:42.292Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "2cb9b5d0b22a3dc36873-1fa87a1e0f7988e3f585",
+                  "file": "pages/feed.spec.ts",
+                  "line": 89,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "State Handling",
+              "file": "pages/feed.spec.ts",
+              "line": 102,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "loading state: should show skeleton during initial load",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-002"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 3,
+                          "status": "passed",
+                          "duration": 1124,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:42.309Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "2cb9b5d0b22a3dc36873-1f6cba890db544ac6312",
+                  "file": "pages/feed.spec.ts",
+                  "line": 103,
+                  "column": 9
+                },
+                {
+                  "title": "empty state: should show message when no posts",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-002"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 3,
+                          "status": "passed",
+                          "duration": 887,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:43.443Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "2cb9b5d0b22a3dc36873-750634470af8a8f33b41",
+                  "file": "pages/feed.spec.ts",
+                  "line": 112,
+                  "column": 9
+                },
+                {
+                  "title": "error state: should show retry button on error",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-002"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "parallelIndex": 2,
+                          "status": "passed",
+                          "duration": 897,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:43.449Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "2cb9b5d0b22a3dc36873-d29a8f4d1f8bbe732104",
+                  "file": "pages/feed.spec.ts",
+                  "line": 121,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Post Interactions",
+              "file": "pages/feed.spec.ts",
+              "line": 130,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should be able to like a post",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-002"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 789,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:43.902Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "2cb9b5d0b22a3dc36873-0f44117e9dabdf2f3c22",
+                  "file": "pages/feed.spec.ts",
+                  "line": 131,
+                  "column": 9
+                },
+                {
+                  "title": "should be able to bookmark a post",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-002"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 1,
+                          "status": "passed",
+                          "duration": 1079,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:44.160Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "2cb9b5d0b22a3dc36873-35bffaf3863fe231e5ab",
+                  "file": "pages/feed.spec.ts",
+                  "line": 140,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Responsive Layout",
+              "file": "pages/feed.spec.ts",
+              "line": 150,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should show bottom nav on mobile",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-002"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "parallelIndex": 2,
+                          "status": "passed",
+                          "duration": 1011,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:44.392Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "2cb9b5d0b22a3dc36873-ac14441442949b08c010",
+                  "file": "pages/feed.spec.ts",
+                  "line": 151,
+                  "column": 9
+                },
+                {
+                  "title": "should show sidebar on desktop",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-002"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 3,
+                          "status": "passed",
+                          "duration": 1056,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:44.396Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "2cb9b5d0b22a3dc36873-114681e170bab7cd561d",
+                  "file": "pages/feed.spec.ts",
+                  "line": 157,
+                  "column": 9
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "@UJ-004 Community Interaction Journey",
+          "file": "pages/feed.spec.ts",
+          "line": 173,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should complete feed to profile interaction",
+              "ok": true,
+              "tags": [
+                "UJ-004"
+              ],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "tablet",
+                  "projectName": "tablet",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 585,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-06T13:10:44.705Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2cb9b5d0b22a3dc36873-4befdf8bb27ae129b7db",
+              "file": "pages/feed.spec.ts",
+              "line": 174,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "pages/shop.spec.ts",
+      "file": "pages/shop.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "@MAIN-006 Shop Page",
+          "file": "pages/shop.spec.ts",
+          "line": 8,
+          "column": 6,
+          "specs": [],
+          "suites": [
+            {
+              "title": "Points Display",
+              "file": "pages/shop.spec.ts",
+              "line": 18,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "MAIN-006-TC01: should display user points balance",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-006"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 1,
+                          "status": "passed",
+                          "duration": 2343,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:45.275Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "c8f654d6beed1c7bb9c8-8991151f46e3be1c259d",
+                  "file": "pages/shop.spec.ts",
+                  "line": 19,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Category Filter",
+              "file": "pages/shop.spec.ts",
+              "line": 29,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "MAIN-006-TC02: should filter items by category",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-006"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 2481,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:45.302Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "c8f654d6beed1c7bb9c8-92097c1e2663b92174c8",
+                  "file": "pages/shop.spec.ts",
+                  "line": 30,
+                  "column": 9
+                },
+                {
+                  "title": "should display multiple category tabs",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-006"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "parallelIndex": 2,
+                          "status": "passed",
+                          "duration": 2211,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:45.416Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "c8f654d6beed1c7bb9c8-7b042608052189a84320",
+                  "file": "pages/shop.spec.ts",
+                  "line": 49,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Item Detail Modal",
+              "file": "pages/shop.spec.ts",
+              "line": 56,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "MAIN-006-TC03: should open item detail modal on click",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-006"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 3,
+                          "status": "passed",
+                          "duration": 2277,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:45.471Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "c8f654d6beed1c7bb9c8-c63b0ffc8311a8e578cc",
+                  "file": "pages/shop.spec.ts",
+                  "line": 57,
+                  "column": 9
+                },
+                {
+                  "title": "should close modal on backdrop click or close button",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-006"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "parallelIndex": 2,
+                          "status": "passed",
+                          "duration": 3882,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:47.658Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "c8f654d6beed1c7bb9c8-5fdaafebb77c04b048ed",
+                  "file": "pages/shop.spec.ts",
+                  "line": 71,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Purchase Flow",
+              "file": "pages/shop.spec.ts",
+              "line": 89,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "MAIN-006-TC04: should complete purchase with sufficient points",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-006"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 1,
+                          "status": "passed",
+                          "duration": 8046,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:47.671Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "c8f654d6beed1c7bb9c8-55bb70d77724cd11d4b0",
+                  "file": "pages/shop.spec.ts",
+                  "line": 90,
+                  "column": 9
+                },
+                {
+                  "title": "MAIN-006-TC05: should show insufficient points message",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-006"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 3,
+                          "status": "passed",
+                          "duration": 2044,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:47.773Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "c8f654d6beed1c7bb9c8-c1ba842a671eef62c008",
+                  "file": "pages/shop.spec.ts",
+                  "line": 131,
+                  "column": 9
+                },
+                {
+                  "title": "MAIN-006-TC06: should disable purchase for owned items",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-006"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1944,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:47.795Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "c8f654d6beed1c7bb9c8-ef93ffd850632bd5c5b6",
+                  "file": "pages/shop.spec.ts",
+                  "line": 156,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "State Handling",
+              "file": "pages/shop.spec.ts",
+              "line": 167,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "loading state: should show skeleton during load",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-006"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 2140,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:49.754Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "c8f654d6beed1c7bb9c8-466989d037d5763f1cc2",
+                  "file": "pages/shop.spec.ts",
+                  "line": 168,
+                  "column": 9
+                },
+                {
+                  "title": "empty state: should show message when no items",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-006"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 3,
+                          "status": "passed",
+                          "duration": 1820,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:49.829Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "c8f654d6beed1c7bb9c8-55d427364c1ff82ff30f",
+                  "file": "pages/shop.spec.ts",
+                  "line": 177,
+                  "column": 9
+                },
+                {
+                  "title": "error state: should show retry on error",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-006"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "parallelIndex": 2,
+                          "status": "passed",
+                          "duration": 1833,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:51.562Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "c8f654d6beed1c7bb9c8-a0f644f8ce7dc96c86a1",
+                  "file": "pages/shop.spec.ts",
+                  "line": 184,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Shop Grid Layout",
+              "file": "pages/shop.spec.ts",
+              "line": 193,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should display items in grid layout",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-006"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 3,
+                          "status": "passed",
+                          "duration": 1835,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:51.660Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "c8f654d6beed1c7bb9c8-9766dd5e71ec34872ea4",
+                  "file": "pages/shop.spec.ts",
+                  "line": 194,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Inventory Section",
+              "file": "pages/shop.spec.ts",
+              "line": 204,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should show owned items section",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-006"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1741,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:51.903Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "c8f654d6beed1c7bb9c8-0eaf8c671acaf1fb1379",
+                  "file": "pages/shop.spec.ts",
+                  "line": 205,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Responsive Layout",
+              "file": "pages/shop.spec.ts",
+              "line": 211,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should adjust grid columns based on viewport",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-006"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "parallelIndex": 2,
+                          "status": "passed",
+                          "duration": 1844,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:53.403Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "c8f654d6beed1c7bb9c8-6e67ffbcf324ec2f9453",
+                  "file": "pages/shop.spec.ts",
+                  "line": 212,
+                  "column": 9
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "pages/squad.spec.ts",
+      "file": "pages/squad.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "@MAIN-004 Squad Page",
+          "file": "pages/squad.spec.ts",
+          "line": 8,
+          "column": 6,
+          "specs": [],
+          "suites": [
+            {
+              "title": "Tab Navigation",
+              "file": "pages/squad.spec.ts",
+              "line": 20,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "MAIN-004-TC01: should switch between tabs",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 3,
+                          "status": "passed",
+                          "duration": 2475,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:53.507Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "1106798d695db49323cd-66b68639d02178571018",
+                  "file": "pages/squad.spec.ts",
+                  "line": 21,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Squad Search",
+              "file": "pages/squad.spec.ts",
+              "line": 45,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "MAIN-004-TC02: should filter squads by search",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1911,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:53.655Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "1106798d695db49323cd-86f678dc6bad385ea537",
+                  "file": "pages/squad.spec.ts",
+                  "line": 46,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Create Squad",
+              "file": "pages/squad.spec.ts",
+              "line": 68,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "MAIN-004-TC03: should open create squad modal",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "parallelIndex": 2,
+                          "status": "passed",
+                          "duration": 1032,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:55.261Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "1106798d695db49323cd-9f5dd681b1d541d7b69f",
+                  "file": "pages/squad.spec.ts",
+                  "line": 69,
+                  "column": 9
+                },
+                {
+                  "title": "should create squad with valid input",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1059,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:55.576Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "1106798d695db49323cd-79f42b67f336df5ad0f7",
+                  "file": "pages/squad.spec.ts",
+                  "line": 79,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Squad Detail Navigation",
+              "file": "pages/squad.spec.ts",
+              "line": 98,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "MAIN-004-TC04: should navigate to squad detail",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 1,
+                          "status": "passed",
+                          "duration": 1065,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:55.754Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "1106798d695db49323cd-cc4ebb0b738aa796d2c0",
+                  "file": "pages/squad.spec.ts",
+                  "line": 99,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "State Handling",
+              "file": "pages/squad.spec.ts",
+              "line": 110,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "loading state: should show skeleton during load",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 3,
+                          "status": "passed",
+                          "duration": 1404,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:55.996Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "1106798d695db49323cd-b35081501329810eacd6",
+                  "file": "pages/squad.spec.ts",
+                  "line": 111,
+                  "column": 9
+                },
+                {
+                  "title": "empty state: should show message when no squads",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "parallelIndex": 2,
+                          "status": "passed",
+                          "duration": 1100,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:56.303Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "1106798d695db49323cd-9c101ab405289b4cdcb5",
+                  "file": "pages/squad.spec.ts",
+                  "line": 119,
+                  "column": 9
+                },
+                {
+                  "title": "error state: should show retry button on error",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1134,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:56.647Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "1106798d695db49323cd-5624bada673464389f5d",
+                  "file": "pages/squad.spec.ts",
+                  "line": 126,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Squad Card Information",
+              "file": "pages/squad.spec.ts",
+              "line": 135,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should display squad name and member count",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 1,
+                          "status": "passed",
+                          "duration": 995,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:56.837Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "1106798d695db49323cd-13fb8fb9b8640f065e62",
+                  "file": "pages/squad.spec.ts",
+                  "line": 136,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Challenge Section",
+              "file": "pages/squad.spec.ts",
+              "line": 148,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should display active challenges",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "parallelIndex": 2,
+                          "status": "passed",
+                          "duration": 1451,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:57.416Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "1106798d695db49323cd-ff986e350bef4849ef7b",
+                  "file": "pages/squad.spec.ts",
+                  "line": 149,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Join Squad Flow",
+              "file": "pages/squad.spec.ts",
+              "line": 163,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should be able to join a public squad",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 3,
+                          "status": "passed",
+                          "duration": 1284,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:57.417Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "1106798d695db49323cd-9f0e4d3913e67f884cb4",
+                  "file": "pages/squad.spec.ts",
+                  "line": 164,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Responsive Layout",
+              "file": "pages/squad.spec.ts",
+              "line": 181,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should display correctly on mobile",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1108,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:57.802Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "1106798d695db49323cd-520e3c344ce856e9c582",
+                  "file": "pages/squad.spec.ts",
+                  "line": 182,
+                  "column": 9
+                },
+                {
+                  "title": "should display sidebar on desktop",
+                  "ok": true,
+                  "tags": [
+                    "MAIN-004"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "tablet",
+                      "projectName": "tablet",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 1,
+                          "status": "passed",
+                          "duration": 1068,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-06T13:10:57.844Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "1106798d695db49323cd-f223e4529ce79fdf09d2",
+                  "file": "pages/squad.spec.ts",
+                  "line": 188,
+                  "column": 9
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "@UJ-005 Squad Challenge Journey",
+          "file": "pages/squad.spec.ts",
+          "line": 204,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should complete challenge participation flow",
+              "ok": true,
+              "tags": [
+                "UJ-005"
+              ],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "tablet",
+                  "projectName": "tablet",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 444,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-06T13:10:58.717Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1106798d695db49323cd-d771c7d9cf7fcdf25ea9",
+              "file": "pages/squad.spec.ts",
+              "line": 205,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-01-06T13:10:22.295Z",
+    "duration": 36947.202,
+    "expected": 80,
+    "skipped": 2,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

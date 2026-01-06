@@ -1,0 +1,680 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "meta": {
+    "title": "OneMealToday 기능 구현 프롬프트",
+    "version": "1.0.0",
+    "created": "2026-01-06",
+    "author": "Claude",
+    "purpose": "인식결과 페이지 추가 및 스쿼드 목업 데이터 확장"
+  },
+
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "title": "AI 음식 인식결과 페이지 구현",
+      "priority": "high",
+      "category": "feature",
+      "description": "식사 기록 플로우에서 AI가 음식을 분석한 후 결과를 보여주는 전용 페이지/컴포넌트 구현",
+
+      "user_flow": {
+        "sequence": [
+          "1. 사용자가 카메라/갤러리에서 음식 이미지 선택",
+          "2. AI 분석 중 로딩 상태 표시 (ai-analyzing)",
+          "3. 분석 완료 후 인식결과 페이지로 전환",
+          "4. 사용자가 결과 확인/수정 후 저장"
+        ],
+        "entry_points": [
+          "RecordPage → 이미지 선택 → 분석 중 → 인식결과",
+          "FoodRecordFlow 컴포넌트 내부 단계"
+        ]
+      },
+
+      "requirements": {
+        "ui_components": [
+          {
+            "name": "RecognitionResultPage",
+            "path": "app/src/components/record/RecognitionResultPage.tsx",
+            "description": "AI 인식결과 메인 페이지 컴포넌트",
+            "features": [
+              "인식된 음식 이미지 썸네일",
+              "음식명 및 신뢰도 표시",
+              "영양정보 (칼로리, 단백질, 탄수화물, 지방)",
+              "수정 버튼 (음식명, 영양정보)",
+              "식사 타입 선택 (아침/점심/저녁/간식)",
+              "저장 버튼"
+            ]
+          },
+          {
+            "name": "NutritionEditModal",
+            "path": "app/src/components/record/NutritionEditModal.tsx",
+            "description": "영양정보 수정 모달",
+            "features": [
+              "각 영양소별 숫자 입력",
+              "단위 표시 (kcal, g)",
+              "저장/취소 버튼"
+            ]
+          },
+          {
+            "name": "FoodNameEditModal",
+            "path": "app/src/components/record/FoodNameEditModal.tsx",
+            "description": "음식명 수정 모달",
+            "features": [
+              "텍스트 입력 필드",
+              "최근 검색어 추천",
+              "저장/취소 버튼"
+            ]
+          }
+        ],
+
+        "data_testid_attributes": [
+          "recognition-result: 인식결과 페이지 컨테이너",
+          "recognized-food-image: 인식된 음식 이미지",
+          "recognized-food-name: 인식된 음식명",
+          "confidence-score: AI 신뢰도 점수",
+          "nutrition-calories: 칼로리 표시",
+          "nutrition-protein: 단백질 표시",
+          "nutrition-carbs: 탄수화물 표시",
+          "nutrition-fat: 지방 표시",
+          "edit-food-name-button: 음식명 수정 버튼",
+          "edit-nutrition-button: 영양정보 수정 버튼",
+          "meal-type-selector: 식사 타입 선택",
+          "save-record-button: 저장 버튼",
+          "cancel-button: 취소 버튼"
+        ],
+
+        "mock_data": {
+          "recognized_foods": [
+            {
+              "id": "food_001",
+              "name": "김치찌개",
+              "confidence": 0.94,
+              "nutrition": {
+                "calories": 180,
+                "protein": 12,
+                "carbs": 8,
+                "fat": 10
+              },
+              "imageUrl": "/images/foods/kimchi-jjigae.jpg"
+            },
+            {
+              "id": "food_002",
+              "name": "비빔밥",
+              "confidence": 0.89,
+              "nutrition": {
+                "calories": 520,
+                "protein": 15,
+                "carbs": 85,
+                "fat": 12
+              },
+              "imageUrl": "/images/foods/bibimbap.jpg"
+            },
+            {
+              "id": "food_003",
+              "name": "삼겹살",
+              "confidence": 0.97,
+              "nutrition": {
+                "calories": 450,
+                "protein": 25,
+                "carbs": 0,
+                "fat": 38
+              },
+              "imageUrl": "/images/foods/samgyeopsal.jpg"
+            }
+          ]
+        },
+
+        "states": {
+          "loading": {
+            "description": "AI 분석 중 상태",
+            "ui": "스켈레톤 + 분석 중 애니메이션",
+            "duration": "2-5초"
+          },
+          "success": {
+            "description": "인식 성공",
+            "ui": "결과 표시 + 수정/저장 버튼"
+          },
+          "low_confidence": {
+            "description": "낮은 신뢰도 (< 70%)",
+            "ui": "경고 메시지 + 수동 입력 권장"
+          },
+          "failed": {
+            "description": "인식 실패",
+            "ui": "에러 메시지 + 재시도/수동 입력 버튼"
+          }
+        }
+      },
+
+      "integration": {
+        "modify_files": [
+          {
+            "path": "app/src/components/RecordPage.tsx",
+            "changes": "인식결과 컴포넌트 연동"
+          },
+          {
+            "path": "app/src/components/record/FoodRecordFlow.tsx",
+            "changes": "인식결과 단계 추가"
+          }
+        ],
+        "store_updates": [
+          {
+            "store": "useMealStore 또는 useRecordStore",
+            "new_state": "recognitionResult, isAnalyzing, analysisError"
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "TASK-002",
+      "title": "스쿼드 목업 데이터 확장",
+      "priority": "medium",
+      "category": "data",
+      "description": "스쿼드 기능의 현실감을 높이기 위한 풍부한 목업 데이터 추가",
+
+      "requirements": {
+        "mock_squads": {
+          "count": "최소 10개 스쿼드",
+          "categories": [
+            {
+              "type": "diet",
+              "name_examples": ["다이어트 챌린저스", "저탄고지 클럽", "간헐적 단식 모임"],
+              "description": "체중 감량 목표 스쿼드"
+            },
+            {
+              "type": "muscle",
+              "name_examples": ["단백질 러버스", "근성장 파이터즈", "헬스 식단 공유방"],
+              "description": "근육 증가 목표 스쿼드"
+            },
+            {
+              "type": "healthy",
+              "name_examples": ["건강한 한끼", "클린 이팅 클럽", "채식주의자 모임"],
+              "description": "건강한 식습관 스쿼드"
+            },
+            {
+              "type": "local",
+              "name_examples": ["강남 맛집 탐험대", "건대 점심 메이트", "판교 직장인 식단"],
+              "description": "지역 기반 스쿼드"
+            },
+            {
+              "type": "challenge",
+              "name_examples": ["30일 1일 1식", "아침밥 먹기 챌린지", "야식 끊기 도전"],
+              "description": "특정 챌린지 스쿼드"
+            }
+          ],
+          "data_structure": {
+            "id": "string (squad_xxx)",
+            "name": "string (스쿼드명)",
+            "description": "string (100자 이내 설명)",
+            "category": "diet | muscle | healthy | local | challenge",
+            "memberCount": "number (10-500)",
+            "maxMembers": "number (50-1000)",
+            "isPublic": "boolean",
+            "isJoined": "boolean",
+            "createdAt": "ISO date string",
+            "leader": {
+              "id": "string",
+              "name": "string",
+              "avatar": "string (URL)"
+            },
+            "tags": "string[] (최대 5개)",
+            "weeklyActiveMembers": "number",
+            "totalPosts": "number",
+            "recentActivity": "ISO date string"
+          }
+        },
+
+        "mock_members": {
+          "count": "스쿼드당 5-20명 샘플 멤버",
+          "data_structure": {
+            "id": "string (member_xxx)",
+            "userId": "string",
+            "name": "string",
+            "avatar": "string (URL)",
+            "role": "leader | moderator | member",
+            "joinedAt": "ISO date string",
+            "contributionScore": "number (0-1000)",
+            "weeklyRecords": "number (0-21)",
+            "streak": "number (연속 기록 일수)"
+          }
+        },
+
+        "mock_challenges": {
+          "count": "최소 8개 챌린지",
+          "types": [
+            {
+              "type": "streak",
+              "examples": ["7일 연속 기록", "30일 챌린지", "100일 마스터"]
+            },
+            {
+              "type": "nutrition",
+              "examples": ["단백질 100g 달성", "칼로리 1500 이하 유지", "나트륨 줄이기"]
+            },
+            {
+              "type": "habit",
+              "examples": ["아침 식사 챌린지", "물 2L 마시기", "야식 안 먹기"]
+            },
+            {
+              "type": "community",
+              "examples": ["식단 공유 10회", "댓글 응원 50개", "인기 게시물 달성"]
+            }
+          ],
+          "data_structure": {
+            "id": "string (challenge_xxx)",
+            "squadId": "string",
+            "title": "string",
+            "description": "string",
+            "type": "streak | nutrition | habit | community",
+            "goal": {
+              "type": "string",
+              "target": "number",
+              "unit": "string"
+            },
+            "startDate": "ISO date string",
+            "endDate": "ISO date string",
+            "status": "upcoming | active | completed | cancelled",
+            "participants": "number",
+            "completedCount": "number",
+            "reward": {
+              "points": "number",
+              "badge": "string (optional)"
+            },
+            "leaderboard": [
+              {
+                "rank": "number",
+                "userId": "string",
+                "userName": "string",
+                "progress": "number (0-100)",
+                "avatar": "string"
+              }
+            ]
+          }
+        },
+
+        "mock_posts": {
+          "count": "스쿼드당 10-30개 게시물",
+          "data_structure": {
+            "id": "string (post_xxx)",
+            "squadId": "string",
+            "authorId": "string",
+            "authorName": "string",
+            "authorAvatar": "string",
+            "content": "string (200자 이내)",
+            "imageUrl": "string (optional)",
+            "mealType": "breakfast | lunch | dinner | snack",
+            "nutrition": {
+              "calories": "number",
+              "protein": "number"
+            },
+            "likes": "number",
+            "comments": "number",
+            "createdAt": "ISO date string"
+          }
+        }
+      },
+
+      "file_structure": {
+        "new_files": [
+          {
+            "path": "app/src/data/mockSquads.ts",
+            "description": "스쿼드 목업 데이터"
+          },
+          {
+            "path": "app/src/data/mockChallenges.ts",
+            "description": "챌린지 목업 데이터"
+          },
+          {
+            "path": "app/src/data/mockSquadMembers.ts",
+            "description": "스쿼드 멤버 목업 데이터"
+          },
+          {
+            "path": "app/src/data/mockSquadPosts.ts",
+            "description": "스쿼드 게시물 목업 데이터"
+          }
+        ],
+        "modify_files": [
+          {
+            "path": "app/src/components/squad/SquadListPage.tsx",
+            "changes": "목업 데이터 import 및 적용"
+          },
+          {
+            "path": "app/src/components/squad/SquadDetailPage.tsx",
+            "changes": "멤버/챌린지/게시물 목업 연동"
+          }
+        ]
+      },
+
+      "sample_data": {
+        "squads": [
+          {
+            "id": "squad_001",
+            "name": "다이어트 챌린저스",
+            "description": "함께 건강하게 체중 감량! 서로 응원하며 목표를 달성해요 💪",
+            "category": "diet",
+            "memberCount": 128,
+            "maxMembers": 200,
+            "isPublic": true,
+            "isJoined": true,
+            "tags": ["다이어트", "체중감량", "건강식단"],
+            "leader": {
+              "id": "user_leader_1",
+              "name": "다이어트코치",
+              "avatar": "/avatars/coach1.jpg"
+            },
+            "weeklyActiveMembers": 89,
+            "totalPosts": 1240
+          },
+          {
+            "id": "squad_002",
+            "name": "단백질 러버스",
+            "description": "고단백 식단을 공유하고 근성장을 함께해요! 🏋️",
+            "category": "muscle",
+            "memberCount": 256,
+            "maxMembers": 500,
+            "isPublic": true,
+            "isJoined": false,
+            "tags": ["단백질", "근육", "헬스", "벌크업"],
+            "leader": {
+              "id": "user_leader_2",
+              "name": "프로틴매니아",
+              "avatar": "/avatars/coach2.jpg"
+            },
+            "weeklyActiveMembers": 178,
+            "totalPosts": 3420
+          },
+          {
+            "id": "squad_003",
+            "name": "저탄고지 클럽",
+            "description": "키토제닉 다이어트 식단 공유 및 정보 나눔 🥑",
+            "category": "diet",
+            "memberCount": 89,
+            "maxMembers": 150,
+            "isPublic": true,
+            "isJoined": false,
+            "tags": ["키토", "저탄수화물", "고지방"],
+            "leader": {
+              "id": "user_leader_3",
+              "name": "키토마스터",
+              "avatar": "/avatars/coach3.jpg"
+            },
+            "weeklyActiveMembers": 62,
+            "totalPosts": 890
+          },
+          {
+            "id": "squad_004",
+            "name": "건대 점심 메이트",
+            "description": "건대입구역 주변 점심 맛집 탐방! 🍜",
+            "category": "local",
+            "memberCount": 45,
+            "maxMembers": 100,
+            "isPublic": true,
+            "isJoined": true,
+            "tags": ["건대", "점심", "맛집", "직장인"],
+            "leader": {
+              "id": "user_leader_4",
+              "name": "건대맛집헌터",
+              "avatar": "/avatars/user4.jpg"
+            },
+            "weeklyActiveMembers": 38,
+            "totalPosts": 456
+          },
+          {
+            "id": "squad_005",
+            "name": "30일 아침밥 챌린지",
+            "description": "아침 거르지 말자! 30일 동안 매일 아침 기록 🌅",
+            "category": "challenge",
+            "memberCount": 312,
+            "maxMembers": 500,
+            "isPublic": true,
+            "isJoined": false,
+            "tags": ["아침식사", "챌린지", "30일"],
+            "leader": {
+              "id": "user_leader_5",
+              "name": "모닝버드",
+              "avatar": "/avatars/user5.jpg"
+            },
+            "weeklyActiveMembers": 245,
+            "totalPosts": 2100
+          },
+          {
+            "id": "squad_006",
+            "name": "클린 이팅 클럽",
+            "description": "가공식품 없이! 자연식품으로 건강하게 🥗",
+            "category": "healthy",
+            "memberCount": 167,
+            "maxMembers": 300,
+            "isPublic": true,
+            "isJoined": false,
+            "tags": ["클린이팅", "자연식품", "건강"],
+            "leader": {
+              "id": "user_leader_6",
+              "name": "클린푸드러버",
+              "avatar": "/avatars/user6.jpg"
+            },
+            "weeklyActiveMembers": 98,
+            "totalPosts": 1560
+          },
+          {
+            "id": "squad_007",
+            "name": "야식 끊기 도전",
+            "description": "밤 9시 이후 야식 NO! 함께 극복해요 🌙",
+            "category": "challenge",
+            "memberCount": 234,
+            "maxMembers": 400,
+            "isPublic": true,
+            "isJoined": true,
+            "tags": ["야식금지", "다이어트", "습관"],
+            "leader": {
+              "id": "user_leader_7",
+              "name": "야식탈출러",
+              "avatar": "/avatars/user7.jpg"
+            },
+            "weeklyActiveMembers": 189,
+            "totalPosts": 980
+          },
+          {
+            "id": "squad_008",
+            "name": "채식주의자 모임",
+            "description": "비건, 락토, 페스코 모두 환영! 채식 레시피 공유 🌱",
+            "category": "healthy",
+            "memberCount": 78,
+            "maxMembers": 200,
+            "isPublic": true,
+            "isJoined": false,
+            "tags": ["채식", "비건", "식물성"],
+            "leader": {
+              "id": "user_leader_8",
+              "name": "그린라이프",
+              "avatar": "/avatars/user8.jpg"
+            },
+            "weeklyActiveMembers": 56,
+            "totalPosts": 670
+          },
+          {
+            "id": "squad_009",
+            "name": "판교 IT인 식단",
+            "description": "판교 테크노밸리 직장인들의 건강한 식단 공유 💻",
+            "category": "local",
+            "memberCount": 189,
+            "maxMembers": 300,
+            "isPublic": true,
+            "isJoined": false,
+            "tags": ["판교", "IT", "직장인", "점심"],
+            "leader": {
+              "id": "user_leader_9",
+              "name": "판교헬시먹방",
+              "avatar": "/avatars/user9.jpg"
+            },
+            "weeklyActiveMembers": 145,
+            "totalPosts": 2340
+          },
+          {
+            "id": "squad_010",
+            "name": "간헐적 단식 16:8",
+            "description": "16시간 공복, 8시간 식사! 함께 실천해요 ⏰",
+            "category": "diet",
+            "memberCount": 423,
+            "maxMembers": 500,
+            "isPublic": true,
+            "isJoined": false,
+            "tags": ["간헐적단식", "16:8", "다이어트"],
+            "leader": {
+              "id": "user_leader_10",
+              "name": "단식마스터",
+              "avatar": "/avatars/user10.jpg"
+            },
+            "weeklyActiveMembers": 312,
+            "totalPosts": 4560
+          }
+        ],
+        "challenges": [
+          {
+            "id": "challenge_001",
+            "squadId": "squad_001",
+            "title": "7일 연속 기록 챌린지",
+            "description": "일주일 동안 매일 식단을 기록해보세요!",
+            "type": "streak",
+            "goal": { "type": "consecutive_days", "target": 7, "unit": "일" },
+            "status": "active",
+            "participants": 89,
+            "completedCount": 45,
+            "reward": { "points": 500, "badge": "7일 연속 달성" }
+          },
+          {
+            "id": "challenge_002",
+            "squadId": "squad_002",
+            "title": "일일 단백질 100g 달성",
+            "description": "하루 단백질 섭취량 100g 이상 달성하기",
+            "type": "nutrition",
+            "goal": { "type": "daily_protein", "target": 100, "unit": "g" },
+            "status": "active",
+            "participants": 156,
+            "completedCount": 78,
+            "reward": { "points": 300, "badge": "단백질 마스터" }
+          },
+          {
+            "id": "challenge_003",
+            "squadId": "squad_005",
+            "title": "30일 아침밥 챌린지",
+            "description": "30일 동안 아침 식사 기록 완주!",
+            "type": "habit",
+            "goal": { "type": "breakfast_count", "target": 30, "unit": "회" },
+            "status": "active",
+            "participants": 245,
+            "completedCount": 89,
+            "reward": { "points": 1000, "badge": "아침형 인간" }
+          },
+          {
+            "id": "challenge_004",
+            "squadId": "squad_007",
+            "title": "야식 없는 일주일",
+            "description": "밤 9시 이후 음식 섭취 금지 7일 연속",
+            "type": "habit",
+            "goal": { "type": "no_late_meal", "target": 7, "unit": "일" },
+            "status": "active",
+            "participants": 178,
+            "completedCount": 56,
+            "reward": { "points": 700, "badge": "야식 탈출 성공" }
+          },
+          {
+            "id": "challenge_005",
+            "squadId": "squad_001",
+            "title": "칼로리 1500 이하 유지",
+            "description": "5일 연속 일일 칼로리 1500kcal 이하 유지",
+            "type": "nutrition",
+            "goal": { "type": "max_calories", "target": 1500, "unit": "kcal" },
+            "status": "upcoming",
+            "participants": 67,
+            "completedCount": 0,
+            "reward": { "points": 600, "badge": "칼로리 관리사" }
+          },
+          {
+            "id": "challenge_006",
+            "squadId": "squad_006",
+            "title": "가공식품 없는 일주일",
+            "description": "7일 동안 가공식품 없이 자연식품만!",
+            "type": "habit",
+            "goal": { "type": "clean_eating", "target": 7, "unit": "일" },
+            "status": "active",
+            "participants": 45,
+            "completedCount": 23,
+            "reward": { "points": 800, "badge": "클린이터" }
+          },
+          {
+            "id": "challenge_007",
+            "squadId": "squad_010",
+            "title": "16:8 단식 30일 완주",
+            "description": "30일 동안 16:8 간헐적 단식 실천",
+            "type": "habit",
+            "goal": { "type": "fasting_days", "target": 30, "unit": "일" },
+            "status": "active",
+            "participants": 289,
+            "completedCount": 134,
+            "reward": { "points": 1500, "badge": "단식 마스터" }
+          },
+          {
+            "id": "challenge_008",
+            "squadId": "squad_004",
+            "title": "건대 맛집 10곳 탐방",
+            "description": "건대 주변 새로운 맛집 10곳 방문하고 리뷰 남기기",
+            "type": "community",
+            "goal": { "type": "restaurant_reviews", "target": 10, "unit": "곳" },
+            "status": "active",
+            "participants": 34,
+            "completedCount": 12,
+            "reward": { "points": 400, "badge": "건대 맛집 헌터" }
+          }
+        ]
+      }
+    }
+  ],
+
+  "implementation_order": [
+    {
+      "step": 1,
+      "task_id": "TASK-002",
+      "reason": "목업 데이터를 먼저 확장하여 UI 개발 시 활용"
+    },
+    {
+      "step": 2,
+      "task_id": "TASK-001",
+      "reason": "인식결과 페이지 구현 (목업 데이터 활용)"
+    }
+  ],
+
+  "success_criteria": {
+    "TASK-001": [
+      "RecognitionResultPage 컴포넌트 렌더링 정상",
+      "영양정보 수정 모달 동작",
+      "식사 타입 선택 가능",
+      "저장 버튼 클릭 시 기록 저장",
+      "로딩/에러/성공 상태 처리",
+      "data-testid 속성 모두 추가",
+      "Playwright 테스트 통과"
+    ],
+    "TASK-002": [
+      "10개 이상 스쿼드 목업 데이터",
+      "8개 이상 챌린지 목업 데이터",
+      "스쿼드 목록 페이지에서 데이터 표시",
+      "카테고리별 필터링 동작",
+      "검색 기능 동작",
+      "스쿼드 상세 페이지에서 멤버/챌린지 표시"
+    ]
+  },
+
+  "estimated_files": {
+    "new": [
+      "app/src/components/record/RecognitionResultPage.tsx",
+      "app/src/components/record/NutritionEditModal.tsx",
+      "app/src/components/record/FoodNameEditModal.tsx",
+      "app/src/data/mockSquads.ts",
+      "app/src/data/mockChallenges.ts",
+      "app/src/data/mockSquadMembers.ts"
+    ],
+    "modify": [
+      "app/src/components/RecordPage.tsx",
+      "app/src/components/record/FoodRecordFlow.tsx",
+      "app/src/components/squad/SquadListPage.tsx",
+      "app/src/components/squad/SquadDetailPage.tsx"
+    ]
+  }
+}

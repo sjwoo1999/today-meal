@@ -157,7 +157,7 @@ export default function PCReversePlanner({
                                 setSearchQuery(e.target.value);
                                 setHighlightedIndex(0);
                             }}
-                            className="w-full pl-10 pr-4 py-3 bg-gray-100 border-0 rounded-xl focus:ring-2 focus:ring-coral-500 focus:bg-white transition-all"
+                            className="w-full pl-10 pr-4 py-3 bg-gray-100 border-0 rounded-xl focus:ring-2 focus:ring-green-500 focus:bg-white transition-all"
                         />
                     </div>
 
@@ -168,7 +168,7 @@ export default function PCReversePlanner({
                                 key={menu.id}
                                 onClick={() => setSelectedMenu(menu)}
                                 className={`w-full p-4 rounded-xl text-left transition-all flex items-center gap-3 ${selectedMenu?.id === menu.id
-                                    ? 'bg-coral-50 border-2 border-coral-500'
+                                    ? 'bg-green-50 border-2 border-green-500'
                                     : highlightedIndex === index
                                         ? 'bg-gray-100 border-2 border-gray-300'
                                         : 'bg-gray-50 border-2 border-transparent hover:bg-gray-100'
@@ -182,7 +182,7 @@ export default function PCReversePlanner({
                                     <div className="text-sm text-gray-500">{menu.restaurants.length}개 식당</div>
                                 </div>
                                 <div className="text-right">
-                                    <div className="font-bold text-coral-600">{menu.estimatedCalories}</div>
+                                    <div className="font-bold text-green-600">{menu.estimatedCalories}</div>
                                     <div className="text-xs text-gray-400">kcal</div>
                                 </div>
                             </motion.button>
@@ -197,7 +197,7 @@ export default function PCReversePlanner({
                 {/* Column 2: AI Calculation */}
                 <div className="col-span-4 bg-white rounded-3xl p-6 shadow-sm border border-gray-100 overflow-hidden flex flex-col">
                     <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                        <Sparkles className="w-5 h-5 text-coral-500" />
+                        <Sparkles className="w-5 h-5 text-green-500" />
                         AI 계산
                     </h2>
 
@@ -206,7 +206,7 @@ export default function PCReversePlanner({
                             {/* Status Message */}
                             <motion.div
                                 className={`p-4 rounded-xl mb-4 ${caloriePercentage <= 100
-                                    ? 'bg-sage-50 text-sage-700'
+                                    ? 'bg-blue-50 text-blue-700'
                                     : 'bg-yellow-50 text-yellow-700'
                                     }`}
                                 initial={{ opacity: 0, y: -10 }}
@@ -226,7 +226,7 @@ export default function PCReversePlanner({
                                 </div>
                                 <div className="h-4 bg-gray-200 rounded-full overflow-hidden">
                                     <motion.div
-                                        className={`h-full rounded-full ${caloriePercentage <= 100 ? 'bg-gradient-to-r from-coral-400 to-coral-600' : 'bg-red-500'
+                                        className={`h-full rounded-full ${caloriePercentage <= 100 ? 'bg-gradient-to-r from-green-400 to-green-600' : 'bg-red-500'
                                             }`}
                                         initial={{ width: 0 }}
                                         animate={{ width: `${Math.min(caloriePercentage, 100)}%` }}
@@ -257,22 +257,22 @@ export default function PCReversePlanner({
                                     </div>
                                 </div>
 
-                                <div className="p-4 bg-coral-50 rounded-xl border-2 border-coral-200">
+                                <div className="p-4 bg-green-50 rounded-xl border-2 border-green-200">
                                     <div className="flex justify-between items-center">
-                                        <span className="text-coral-700 font-medium">🌙 저녁</span>
-                                        <span className="font-bold text-coral-700">{dinnerCalories} kcal</span>
+                                        <span className="text-green-700 font-medium">🌙 저녁</span>
+                                        <span className="font-bold text-green-700">{dinnerCalories} kcal</span>
                                     </div>
-                                    <div className="text-sm text-coral-600 mt-1">
+                                    <div className="text-sm text-green-600 mt-1">
                                         {selectedMenu.nameKr} 🎉
                                     </div>
                                 </div>
                             </div>
 
                             {/* Total Protein */}
-                            <div className="mt-4 p-4 bg-sage-50 rounded-xl">
+                            <div className="mt-4 p-4 bg-blue-50 rounded-xl">
                                 <div className="flex justify-between items-center">
-                                    <span className="text-sage-700">총 단백질</span>
-                                    <span className="font-bold text-sage-700">
+                                    <span className="text-blue-700">총 단백질</span>
+                                    <span className="font-bold text-blue-700">
                                         {breakfast.totalProtein + lunch.totalProtein + selectedMenu.estimatedProtein}g
                                         / {dailyProteinGoal}g
                                     </span>
@@ -301,8 +301,8 @@ export default function PCReversePlanner({
                             {/* Timeline */}
                             <div className="flex-1 space-y-0">
                                 {/* Breakfast */}
-                                <div className="relative pl-8 pb-6 border-l-2 border-coral-200">
-                                    <div className="absolute left-0 top-0 w-4 h-4 bg-coral-500 rounded-full transform -translate-x-1/2" />
+                                <div className="relative pl-8 pb-6 border-l-2 border-green-200">
+                                    <div className="absolute left-0 top-0 w-4 h-4 bg-green-500 rounded-full transform -translate-x-1/2" />
                                     <div className="text-sm text-gray-500 mb-1">⏰ 08:00 - 아침</div>
                                     <div className="bg-gray-50 rounded-xl p-4">
                                         {breakfast.foods.map((food: FoodItem, i: number) => (
@@ -319,8 +319,8 @@ export default function PCReversePlanner({
                                 </div>
 
                                 {/* Lunch */}
-                                <div className="relative pl-8 pb-6 border-l-2 border-coral-200">
-                                    <div className="absolute left-0 top-0 w-4 h-4 bg-coral-500 rounded-full transform -translate-x-1/2" />
+                                <div className="relative pl-8 pb-6 border-l-2 border-green-200">
+                                    <div className="absolute left-0 top-0 w-4 h-4 bg-green-500 rounded-full transform -translate-x-1/2" />
                                     <div className="text-sm text-gray-500 mb-1">⏰ 12:30 - 점심</div>
                                     <div className="bg-gray-50 rounded-xl p-4">
                                         {lunch.foods.map((food: FoodItem, i: number) => (
@@ -338,18 +338,18 @@ export default function PCReversePlanner({
 
                                 {/* Dinner */}
                                 <div className="relative pl-8">
-                                    <div className="absolute left-0 top-0 w-4 h-4 bg-sage-500 rounded-full transform -translate-x-1/2 border-2 border-white" />
+                                    <div className="absolute left-0 top-0 w-4 h-4 bg-blue-500 rounded-full transform -translate-x-1/2 border-2 border-white" />
                                     <div className="text-sm text-gray-500 mb-1">⏰ 19:00 - 저녁 🎉</div>
-                                    <div className="bg-sage-50 rounded-xl p-4 border-2 border-sage-200">
+                                    <div className="bg-blue-50 rounded-xl p-4 border-2 border-blue-200">
                                         <div className="flex justify-between">
-                                            <span className="font-bold text-sage-700">{selectedMenu.nameKr}</span>
-                                            <span className="font-bold text-sage-600">{selectedMenu.estimatedCalories} kcal</span>
+                                            <span className="font-bold text-blue-700">{selectedMenu.nameKr}</span>
+                                            <span className="font-bold text-blue-600">{selectedMenu.estimatedCalories} kcal</span>
                                         </div>
-                                        <div className="text-sm text-sage-600 mt-1">
+                                        <div className="text-sm text-blue-600 mt-1">
                                             단백질 {selectedMenu.estimatedProtein}g
                                         </div>
                                         {selectedMenu.restaurants.length > 0 && (
-                                            <div className="mt-2 pt-2 border-t border-sage-200 flex items-center gap-2 text-sm text-sage-600">
+                                            <div className="mt-2 pt-2 border-t border-blue-200 flex items-center gap-2 text-sm text-blue-600">
                                                 <MapPin className="w-4 h-4" />
                                                 {selectedMenu.restaurants[0].name}
                                             </div>
@@ -362,8 +362,8 @@ export default function PCReversePlanner({
                             <motion.button
                                 onClick={handleSavePlan}
                                 className={`mt-6 w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all ${isPlanSaved
-                                    ? 'bg-sage-500 text-white'
-                                    : 'bg-coral-500 text-white hover:bg-coral-600'
+                                    ? 'bg-blue-500 text-white'
+                                    : 'bg-green-500 text-white hover:bg-green-600'
                                     }`}
                                 whileTap={{ scale: 0.98 }}
                             >

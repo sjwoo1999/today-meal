@@ -67,8 +67,8 @@ export default function NearbyRestaurants() {
             <div className="bg-white border-b border-gray-200 p-4">
                 <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-coral-100 rounded-xl flex items-center justify-center">
-                            <MapPin className="w-5 h-5 text-coral-600" />
+                        <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
+                            <MapPin className="w-5 h-5 text-green-600" />
                         </div>
                         <div>
                             <h1 className="text-xl font-bold text-gray-900">내 주변 식당</h1>
@@ -91,7 +91,7 @@ export default function NearbyRestaurants() {
                         placeholder="식당명 또는 메뉴 검색"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coral-500 focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
                     />
                 </div>
 
@@ -103,7 +103,7 @@ export default function NearbyRestaurants() {
                             onClick={() => setSelectedCategory(cat.id)}
                             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors
                                 ${selectedCategory === cat.id
-                                    ? 'bg-coral-500 text-white'
+                                    ? 'bg-green-500 text-white'
                                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
                         >
                             <span>{cat.emoji}</span>
@@ -137,7 +137,7 @@ export default function NearbyRestaurants() {
                                 onClick={() => setSortBy(option)}
                                 className={`text-sm px-2 py-1 rounded-lg transition-colors
                                     ${sortBy === option
-                                        ? 'bg-coral-50 text-coral-600 font-medium'
+                                        ? 'bg-green-50 text-green-600 font-medium'
                                         : 'text-gray-500 hover:bg-gray-100'}`}
                             >
                                 {option === 'distance' ? '거리순' : option === 'rating' ? '평점순' : '이름순'}
@@ -156,7 +156,7 @@ export default function NearbyRestaurants() {
                                     transition={{ delay: index * 0.05 }}
                                     className={`bg-white rounded-xl p-4 shadow-sm border transition-all cursor-pointer
                                         ${selectedRestaurant?.id === restaurant.id
-                                            ? 'border-coral-300 ring-2 ring-coral-100'
+                                            ? 'border-green-300 ring-2 ring-green-100'
                                             : 'border-gray-100 hover:border-gray-200 hover:shadow-md'}`}
                                     onClick={() => handleRestaurantClick(restaurant)}
                                     onMouseEnter={() => setHoveredRestaurantId(restaurant.id)}
@@ -179,8 +179,8 @@ export default function NearbyRestaurants() {
                                             </div>
                                         </div>
                                         <div className="flex items-center gap-1 text-sm">
-                                            <MapPin className="w-3.5 h-3.5 text-coral-500" />
-                                            <span className="text-coral-600 font-medium">{restaurant.distance}</span>
+                                            <MapPin className="w-3.5 h-3.5 text-green-500" />
+                                            <span className="text-green-600 font-medium">{restaurant.distance}</span>
                                         </div>
                                     </div>
 
@@ -190,7 +190,7 @@ export default function NearbyRestaurants() {
                                     {restaurant.menuItems && (
                                         <div className="flex flex-wrap gap-1 mb-3">
                                             {restaurant.menuItems.slice(0, 3).map((menu, i) => (
-                                                <span key={i} className="text-xs bg-sage-50 text-sage-700 px-2 py-1 rounded-lg">
+                                                <span key={i} className="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded-lg">
                                                     {menu}
                                                 </span>
                                             ))}
@@ -211,7 +211,7 @@ export default function NearbyRestaurants() {
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 onClick={(e) => e.stopPropagation()}
-                                                className="flex items-center gap-1 text-xs text-coral-600 hover:text-coral-700"
+                                                className="flex items-center gap-1 text-xs text-green-600 hover:text-green-700"
                                             >
                                                 <ExternalLink className="w-3.5 h-3.5" />
                                                 지도 보기

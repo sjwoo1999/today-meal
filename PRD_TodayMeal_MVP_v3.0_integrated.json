@@ -1,0 +1,876 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "meta": {
+    "project_name": "OneMealToday (오늘한끼)",
+    "version": "3.0.0",
+    "last_updated": "2026-01-06",
+    "platforms": ["mobile", "tablet", "desktop"],
+    "tech_stack": {
+      "frontend": "Next.js 14 (App Router)",
+      "language": "TypeScript",
+      "styling": "Tailwind CSS",
+      "state": "Zustand",
+      "animation": "Framer Motion",
+      "ui_components": "Lucide React Icons"
+    },
+    "core_value": "오늘 저녁 뭐 먹지? 그럼 아침엔 이거!"
+  },
+
+  "design_system": {
+    "colors": {
+      "primary": {
+        "green": {
+          "50": "#F0FDF4",
+          "100": "#DCFCE7",
+          "200": "#BBF7D0",
+          "300": "#86EFAC",
+          "400": "#4ADE80",
+          "500": "#22C55E",
+          "600": "#16A34A",
+          "700": "#15803D",
+          "800": "#166534",
+          "900": "#14532D"
+        }
+      },
+      "secondary": {
+        "blue": {
+          "50": "#EFF6FF",
+          "500": "#3B82F6",
+          "600": "#2563EB"
+        }
+      },
+      "accent": {
+        "amber": {
+          "50": "#FFFBEB",
+          "400": "#FBBF24",
+          "500": "#F59E0B"
+        }
+      },
+      "semantic": {
+        "success": "#22C55E",
+        "warning": "#FFB74D",
+        "error": "#E7AAAA",
+        "info": "#5995B7"
+      },
+      "hanki": {
+        "bowl": "#4A90D9",
+        "rice": "#FFFEF5",
+        "steam": "#E8E8E8",
+        "blush": "#FFB7C5"
+      },
+      "league": {
+        "bronze": "#CD7F32",
+        "silver": "#C0C0C0",
+        "gold": "#FFD700",
+        "platinum": "#E5E4E2",
+        "diamond": "#B9F2FF"
+      }
+    },
+    "typography": {
+      "font_family": {
+        "sans": ["Pretendard", "system-ui", "sans-serif"],
+        "display": ["Plus Jakarta Sans", "sans-serif"]
+      },
+      "sizes": {
+        "display": { "size": "32px", "line_height": "40px", "weight": 700 },
+        "h1": { "size": "24px", "line_height": "32px", "weight": 700 },
+        "h2": { "size": "20px", "line_height": "28px", "weight": 600 },
+        "h3": { "size": "16px", "line_height": "24px", "weight": 600 },
+        "body": { "size": "14px", "line_height": "20px", "weight": 400 },
+        "caption": { "size": "12px", "line_height": "16px", "weight": 400 }
+      }
+    },
+    "spacing": {
+      "unit": "4px",
+      "scale": [4, 8, 12, 16, 20, 24, 32, 40, 48, 64]
+    },
+    "breakpoints": {
+      "mobile": { "max": "767px" },
+      "tablet": { "min": "768px", "max": "1279px" },
+      "desktop": { "min": "1280px", "max": "1919px" },
+      "desktop_lg": { "min": "1920px" }
+    },
+    "border_radius": {
+      "sm": "4px",
+      "md": "8px",
+      "lg": "12px",
+      "xl": "16px",
+      "2xl": "20px",
+      "3xl": "24px",
+      "full": "9999px"
+    }
+  },
+
+  "user_flows": {
+    "UF-001": {
+      "name": "Onboarding Flow",
+      "trigger": "First app launch or new user registration",
+      "steps": [
+        {
+          "step": 1,
+          "screen": "SplashScreen",
+          "action": "Display app logo and check auth status",
+          "next": "LoginPage (if not authenticated) | HomePage (if authenticated)"
+        },
+        {
+          "step": 2,
+          "screen": "LoginPage",
+          "action": "User selects login method (Kakao/Apple/Google/Email)",
+          "next": "OnboardingPage (if new user) | HomePage (if returning user)"
+        },
+        {
+          "step": 3,
+          "screen": "OnboardingPage - Step 1",
+          "action": "User selects goal (lose/maintain/gain weight)",
+          "next": "OnboardingPage - Step 2"
+        },
+        {
+          "step": 4,
+          "screen": "OnboardingPage - Step 2",
+          "action": "User enters body info (height, weight, age, gender)",
+          "next": "OnboardingPage - Step 3"
+        },
+        {
+          "step": 5,
+          "screen": "OnboardingPage - Step 3",
+          "action": "User selects activity level",
+          "next": "OnboardingPage - Step 4"
+        },
+        {
+          "step": 6,
+          "screen": "OnboardingPage - Step 4",
+          "action": "User selects food preferences and allergies",
+          "next": "HomePage"
+        }
+      ],
+      "states": {
+        "loading": "Checking authentication status",
+        "error": "Network failure - show retry button",
+        "success": "Navigate to next step"
+      }
+    },
+    "UF-002": {
+      "name": "Meal Recording Flow",
+      "trigger": "User taps record button or camera icon",
+      "steps": [
+        {
+          "step": 1,
+          "screen": "RecordPage",
+          "action": "User selects Camera or Gallery option",
+          "next": "Camera capture or Gallery picker"
+        },
+        {
+          "step": 2,
+          "screen": "ImageCapture",
+          "action": "User captures food photo",
+          "next": "FoodDetectionModal"
+        },
+        {
+          "step": 3,
+          "screen": "FoodDetectionModal",
+          "action": "AI analyzes image and detects food",
+          "next": "NutritionEditModal"
+        },
+        {
+          "step": 4,
+          "screen": "NutritionEditModal",
+          "action": "User reviews and adjusts nutrition values",
+          "next": "MealTypeSelector"
+        },
+        {
+          "step": 5,
+          "screen": "MealTypeSelector",
+          "action": "User selects meal type (breakfast/lunch/dinner/snack)",
+          "next": "ConfirmationScreen"
+        },
+        {
+          "step": 6,
+          "screen": "ConfirmationScreen",
+          "action": "User confirms and saves meal record",
+          "next": "SuccessAnimation -> Dashboard"
+        }
+      ],
+      "states": {
+        "loading": "AI analyzing image (2-3 seconds)",
+        "error": "Detection failed - show manual input option",
+        "empty": "No recent meals recorded",
+        "success": "XP awarded animation (+10-15 XP)"
+      }
+    },
+    "UF-003": {
+      "name": "Feed Interaction Flow",
+      "trigger": "User navigates to Feed tab",
+      "steps": [
+        {
+          "step": 1,
+          "screen": "FeedPage",
+          "action": "Display story bar and post feed",
+          "next": "PostDetail (on post tap) | StoryViewer (on story tap)"
+        },
+        {
+          "step": 2,
+          "screen": "PostDetail",
+          "action": "User views post and interacts (like/comment/share)",
+          "next": "CommentSection (on comment tap)"
+        },
+        {
+          "step": 3,
+          "screen": "CommentSection",
+          "action": "User adds comment or replies",
+          "next": "PostDetail"
+        },
+        {
+          "step": 4,
+          "screen": "AuthorProfile",
+          "action": "User taps author name to view profile",
+          "next": "UserProfilePage"
+        },
+        {
+          "step": 5,
+          "screen": "UserProfilePage",
+          "action": "User views profile and can follow/unfollow",
+          "next": "FeedPage (back)"
+        }
+      ],
+      "states": {
+        "loading": "Feed skeleton animation",
+        "empty": "팔로우하고 피드를 채워보세요",
+        "error": "Load failed - show retry button"
+      }
+    },
+    "UF-004": {
+      "name": "Challenge Participation Flow",
+      "trigger": "User navigates to Squad tab and selects challenge",
+      "steps": [
+        {
+          "step": 1,
+          "screen": "SquadListPage",
+          "action": "User browses challenges in 'Challenges' tab",
+          "next": "ChallengeDetailPage"
+        },
+        {
+          "step": 2,
+          "screen": "ChallengeDetailPage",
+          "action": "User views challenge details and participants",
+          "next": "JoinConfirmation (on join tap)"
+        },
+        {
+          "step": 3,
+          "screen": "JoinConfirmation",
+          "action": "User confirms joining the challenge",
+          "next": "ChallengeDetailPage (as participant)"
+        },
+        {
+          "step": 4,
+          "screen": "ChallengeDetailPage",
+          "action": "User records meals to progress in challenge",
+          "next": "RecordPage"
+        },
+        {
+          "step": 5,
+          "screen": "LeaderboardView",
+          "action": "User views challenge leaderboard",
+          "next": "ChallengeDetailPage"
+        },
+        {
+          "step": 6,
+          "screen": "RewardsScreen",
+          "action": "Challenge ends - user receives rewards",
+          "next": "ProfilePage (badges)"
+        }
+      ],
+      "states": {
+        "loading": "Challenge data loading",
+        "empty": "새로운 챌린지가 곧 시작됩니다",
+        "locked": "Not eligible (requirements not met)",
+        "completed": "Show rewards and final rank"
+      }
+    },
+    "UF-005": {
+      "name": "AI Coach Interaction Flow",
+      "trigger": "User taps Coach tab or Hanki widget",
+      "steps": [
+        {
+          "step": 1,
+          "screen": "CoachPage",
+          "action": "Display chat interface with Hanki",
+          "next": "ChatInput"
+        },
+        {
+          "step": 2,
+          "screen": "ChatInput",
+          "action": "User types question or selects quick reply",
+          "next": "AIProcessing"
+        },
+        {
+          "step": 3,
+          "screen": "AIProcessing",
+          "action": "AI generates response with recommendations",
+          "next": "ChatResponse"
+        },
+        {
+          "step": 4,
+          "screen": "ChatResponse",
+          "action": "User reads response and taps action button if present",
+          "next": "ActionTarget (RecordPage, NearbyPage, etc.)"
+        }
+      ],
+      "states": {
+        "loading": "AI thinking animation (typing indicator)",
+        "error": "Response failed - show retry button",
+        "suggestion": "Quick action buttons displayed"
+      }
+    },
+    "UF-006": {
+      "name": "Points & Shop Flow",
+      "trigger": "User navigates to Shop tab",
+      "steps": [
+        {
+          "step": 1,
+          "screen": "PointShopPage",
+          "action": "Display points balance and available items",
+          "next": "ItemDetail (on item tap)"
+        },
+        {
+          "step": 2,
+          "screen": "ItemDetail",
+          "action": "User views item details and price",
+          "next": "PurchaseConfirm (on buy tap)"
+        },
+        {
+          "step": 3,
+          "screen": "PurchaseConfirm",
+          "action": "User confirms purchase",
+          "next": "PurchaseSuccess | InsufficientPoints"
+        },
+        {
+          "step": 4,
+          "screen": "PurchaseSuccess",
+          "action": "Display success animation and item added to inventory",
+          "next": "InventoryPage"
+        },
+        {
+          "step": 5,
+          "screen": "InventoryPage",
+          "action": "User views and equips purchased items",
+          "next": "PointShopPage (back)"
+        }
+      ],
+      "states": {
+        "loading": "Shop items loading",
+        "empty": "상품 준비 중입니다",
+        "insufficient": "Not enough points - show earn points CTA",
+        "success": "Purchase complete animation"
+      }
+    },
+    "UF-007": {
+      "name": "Squad Management Flow",
+      "trigger": "User navigates to Squad tab",
+      "steps": [
+        {
+          "step": 1,
+          "screen": "SquadListPage",
+          "action": "Display my squads and discover section",
+          "next": "SquadDetailPage (on squad tap) | CreateSquadModal (on create tap)"
+        },
+        {
+          "step": 2,
+          "screen": "CreateSquadModal",
+          "action": "User fills squad info (name, description, settings)",
+          "next": "SquadDetailPage (new squad)"
+        },
+        {
+          "step": 3,
+          "screen": "SquadDetailPage",
+          "action": "User views squad details, members, challenges",
+          "next": "CreateChallengeModal (if owner)"
+        },
+        {
+          "step": 4,
+          "screen": "CreateChallengeModal",
+          "action": "Owner creates new challenge for squad",
+          "next": "ChallengeDetailPage"
+        },
+        {
+          "step": 5,
+          "screen": "MemberManagement",
+          "action": "Owner manages squad members",
+          "next": "SquadDetailPage"
+        }
+      ],
+      "states": {
+        "loading": "Squad data loading",
+        "empty": "아직 참여한 스쿼드가 없어요",
+        "pending": "Join request sent - waiting for approval",
+        "owner": "Management options visible"
+      }
+    }
+  },
+
+  "service_flows": {
+    "SF-001": {
+      "name": "Point Transaction Service",
+      "description": "Handles all point earning, spending, and balance management",
+      "types": {
+        "PointTransaction": {
+          "id": "string",
+          "userId": "string",
+          "type": "earn | spend | expire | refund",
+          "amount": "number",
+          "source": "meal_record | challenge | streak | purchase | referral",
+          "timestamp": "Date",
+          "metadata": "Record<string, any>"
+        }
+      },
+      "state_machine": {
+        "states": ["idle", "processing", "success", "failed", "rollback"],
+        "transitions": {
+          "idle -> processing": "initiate transaction",
+          "processing -> success": "transaction complete",
+          "processing -> failed": "validation error or insufficient balance",
+          "failed -> rollback": "revert changes",
+          "rollback -> idle": "cleanup complete"
+        }
+      },
+      "earn_rates": {
+        "meal_record": 10,
+        "reverse_plan_set": 10,
+        "reverse_plan_complete": 30,
+        "daily_goal": 25,
+        "weekly_goal": 100,
+        "streak_7_days": 50,
+        "streak_30_days": 200
+      }
+    },
+    "SF-002": {
+      "name": "Feed Distribution Service",
+      "description": "Manages feed algorithm and content distribution",
+      "algorithm": {
+        "inputs": {
+          "userPreferences": "UserProfile",
+          "followingList": "string[]",
+          "interactionHistory": "Interaction[]",
+          "contentFreshness": "number"
+        },
+        "weights": {
+          "relevance": 0.3,
+          "freshness": 0.25,
+          "engagement": 0.25,
+          "following": 0.2
+        },
+        "output": "ScoredPost[]"
+      },
+      "state_machine": {
+        "states": ["loading", "loaded", "refreshing", "loadingMore", "error"],
+        "transitions": {
+          "loading -> loaded": "initial fetch complete",
+          "loaded -> refreshing": "pull to refresh",
+          "refreshing -> loaded": "refresh complete",
+          "loaded -> loadingMore": "scroll to bottom",
+          "loadingMore -> loaded": "more posts loaded",
+          "any -> error": "fetch failed"
+        }
+      }
+    },
+    "SF-003": {
+      "name": "AI Moderation Service",
+      "description": "Content moderation and food verification",
+      "types": {
+        "ModerationResult": {
+          "postId": "string",
+          "status": "approved | flagged | rejected",
+          "flags": "ModerationFlag[]",
+          "confidence": "number",
+          "humanReviewRequired": "boolean"
+        }
+      },
+      "pipeline": [
+        "input",
+        "content_analysis",
+        "food_verification",
+        "community_guidelines_check",
+        "auto_decision | human_queue"
+      ],
+      "thresholds": {
+        "auto_approve": 0.95,
+        "human_review": 0.7,
+        "auto_reject": 0.3
+      }
+    },
+    "SF-004": {
+      "name": "Challenge Lifecycle Service",
+      "description": "Manages challenge states and lifecycle events",
+      "state_machine": {
+        "states": [
+          "draft",
+          "upcoming",
+          "active",
+          "calculating",
+          "completed",
+          "archived"
+        ],
+        "transitions": {
+          "draft -> upcoming": "owner publishes challenge",
+          "upcoming -> active": "start_date reached",
+          "active -> calculating": "end_date reached",
+          "calculating -> completed": "results computed and rewards distributed",
+          "completed -> archived": "30 days after completion"
+        }
+      },
+      "lifecycle_events": {
+        "on_join": "Add participant, initialize progress",
+        "on_progress": "Update leaderboard, check achievements",
+        "on_complete": "Calculate final rankings, distribute rewards",
+        "on_leave": "Remove participant, recalculate standings"
+      }
+    },
+    "SF-005": {
+      "name": "Notification Service",
+      "description": "Push notifications and in-app messaging",
+      "config": {
+        "channels": ["push", "in_app", "email"],
+        "categories": {
+          "social": { "push": true, "in_app": true },
+          "challenge": { "push": true, "in_app": true },
+          "reminder": { "push": true, "in_app": false },
+          "marketing": { "push": false, "in_app": true }
+        },
+        "quietHours": { "start": "22:00", "end": "08:00" }
+      },
+      "state_machine": {
+        "states": ["created", "queued", "sent", "delivered", "read", "expired"],
+        "transitions": {
+          "created -> queued": "scheduled or immediate",
+          "queued -> sent": "delivery attempted",
+          "sent -> delivered": "device confirmed receipt",
+          "delivered -> read": "user opened notification",
+          "any -> expired": "TTL exceeded"
+        }
+      },
+      "templates": {
+        "meal_reminder": "점심시간이야! 한끼랑 같이 먹자 🍚",
+        "streak_warning": "오늘 기록 안 하면 스트릭이... 🔥➡️💨",
+        "challenge_start": "{challenge_name} 챌린지가 시작됐어요! 💪",
+        "weekly_report": "이번 주 {xp}XP 획득! {rank}위 달성 🏆"
+      }
+    }
+  },
+
+  "components": {
+    "mobile": {
+      "navigation": "BottomNav (5 tabs: Home, Feed, Record, Squad, Profile)",
+      "modals": "Bottom Sheet (slide up from bottom)",
+      "interaction": "Touch gestures, swipe navigation",
+      "layout": "Single column, full width"
+    },
+    "desktop": {
+      "navigation": "Sidebar (left, 280px width, vertical nav)",
+      "modals": "Center Modal (fade in, centered)",
+      "interaction": "Hover states, keyboard shortcuts",
+      "layout": "3-column (Sidebar | Main | Right Panel)",
+      "keyboard_shortcuts": {
+        "N": "New meal record",
+        "R": "Quick photo record",
+        "D": "Open calendar",
+        "C": "Open AI Coach",
+        "Ctrl+V": "Paste food image (in recording)",
+        "Esc": "Close modal/panel",
+        "1-5": "Tab navigation"
+      }
+    }
+  },
+
+  "screens": {
+    "HomePage": {
+      "description": "Main dashboard with Hanki, nutrition progress, and quests",
+      "mobile_layout": {
+        "structure": "Single column scroll",
+        "sections": ["HankiGreeting", "DailyNutrition", "QuickActions", "DailyQuests", "StreakDisplay"]
+      },
+      "desktop_layout": {
+        "structure": "3-column",
+        "left_sidebar": "Navigation",
+        "main_content": ["HankiGreeting", "DailyNutrition", "QuickActions"],
+        "right_panel": ["Calendar", "DailyQuests", "StreakDisplay"]
+      },
+      "states": {
+        "loading": "Skeleton animation for all sections",
+        "empty": "First-time user - show onboarding CTA",
+        "error": "Network error - show retry button"
+      }
+    },
+    "FeedPage": {
+      "description": "Social feed with stories and posts",
+      "mobile_layout": {
+        "structure": "Single column with sticky story bar",
+        "sections": ["StoryBar", "FilterTabs", "PostList"]
+      },
+      "desktop_layout": {
+        "structure": "3-column",
+        "left_sidebar": "Navigation",
+        "main_content": ["StoryBar", "FilterTabs", "PostList"],
+        "right_panel": ["TrendingTags", "SuggestedUsers", "ActiveChallenges"]
+      },
+      "states": {
+        "loading": "Card skeletons",
+        "empty": "팔로우하고 피드를 채워보세요",
+        "error": "Load failed - retry button"
+      }
+    },
+    "RecordPage": {
+      "description": "Meal recording interface",
+      "mobile_layout": {
+        "structure": "Full screen camera/gallery view",
+        "sections": ["CameraView", "GalleryPicker", "RecentMeals"]
+      },
+      "desktop_layout": {
+        "structure": "3-column",
+        "left_sidebar": "Navigation",
+        "main_content": ["DragDropZone", "ClipboardPaste", "RecentMeals"],
+        "right_panel": ["NutritionSummary", "TodayMeals"]
+      },
+      "states": {
+        "loading": "AI analyzing image",
+        "error": "Detection failed - manual input option",
+        "success": "XP awarded animation"
+      }
+    },
+    "SquadListPage": {
+      "description": "Squad browsing and management",
+      "mobile_layout": {
+        "structure": "Tabs with list view",
+        "sections": ["HeaderStats", "TabBar", "SquadList"]
+      },
+      "desktop_layout": {
+        "structure": "3-column",
+        "left_sidebar": "Navigation",
+        "main_content": ["HeaderStats", "TabBar", "SquadGrid"],
+        "right_panel": ["MySquadsSummary", "RecommendedSquads"]
+      },
+      "states": {
+        "loading": "List skeleton",
+        "empty": "아직 참여한 스쿼드가 없어요",
+        "error": "Load failed - retry button"
+      }
+    },
+    "CoachPage": {
+      "description": "AI Coach chat interface",
+      "mobile_layout": {
+        "structure": "Full screen chat",
+        "sections": ["ChatHeader", "MessageList", "QuickReplies", "InputBar"]
+      },
+      "desktop_layout": {
+        "structure": "3-column",
+        "left_sidebar": "Navigation",
+        "main_content": ["ChatHeader", "MessageList", "InputBar"],
+        "right_panel": ["SuggestedTopics", "NutritionTips", "QuickActions"]
+      },
+      "states": {
+        "loading": "AI thinking indicator",
+        "error": "Response failed - reconnect button",
+        "empty": "안녕하세요! 무엇을 도와드릴까요?"
+      }
+    },
+    "PointShopPage": {
+      "description": "Points shop and inventory",
+      "mobile_layout": {
+        "structure": "Grid view with tabs",
+        "sections": ["PointsBalance", "CategoryTabs", "ItemGrid"]
+      },
+      "desktop_layout": {
+        "structure": "3-column",
+        "left_sidebar": "Navigation",
+        "main_content": ["PointsBalance", "CategoryTabs", "ItemGrid"],
+        "right_panel": ["Inventory", "RecentPurchases", "EarnPointsCTA"]
+      },
+      "states": {
+        "loading": "Grid skeleton",
+        "empty": "상품 준비 중입니다",
+        "insufficient": "Points insufficient - show earn options",
+        "success": "Purchase complete animation"
+      }
+    },
+    "ProfilePage": {
+      "description": "User profile and stats",
+      "mobile_layout": {
+        "structure": "Scrollable profile",
+        "sections": ["ProfileHeader", "StatsRow", "TabView (Posts/Badges/Calendar)"]
+      },
+      "desktop_layout": {
+        "structure": "3-column",
+        "left_sidebar": "Navigation",
+        "main_content": ["ProfileHeader", "StatsRow", "TabContent"],
+        "right_panel": ["StreakCalendar", "Achievements", "Settings"]
+      },
+      "states": {
+        "loading": "Header + list skeleton",
+        "empty": "아직 기록이 없어요",
+        "error": "Load failed - retry button"
+      }
+    }
+  },
+
+  "state_management": {
+    "stores": {
+      "existing": [
+        "useUserStore",
+        "useHankiStore",
+        "useNutritionStore",
+        "useQuestStore",
+        "useUIStore",
+        "usePersonalizationStore",
+        "useHankiAgentStore",
+        "useAuthStore",
+        "useFollowStore",
+        "useStoryStore"
+      ],
+      "to_add": [
+        {
+          "name": "useFeedStore",
+          "purpose": "Feed posts, filters, and pagination",
+          "state": ["posts", "filter", "page", "hasMore", "isRefreshing"]
+        },
+        {
+          "name": "useChallengeStore",
+          "purpose": "Challenge data and participation",
+          "state": ["challenges", "myProgress", "leaderboards"]
+        },
+        {
+          "name": "usePointStore",
+          "purpose": "Point balance and transactions",
+          "state": ["balance", "transactions", "pendingTransactions"]
+        },
+        {
+          "name": "useInventoryStore",
+          "purpose": "Purchased items and equipped items",
+          "state": ["items", "equipped", "categories"]
+        },
+        {
+          "name": "useSquadStore",
+          "purpose": "Squad data and membership",
+          "state": ["mySquads", "discoveredSquads", "invitations"]
+        },
+        {
+          "name": "useNotificationStore",
+          "purpose": "Notifications and preferences",
+          "state": ["notifications", "unreadCount", "preferences"]
+        }
+      ]
+    }
+  },
+
+  "api_contracts": {
+    "note": "Currently using mock data - API contracts for future backend integration",
+    "endpoints": {
+      "auth": {
+        "POST /auth/login": "Login with provider",
+        "POST /auth/logout": "Logout user",
+        "GET /auth/me": "Get current user"
+      },
+      "meals": {
+        "POST /meals": "Create meal record",
+        "GET /meals": "Get user meals",
+        "GET /meals/:id": "Get meal by ID",
+        "DELETE /meals/:id": "Delete meal"
+      },
+      "challenges": {
+        "GET /challenges": "List challenges",
+        "POST /challenges": "Create challenge",
+        "POST /challenges/:id/join": "Join challenge",
+        "GET /challenges/:id/leaderboard": "Get leaderboard"
+      },
+      "squads": {
+        "GET /squads": "List squads",
+        "POST /squads": "Create squad",
+        "POST /squads/:id/join": "Join squad",
+        "GET /squads/:id/members": "Get members"
+      },
+      "points": {
+        "GET /points/balance": "Get balance",
+        "GET /points/transactions": "Get transactions",
+        "POST /points/spend": "Spend points"
+      },
+      "feed": {
+        "GET /feed": "Get feed posts",
+        "POST /posts": "Create post",
+        "POST /posts/:id/like": "Like post",
+        "POST /posts/:id/comment": "Add comment"
+      }
+    }
+  },
+
+  "gamification": {
+    "xp_system": {
+      "meal_record": 10,
+      "reverse_plan_set": 10,
+      "reverse_plan_complete": 30,
+      "daily_goal": 25,
+      "weekly_goal": 100,
+      "streak_7_days": 50,
+      "streak_30_days": 200,
+      "first_record": 20,
+      "profile_complete": 30
+    },
+    "levels": [
+      { "level": 1, "requiredXP": 0, "title": "첫 숟가락" },
+      { "level": 2, "requiredXP": 100, "title": "식단 새싹" },
+      { "level": 3, "requiredXP": 300, "title": "균형 루키" },
+      { "level": 4, "requiredXP": 600, "title": "영양 탐험가" },
+      { "level": 5, "requiredXP": 1000, "title": "한끼 마스터" },
+      { "level": 6, "requiredXP": 1500, "title": "헬시 히어로" },
+      { "level": 7, "requiredXP": 2100, "title": "뉴트리션 프로" },
+      { "level": 8, "requiredXP": 2800, "title": "식단 챔피언" },
+      { "level": 9, "requiredXP": 3600, "title": "웰니스 레전드" },
+      { "level": 10, "requiredXP": 4500, "title": "한끼의 절친" }
+    ],
+    "streak_milestones": [
+      { "days": 3, "badge": "시작이 반", "xp": 30 },
+      { "days": 7, "badge": "일주일 완식", "xp": 50, "freeze": true },
+      { "days": 14, "badge": "2주 챌린저", "xp": 80 },
+      { "days": 30, "badge": "한달 마스터", "xp": 200, "skin": true },
+      { "days": 100, "badge": "백일의 기적", "xp": 500 }
+    ],
+    "league_system": {
+      "tiers": ["bronze", "silver", "gold", "platinum", "diamond"],
+      "promotion": "Top 20% move up",
+      "demotion": "Bottom 20% move down",
+      "cycle": "Weekly (Monday-Sunday)"
+    }
+  },
+
+  "hanki_mascot": {
+    "description": "밥공기 형태의 마스코트 캐릭터",
+    "emotions": {
+      "default": { "trigger": "앱 진입", "message": "오늘도 왔구나! 한끼 기다렸어 🍚" },
+      "happy": { "trigger": "기록 완료, 목표 달성", "message": "우와! 완벽해! 💨" },
+      "cheering": { "trigger": "기록 중", "message": "잘하고 있어! 💪" },
+      "worried": { "trigger": "1일 미접속", "message": "오늘 바빴어...? 😟" },
+      "sad": { "trigger": "2일 미접속", "message": "보고 싶었어... 😢" },
+      "upset": { "trigger": "3일+ 미접속", "message": "..." },
+      "relieved": { "trigger": "복귀 시", "message": "돌아왔구나! 😭💕" }
+    },
+    "evolution_stages": {
+      "1": { "level_range": "1-3", "form": "작은 밥공기" },
+      "2": { "level_range": "4-6", "form": "반찬이 생긴 밥상" },
+      "3": { "level_range": "7-9", "form": "푸짐한 한상 차림" },
+      "4": { "level_range": "10", "form": "빛나는 황금 밥상" }
+    }
+  },
+
+  "success_criteria": {
+    "mvp_targets": {
+      "pilot_gyms": "3-5",
+      "mau": "300-500",
+      "weekly_record_rate": "70%+",
+      "7_day_retention": "50%+",
+      "30_day_retention": "35%+",
+      "average_streak": "7+ days",
+      "nps": "50+"
+    },
+    "feature_validation": {
+      "reverse_planner_usage": "40%+",
+      "challenge_participation": "60%+",
+      "ai_coach_engagement": "30%+"
+    }
+  }
+}

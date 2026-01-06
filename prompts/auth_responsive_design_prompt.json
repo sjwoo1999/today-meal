@@ -1,0 +1,244 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "meta": {
+    "title": "OneMealToday Auth 페이지 반응형 디자인",
+    "version": "1.0.0",
+    "created": "2026-01-06",
+    "purpose": "Auth 페이지(Splash, Login, Signup)의 PC 레이아웃 구현 및 반응형 적용"
+  },
+
+  "implementation_status": "completed",
+  "completed_at": "2026-01-06",
+
+  "current_status": {
+    "responsive_pages": [
+      {
+        "component": "OnboardingPage",
+        "pc_layout": "OnboardingDesktopLayout",
+        "pattern": "useBreakpoint + 조건부 렌더링"
+      },
+      {
+        "component": "SplashScreen",
+        "pc_layout": "중앙 정렬 + max-w-md",
+        "pattern": "CSS 반응형",
+        "status": "completed"
+      },
+      {
+        "component": "LoginPage",
+        "pc_layout": "LoginDesktopLayout",
+        "pattern": "useBreakpoint + 조건부 렌더링",
+        "status": "completed"
+      },
+      {
+        "component": "SignupPage",
+        "pc_layout": "SignupDesktopLayout",
+        "pattern": "useBreakpoint + 조건부 렌더링",
+        "status": "completed"
+      }
+    ],
+    "mobile_only_pages": []
+  },
+
+  "design_patterns": {
+    "breakpoints": {
+      "mobile": "max-width: 767px",
+      "tablet": "768px - 1279px",
+      "desktop": "1280px - 1919px",
+      "desktop_lg": "min-width: 1920px"
+    },
+    "hook": {
+      "name": "useBreakpoint",
+      "path": "app/src/hooks/useBreakpoint.ts",
+      "usage": "const { isDesktopOrLarger, isMobile, isTablet } = useBreakpoint();"
+    },
+    "pc_layout_structure": {
+      "type": "2-column",
+      "left_panel": {
+        "width": "40%",
+        "content": ["로고", "브랜드 메시지", "배경 그라데이션/일러스트"]
+      },
+      "right_panel": {
+        "width": "60%",
+        "content": ["폼 콘텐츠", "액션 버튼"]
+      }
+    },
+    "reference": "OnboardingDesktopLayout.tsx"
+  },
+
+  "tasks": [
+    {
+      "id": "AUTH-001",
+      "title": "SplashScreen 반응형 수정",
+      "priority": "medium",
+      "status": "pending",
+      "file": "app/src/components/auth/SplashScreen.tsx",
+      "changes": [
+        {
+          "type": "modify",
+          "description": "PC에서 콘텐츠 중앙 정렬 및 최대 너비 제한",
+          "details": {
+            "container": "max-w-md mx-auto (PC에서)",
+            "logo_size": "desktop:w-32 desktop:h-32",
+            "animation": "유지"
+          }
+        }
+      ],
+      "test_verification": {
+        "mobile": "전체 화면 스플래시",
+        "desktop": "중앙 정렬된 스플래시 (최대 448px)"
+      }
+    },
+    {
+      "id": "AUTH-002",
+      "title": "LoginDesktopLayout 생성",
+      "priority": "high",
+      "status": "pending",
+      "file": "app/src/components/auth/LoginDesktopLayout.tsx",
+      "action": "create",
+      "structure": {
+        "layout": "flex min-h-screen",
+        "left_panel": {
+          "width": "w-2/5",
+          "background": "bg-gradient-to-br from-green-500 to-blue-600",
+          "content": ["앱 로고", "브랜드 슬로건", "피처 하이라이트"]
+        },
+        "right_panel": {
+          "width": "w-3/5",
+          "background": "bg-white",
+          "content": ["로그인 폼", "소셜 로그인", "회원가입 링크"]
+        }
+      },
+      "props": {
+        "email": "string",
+        "password": "string",
+        "onEmailChange": "(value: string) => void",
+        "onPasswordChange": "(value: string) => void",
+        "onLogin": "() => void",
+        "onSocialLogin": "(provider: string) => void",
+        "onNavigateSignup": "() => void"
+      }
+    },
+    {
+      "id": "AUTH-003",
+      "title": "LoginPage에 반응형 적용",
+      "priority": "high",
+      "status": "pending",
+      "file": "app/src/components/auth/LoginPage.tsx",
+      "changes": [
+        {
+          "type": "import",
+          "add": [
+            "import { useBreakpoint } from '@/hooks/useBreakpoint';",
+            "import LoginDesktopLayout from './LoginDesktopLayout';"
+          ]
+        },
+        {
+          "type": "logic",
+          "description": "브레이크포인트 기반 조건부 렌더링",
+          "code": "const { isDesktopOrLarger } = useBreakpoint();\n\nif (isDesktopOrLarger) {\n  return <LoginDesktopLayout {...loginProps} />;\n}"
+        }
+      ],
+      "test_verification": {
+        "mobile": "기존 모바일 레이아웃 유지",
+        "desktop": "2-column PC 레이아웃"
+      }
+    },
+    {
+      "id": "AUTH-004",
+      "title": "SignupDesktopLayout 생성",
+      "priority": "high",
+      "status": "pending",
+      "file": "app/src/components/auth/SignupDesktopLayout.tsx",
+      "action": "create",
+      "structure": {
+        "layout": "LoginDesktopLayout과 동일한 2-column 패턴",
+        "left_panel": {
+          "content": ["앱 로고", "가입 혜택 안내", "브랜드 메시지"]
+        },
+        "right_panel": {
+          "content": ["회원가입 폼", "약관 동의", "로그인 링크"]
+        }
+      },
+      "props": {
+        "email": "string",
+        "password": "string",
+        "confirmPassword": "string",
+        "name": "string",
+        "onEmailChange": "(value: string) => void",
+        "onPasswordChange": "(value: string) => void",
+        "onConfirmPasswordChange": "(value: string) => void",
+        "onNameChange": "(value: string) => void",
+        "onSignup": "() => void",
+        "onNavigateLogin": "() => void"
+      }
+    },
+    {
+      "id": "AUTH-005",
+      "title": "SignupPage에 반응형 적용",
+      "priority": "high",
+      "status": "pending",
+      "file": "app/src/components/auth/SignupPage.tsx",
+      "changes": [
+        {
+          "type": "import",
+          "add": [
+            "import { useBreakpoint } from '@/hooks/useBreakpoint';",
+            "import SignupDesktopLayout from './SignupDesktopLayout';"
+          ]
+        },
+        {
+          "type": "logic",
+          "description": "브레이크포인트 기반 조건부 렌더링",
+          "code": "const { isDesktopOrLarger } = useBreakpoint();\n\nif (isDesktopOrLarger) {\n  return <SignupDesktopLayout {...signupProps} />;\n}"
+        }
+      ],
+      "test_verification": {
+        "mobile": "기존 모바일 레이아웃 유지",
+        "desktop": "2-column PC 레이아웃"
+      }
+    }
+  ],
+
+  "verification": {
+    "build_check": {
+      "command": "npm run build",
+      "expected": "Build successful with no errors"
+    },
+    "type_check": {
+      "command": "npx tsc --noEmit",
+      "expected": "No type errors"
+    },
+    "lint_check": {
+      "command": "npm run lint",
+      "expected": "No lint errors"
+    },
+    "visual_check": {
+      "viewports": [
+        { "name": "mobile", "width": 375, "height": 812 },
+        { "name": "tablet", "width": 768, "height": 1024 },
+        { "name": "desktop", "width": 1440, "height": 900 }
+      ],
+      "pages_to_verify": ["/", "/login", "/signup", "/onboarding"]
+    }
+  },
+
+  "files_to_create": [
+    "app/src/components/auth/LoginDesktopLayout.tsx",
+    "app/src/components/auth/SignupDesktopLayout.tsx"
+  ],
+
+  "files_to_modify": [
+    "app/src/components/auth/SplashScreen.tsx",
+    "app/src/components/auth/LoginPage.tsx",
+    "app/src/components/auth/SignupPage.tsx"
+  ],
+
+  "success_criteria": [
+    "SplashScreen이 PC에서 중앙 정렬됨",
+    "LoginPage가 PC에서 2-column 레이아웃으로 표시됨",
+    "SignupPage가 PC에서 2-column 레이아웃으로 표시됨",
+    "모바일에서는 기존 레이아웃 유지",
+    "빌드 에러 없음",
+    "타입 에러 없음"
+  ]
+}

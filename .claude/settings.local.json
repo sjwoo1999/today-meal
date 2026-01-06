@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tree:*)",
+      "Bash(wc:*)",
+      "Bash(npx shadcn@latest init:*)",
+      "Bash(npx shadcn@latest add:*)",
+      "Bash(npm run build:*)",
+      "Bash(find:*)",
+      "Bash({} ;)",
+      "Bash(grep:*)",
+      "Bash(npx playwright install chromium)",
+      "Bash(npx playwright test --list)",
+      "Bash(npm run test:tablet:*)",
+      "Bash(npx playwright test:*)",
+      "Bash(cat:*)",
+      "Bash(lsof:*)",
+      "Bash(kill:*)",
+      "Bash(cd /Users/_woo_s.j/Desktop/woo/workspace/today-meal/app && npx tsc:*)",
+      "Bash(cd /Users/_woo_s.j/Desktop/woo/workspace/today-meal/app && npm run lint:*)",
+      "Bash(xargs:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run lint:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}

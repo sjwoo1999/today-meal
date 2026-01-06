@@ -1,12 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { Flame, Clock, ChevronRight, MessageSquare, Heart, Eye, Camera } from 'lucide-react';
+import { Flame, Clock, ChevronRight, MessageSquare, Heart, Eye, Camera, RefreshCw } from 'lucide-react';
 import { CommunityPost, BOARD_LIST } from '@/types';
-import { useUIStore } from '@/store';
+import { useUIStore, useUserStore } from '@/store';
 import { UIState } from '@/types/ui';
 import PostDetail from '@/components/community/PostDetail';
+import { StoryBar } from '@/components/feed';
+import {
+    FeedStateContainer,
+    HotPostCarouselSkeleton,
+} from '@/components/common';
+import { useViewState } from '@/hooks/useServiceStore';
+import { PointDisplay, NotificationBadge } from '@/components/common';
+import { usePoints, useNotifications } from '@/hooks/useServiceStore';
 
 // HOT 게시글 Mock 데이터
 const HOT_POSTS: CommunityPost[] = [
@@ -191,8 +199,56 @@ function FeedPostCard({ post }: { post: CommunityPost }) {
 
 export default function FeedPage() {
     const { setActiveTab } = useUIStore();
-    const [posts] = useState(RECENT_POSTS);
+    const { user } = useUserStore();
+    const { balance, fetchBalance } = usePoints();
+    const { unreadCount, fetchUnreadCount } = useNotifications();
+
+    const [posts, setPosts] = useState<CommunityPost[]>([]);
+    const [hotPosts, setHotPosts] = useState<CommunityPost[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [isRefreshing, setIsRefreshing] = useState(false);
+    const [error, setError] = useState<Error | null>(null);
     const [selectedPost, setSelectedPost] = useState<CommunityPost | null>(null);
+
+    // Calculate view state
+    const viewState = useViewState(posts, isLoading, error);
+
+    // Fetch posts (simulated with mock data)
+    const loadPosts = useCallback(async () => {
+        try {
+            setError(null);
+            setIsLoading(true);
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 800));
+            setPosts(RECENT_POSTS);
+            setHotPosts(HOT_POSTS);
+        } catch (err) {
+            setError(err instanceof Error ? err : new Error('피드를 불러오는데 실패했습니다'));
+        } finally {
+            setIsLoading(false);
+        }
+    }, []);
+
+    // Refresh handler
+    const handleRefresh = useCallback(async () => {
+        try {
+            setIsRefreshing(true);
+            await new Promise(resolve => setTimeout(resolve, 500));
+            setPosts(RECENT_POSTS);
+            setHotPosts(HOT_POSTS);
+        } finally {
+            setIsRefreshing(false);
+        }
+    }, []);
+
+    // Initial load
+    useEffect(() => {
+        loadPosts();
+        if (user?.id) {
+            fetchBalance(user.id);
+            fetchUnreadCount(user.id);
+        }
+    }, [loadPosts, user?.id, fetchBalance, fetchUnreadCount]);
 
     // 게시글 클릭 핸들러
     const handlePostClick = (post: CommunityPost) => {
@@ -215,19 +271,41 @@ export default function FeedPage() {
             <div className="bg-white border-b border-gray-100 px-4 py-4 sticky top-0 z-10">
                 <div className="flex items-center justify-between">
                     <h1 className="text-xl font-bold text-gray-900">🍚 오늘한끼</h1>
-                    <div className="flex items-center gap-2">
-                        <span className="text-sm text-gray-500">다이어터 3.2만명</span>
+                    <div className="flex items-center gap-3">
+                        <PointDisplay
+                            balance={balance?.available ?? 0}
+                            size="sm"
+                            onClick={() => setActiveTab('shop' as UIState['activeTab'])}
+                        />
+                        <NotificationBadge
+                            count={unreadCount}
+                            size="sm"
+                            onClick={() => {/* Open notifications */}}
+                        />
+                        {isRefreshing ? (
+                            <RefreshCw className="w-5 h-5 text-gray-400 animate-spin" data-testid="refresh-button" />
+                        ) : (
+                            <button onClick={handleRefresh} data-testid="refresh-button">
+                                <RefreshCw className="w-5 h-5 text-gray-400" />
+                            </button>
+                        )}
                     </div>
                 </div>
+            </div>
+
+            {/* 스토리 바 */}
+            <div data-testid="story-bar">
+                <StoryBar />
             </div>
 
             {/* 오늘의 기록 CTA */}
             <div className="px-4 py-3">
                 <motion.button
                     onClick={() => setActiveTab('record' as UIState['activeTab'])}
-                    className="w-full bg-gradient-to-r from-coral-500 to-coral-600 text-white rounded-xl p-4 flex items-center justify-between shadow-lg"
+                    className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl p-4 flex items-center justify-between shadow-lg"
                     whileHover={{ scale: 1.01 }}
                     whileTap={{ scale: 0.99 }}
+                    data-testid="record-cta"
                 >
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
@@ -235,7 +313,7 @@ export default function FeedPage() {
                         </div>
                         <div className="text-left">
                             <p className="font-bold">오늘 뭐 먹었어? 📸</p>
-                            <p className="text-sm text-coral-100">사진 찍으면 자동 분석!</p>
+                            <p className="text-sm text-green-100">사진 찍으면 자동 분석!</p>
                         </div>
                     </div>
                     <ChevronRight className="w-5 h-5" />
@@ -243,23 +321,27 @@ export default function FeedPage() {
             </div>
 
             {/* HOT 게시글 */}
-            <div className="px-4 py-2">
+            <div className="px-4 py-2" data-testid="hot-posts">
                 <div className="flex items-center justify-between mb-3">
                     <h2 className="font-bold text-gray-900 flex items-center gap-2">
                         <Flame className="w-5 h-5 text-orange-500" />
                         지금 뜨는 글
                     </h2>
-                    <button className="text-sm text-coral-500 flex items-center gap-1">
+                    <button className="text-sm text-green-500 flex items-center gap-1">
                         더보기 <ChevronRight className="w-4 h-4" />
                     </button>
                 </div>
-                <div className="flex gap-3 overflow-x-auto scrollbar-hide -mx-4 px-4 pb-2">
-                    {HOT_POSTS.map(post => (
-                        <div key={post.id} onClick={() => handlePostClick(post)} className="cursor-pointer">
-                            <HotPostCard post={post} />
-                        </div>
-                    ))}
-                </div>
+                {isLoading ? (
+                    <HotPostCarouselSkeleton />
+                ) : (
+                    <div className="flex gap-3 overflow-x-auto scrollbar-hide -mx-4 px-4 pb-2">
+                        {hotPosts.map(post => (
+                            <div key={post.id} onClick={() => handlePostClick(post)} className="cursor-pointer" data-testid="hot-post-card">
+                                <HotPostCard post={post} />
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
 
             {/* 최신 피드 */}
@@ -274,13 +356,20 @@ export default function FeedPage() {
                         <button className="px-3 py-1 text-gray-500 hover:bg-gray-100 rounded-full">구독</button>
                     </div>
                 </div>
-                <div className="space-y-3">
-                    {posts.map(post => (
-                        <div key={post.id} onClick={() => handlePostClick(post)} className="cursor-pointer">
-                            <FeedPostCard post={post} />
-                        </div>
-                    ))}
-                </div>
+
+                <FeedStateContainer
+                    state={viewState}
+                    onRetry={loadPosts}
+                    onExplore={() => setActiveTab('community' as UIState['activeTab'])}
+                >
+                    <div className="space-y-3">
+                        {posts.map(post => (
+                            <div key={post.id} onClick={() => handlePostClick(post)} className="cursor-pointer" data-testid="feed-post-card">
+                                <FeedPostCard post={post} />
+                            </div>
+                        ))}
+                    </div>
+                </FeedStateContainer>
             </div>
         </div>
     );

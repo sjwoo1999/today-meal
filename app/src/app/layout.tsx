@@ -11,7 +11,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#FF8C5A", // Today Coral
+  themeColor: "#22C55E", // Fresh Green
 };
 
 export const metadata: Metadata = {

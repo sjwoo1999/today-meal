@@ -166,11 +166,11 @@ export default function ReversePlanner({
     });
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-coral-50 to-white pb-24">
+        <div className="min-h-screen bg-gradient-to-b from-green-50 to-white pb-24">
             {/* Header */}
-            <div className="bg-gradient-to-r from-coral-500 to-coral-600 text-white p-6 pb-12 rounded-b-3xl">
+            <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 pb-12 rounded-b-3xl">
                 <h1 className="text-2xl font-bold mb-2">역추산 플래너</h1>
-                <p className="text-coral-100">먹고 싶은 저녁을 선택하면, 아침·점심을 추천해줄게!</p>
+                <p className="text-green-100">먹고 싶은 저녁을 선택하면, 아침·점심을 추천해줄게!</p>
                 {/* Location Banner */}
                 <div className="mt-3 flex items-center gap-2 bg-white/10 rounded-lg px-3 py-2 text-sm">
                     <Navigation className="w-4 h-4" />
@@ -219,8 +219,8 @@ export default function ReversePlanner({
                                             onClick={() => setSelectedCategory(cat.id)}
                                             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors
                                                 ${selectedCategory === cat.id
-                                                    ? 'bg-coral-500 text-white'
-                                                    : 'bg-surface-secondary text-text-secondary hover:bg-coral-50'}`}
+                                                    ? 'bg-green-500 text-white'
+                                                    : 'bg-surface-secondary text-text-secondary hover:bg-green-50'}`}
                                         >
                                             <span>{cat.emoji}</span>
                                             <span>{cat.label}</span>
@@ -236,7 +236,7 @@ export default function ReversePlanner({
                                         <motion.button
                                             key={menu.id}
                                             onClick={() => handleMenuSelect(menu)}
-                                            className="p-4 bg-surface-secondary rounded-2xl hover:bg-coral-50 
+                                            className="p-4 bg-surface-secondary rounded-2xl hover:bg-green-50 
                                  transition-colors text-center group"
                                             whileHover={{ scale: 1.02 }}
                                             whileTap={{ scale: 0.98 }}
@@ -248,7 +248,7 @@ export default function ReversePlanner({
                                                             menu.category === 'korean' ? '🍚' :
                                                                 menu.category === 'chinese' ? '🥟' : '🍴'}
                                             </div>
-                                            <div className="text-sm font-medium text-text-primary group-hover:text-coral-600">
+                                            <div className="text-sm font-medium text-text-primary group-hover:text-green-600">
                                                 {menu.nameKr}
                                             </div>
                                             <div className="text-xs text-text-muted mt-1">
@@ -275,7 +275,7 @@ export default function ReversePlanner({
                             className="space-y-4"
                         >
                             {/* Result Header */}
-                            <div className="card bg-gradient-to-r from-coral-500 to-coral-600 text-white">
+                            <div className="card bg-gradient-to-r from-green-500 to-green-600 text-white">
                                 <div className="flex items-center gap-2 mb-2">
                                     {recommendations.isFeasible ? (
                                         <motion.div
@@ -289,7 +289,7 @@ export default function ReversePlanner({
                                     )}
                                     <h2 className="text-xl font-bold">{selectedMenu.nameKr} OK! 🔥</h2>
                                 </div>
-                                <p className="text-coral-100">{recommendations.message}</p>
+                                <p className="text-green-100">{recommendations.message}</p>
                             </div>
 
                             {/* Static Map */}
@@ -311,13 +311,13 @@ export default function ReversePlanner({
                             {/* Timeline */}
                             <div className="card space-y-6">
                                 <h3 className="text-lg font-bold text-text-primary flex items-center gap-2">
-                                    <Clock className="w-5 h-5 text-coral-500" />
+                                    <Clock className="w-5 h-5 text-green-500" />
                                     오늘의 플랜
                                 </h3>
 
                                 {/* Breakfast */}
-                                <div className="relative pl-8 border-l-2 border-coral-200">
-                                    <div className="absolute left-0 top-0 w-4 h-4 bg-coral-500 rounded-full transform -translate-x-1/2" />
+                                <div className="relative pl-8 border-l-2 border-green-200">
+                                    <div className="absolute left-0 top-0 w-4 h-4 bg-green-500 rounded-full transform -translate-x-1/2" />
                                     <div className="text-sm text-text-secondary mb-1">⏰ 아침</div>
                                     <div className="bg-surface-secondary rounded-xl p-4">
                                         <div className="flex justify-between items-start mb-2">
@@ -329,7 +329,7 @@ export default function ReversePlanner({
                                                 ))}
                                             </div>
                                             <div className="text-right">
-                                                <div className="text-coral-500 font-bold">
+                                                <div className="text-green-500 font-bold">
                                                     {recommendations.breakfast.totalCalories} kcal
                                                 </div>
                                                 <div className="text-xs text-text-muted">
@@ -359,8 +359,8 @@ export default function ReversePlanner({
                                 </div>
 
                                 {/* Lunch */}
-                                <div className="relative pl-8 border-l-2 border-coral-200">
-                                    <div className="absolute left-0 top-0 w-4 h-4 bg-coral-500 rounded-full transform -translate-x-1/2" />
+                                <div className="relative pl-8 border-l-2 border-green-200">
+                                    <div className="absolute left-0 top-0 w-4 h-4 bg-green-500 rounded-full transform -translate-x-1/2" />
                                     <div className="text-sm text-text-secondary mb-1">⏰ 점심</div>
                                     <div className="bg-surface-secondary rounded-xl p-4">
                                         <div className="flex justify-between items-start mb-2">
@@ -372,7 +372,7 @@ export default function ReversePlanner({
                                                 ))}
                                             </div>
                                             <div className="text-right">
-                                                <div className="text-coral-500 font-bold">
+                                                <div className="text-green-500 font-bold">
                                                     {recommendations.lunch.totalCalories} kcal
                                                 </div>
                                                 <div className="text-xs text-text-muted">
@@ -403,12 +403,12 @@ export default function ReversePlanner({
 
                                 {/* Dinner */}
                                 <div className="relative pl-8">
-                                    <div className="absolute left-0 top-0 w-4 h-4 bg-sage-500 rounded-full transform -translate-x-1/2 border-2 border-white" />
+                                    <div className="absolute left-0 top-0 w-4 h-4 bg-blue-500 rounded-full transform -translate-x-1/2 border-2 border-white" />
                                     <div className="text-sm text-text-secondary mb-1">⏰ 저녁</div>
-                                    <div className="bg-sage-50 rounded-xl p-4 border-2 border-sage-200">
+                                    <div className="bg-blue-50 rounded-xl p-4 border-2 border-blue-200">
                                         <div className="flex justify-between items-start mb-3">
                                             <div>
-                                                <div className="font-bold text-sage-700 text-lg">
+                                                <div className="font-bold text-blue-700 text-lg">
                                                     {selectedMenu.nameKr} 🎉
                                                 </div>
                                                 <div className="text-sm text-text-secondary">
@@ -416,7 +416,7 @@ export default function ReversePlanner({
                                                 </div>
                                             </div>
                                             <div className="text-right">
-                                                <div className="text-sage-600 font-bold">
+                                                <div className="text-blue-600 font-bold">
                                                     {selectedMenu.calories} kcal
                                                 </div>
                                                 <div className="text-xs text-text-muted">
@@ -426,25 +426,25 @@ export default function ReversePlanner({
                                         </div>
                                         {/* Nearby Restaurant Recommendations */}
                                         {dinnerRestaurants.length > 0 && (
-                                            <div className="space-y-2 pt-2 border-t border-sage-200">
-                                                <div className="text-xs font-medium text-sage-600 mb-2">📍 주변 {selectedMenu.nameKr} 맛집</div>
+                                            <div className="space-y-2 pt-2 border-t border-blue-200">
+                                                <div className="text-xs font-medium text-blue-600 mb-2">📍 주변 {selectedMenu.nameKr} 맛집</div>
                                                 {dinnerRestaurants.map((restaurant) => (
                                                     <a
                                                         key={restaurant.id}
                                                         href={restaurant.mapUrl}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="flex items-center justify-between p-2 bg-white rounded-lg hover:bg-sage-100 transition-colors"
+                                                        className="flex items-center justify-between p-2 bg-white rounded-lg hover:bg-blue-100 transition-colors"
                                                     >
                                                         <div className="flex items-center gap-2">
-                                                            <MapPin className="w-4 h-4 text-sage-500" />
+                                                            <MapPin className="w-4 h-4 text-blue-500" />
                                                             <div>
                                                                 <div className="text-sm font-medium text-text-primary">{restaurant.name}</div>
                                                                 <div className="text-xs text-text-muted">{restaurant.address}</div>
                                                             </div>
                                                         </div>
                                                         <div className="flex items-center gap-2">
-                                                            <span className="text-xs text-sage-600 font-medium">{restaurant.distance}</span>
+                                                            <span className="text-xs text-blue-600 font-medium">{restaurant.distance}</span>
                                                             {restaurant.rating && (
                                                                 <span className="text-xs text-amber-500">⭐ {restaurant.rating}</span>
                                                             )}
@@ -462,7 +462,7 @@ export default function ReversePlanner({
                                 <h4 className="text-sm font-semibold text-text-secondary mb-2">📊 하루 총합</h4>
                                 <div className="grid grid-cols-2 gap-4 text-center">
                                     <div>
-                                        <div className="text-2xl font-bold text-coral-500">
+                                        <div className="text-2xl font-bold text-green-500">
                                             {recommendations.breakfast.totalCalories +
                                                 recommendations.lunch.totalCalories +
                                                 selectedMenu.calories}
@@ -472,7 +472,7 @@ export default function ReversePlanner({
                                         </div>
                                     </div>
                                     <div>
-                                        <div className="text-2xl font-bold text-sage-500">
+                                        <div className="text-2xl font-bold text-blue-500">
                                             {recommendations.breakfast.totalProtein +
                                                 recommendations.lunch.totalProtein +
                                                 selectedMenu.protein}g
@@ -525,7 +525,7 @@ export default function ReversePlanner({
                             <p className="text-text-secondary mb-4">
                                 점심시간에 알림으로 알려줄게 📱
                             </p>
-                            <div className="inline-flex items-center gap-2 bg-coral-50 text-coral-600 
+                            <div className="inline-flex items-center gap-2 bg-green-50 text-green-600 
                               px-4 py-2 rounded-full font-semibold">
                                 <Sparkles className="w-5 h-5" />
                                 +10 XP 획득!

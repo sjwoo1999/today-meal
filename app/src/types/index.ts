@@ -424,3 +424,141 @@ export type PostSortOption = 'latest' | 'popular' | 'comments' | 'views';
 // Type aliases for compatibility
 export type BoardType = BoardCategory;
 export type CommunityComment = Comment;
+
+// ==========================================
+// Post (Feed) 타입
+// ==========================================
+
+export interface PostAuthor {
+    id: string;
+    name: string;
+    avatar: string;
+    level: number;
+    badges: string[];
+}
+
+export interface Post {
+    id: string;
+    author: PostAuthor;
+    content: string;
+    image?: string;
+    mealType?: 'breakfast' | 'lunch' | 'dinner' | 'snack';
+    likes: number;
+    comments: number;
+    createdAt: string;
+    isLiked: boolean;
+}
+
+// ==========================================
+// Squad & Challenge 타입 (v2.0)
+// ==========================================
+
+export type SquadCategory = 'diet' | 'muscle' | 'healthy' | 'local' | 'challenge';
+
+export interface Squad {
+    id: string;
+    name: string;
+    description: string;
+    imageUrl?: string;
+    memberCount: number;
+    maxMembers: number;
+    isPrivate: boolean;
+    activeChallenges: number;
+    ownerId: string;
+    ownerName: string;
+    tags: string[];
+    createdAt: Date;
+    weeklyXP: number;
+    category?: SquadCategory;
+}
+
+export interface SquadMember {
+    id: string;
+    squadId: string;
+    userId: string;
+    userName: string;
+    profileImage?: string;
+    role: 'owner' | 'admin' | 'member';
+    weeklyXP: number;
+    streak: number;
+    joinedAt: Date;
+}
+
+export type ChallengeType =
+    | 'streak'          // Maintain streak for N days
+    | 'calorie'         // Stay within calorie range
+    | 'protein'         // Meet protein goal
+    | 'record'          // Record N meals
+    | 'steps'           // Steps challenge
+    | 'meal_count'      // Record N meals (alias for record)
+    | 'calorie_target'  // Stay within calorie range (alias for calorie)
+    | 'protein_goal'    // Meet protein goal (alias for protein)
+    | 'community'       // Social challenges
+    | 'custom';         // Custom rules
+export type ChallengeStatus =
+    | 'draft'       // Created, not published
+    | 'upcoming'    // Published, not started
+    | 'active'      // In progress
+    | 'calculating' // End period, calculating results
+    | 'completed'   // Results finalized
+    | 'archived'    // Historical (30+ days after completion)
+    | 'cancelled';  // Cancelled before completion
+
+export interface Challenge {
+    id: string;
+    squadId: string;
+    title: string;
+    description: string;
+    emoji?: string;
+    type: ChallengeType;
+    goal: number;
+    unit: string;
+    startDate: Date;
+    endDate: Date;
+    status: ChallengeStatus;
+    participants: number;
+    progress?: number;
+    createdBy?: string;
+    rewards?: {
+        first: number;
+        second: number;
+        third: number;
+        participation: number;
+    };
+    prizes?: ChallengePrize[];
+    imageUrl?: string;
+}
+
+export interface ChallengePrize {
+    rank: number;
+    reward: string;
+    points?: number;
+}
+
+export interface ChallengeParticipant {
+    id: string;
+    challengeId?: string;
+    userId: string;
+    userName: string;
+    profileImage?: string;
+    progress: number;
+    goal: number;
+    rank: number;
+    streak?: number;
+    joinedAt?: Date;
+    dailyRecord?: { date: string; verified: boolean; value?: number }[];
+    lastVerifiedAt?: Date;
+}
+
+export interface ChallengeVerification {
+    id: string;
+    challengeId: string;
+    userId: string;
+    userName: string;
+    profileImage?: string;
+    imageUrl: string;
+    caption?: string;
+    progress: number;
+    reactions: { fire: number; thumbsUp: number; heart: number };
+    verifiedAt: Date;
+}

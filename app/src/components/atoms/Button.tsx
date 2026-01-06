@@ -18,11 +18,11 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
-    primary: 'bg-coral-500 text-white hover:bg-coral-600 active:scale-95 shadow-glow',
+    primary: 'bg-green-500 text-white hover:bg-green-600 active:scale-95 shadow-glow',
     secondary: 'bg-gray-100 text-gray-900 hover:bg-gray-200 active:scale-95 dark:bg-gray-800 dark:text-gray-100',
-    outline: 'border-2 border-coral-500 text-coral-500 bg-transparent hover:bg-coral-50 active:scale-95',
-    ghost: 'text-coral-500 bg-transparent hover:bg-coral-50 active:scale-95',
-    success: 'bg-sage-500 text-white hover:bg-sage-600 active:scale-95 shadow-glow-green',
+    outline: 'border-2 border-green-500 text-green-500 bg-transparent hover:bg-green-50 active:scale-95',
+    ghost: 'text-green-500 bg-transparent hover:bg-green-50 active:scale-95',
+    success: 'bg-blue-500 text-white hover:bg-blue-600 active:scale-95 shadow-glow-green',
 };
 
 const sizeStyles: Record<ButtonSize, string> = {

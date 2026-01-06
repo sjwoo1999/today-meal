@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "meta": {
+    "title": "OneMealToday 로그아웃 기능 구현",
+    "version": "1.0.0",
+    "created": "2026-01-06",
+    "purpose": "로그아웃 버튼 클릭 시 확인 모달 표시 후 LoginPage로 이동"
+  },
+
+  "implementation_status": "completed",
+  "completed_at": "2026-01-06",
+
+  "current_status": {
+    "auth_store": {
+      "file": "app/src/store/index.ts",
+      "logout_method": "구현됨",
+      "description": "isAuthenticated = false로 설정하여 AuthFlow가 자동으로 LoginPage 렌더링"
+    },
+    "auth_flow": {
+      "file": "app/src/components/auth/AuthFlow.tsx",
+      "description": "isAuthenticated 상태를 감시하여 false일 때 LoginPage 표시"
+    },
+    "settings_page": {
+      "file": "app/src/components/settings/SettingsPage.tsx",
+      "logout_button": "구현됨 + onClick 핸들러 연결됨",
+      "confirm_modal": "구현됨"
+    }
+  },
+
+  "logout_flow": {
+    "description": "로그아웃 플로우 순서",
+    "steps": [
+      {
+        "step": 1,
+        "action": "사용자가 설정 페이지에서 로그아웃 버튼 클릭",
+        "component": "SettingsPage.tsx"
+      },
+      {
+        "step": 2,
+        "action": "확인 모달 표시",
+        "modal_content": {
+          "title": "로그아웃 하시겠습니까?",
+          "message": "로그아웃하면 다시 로그인해야 합니다.",
+          "buttons": ["취소", "로그아웃"]
+        }
+      },
+      {
+        "step": 3,
+        "action": "사용자가 '로그아웃' 버튼 클릭",
+        "trigger": "logout() 함수 호출"
+      },
+      {
+        "step": 4,
+        "action": "useAuthStore.logout() 실행",
+        "state_changes": {
+          "isAuthenticated": false,
+          "currentUser": null,
+          "onboardingComplete": false,
+          "onboardingStep": 1,
+          "onboardingData": {}
+        }
+      },
+      {
+        "step": 5,
+        "action": "AuthFlow가 isAuthenticated 변경 감지",
+        "result": "LoginPage 자동 렌더링"
+      }
+    ]
+  },
+
+  "files_modified": [
+    {
+      "path": "app/src/components/settings/SettingsPage.tsx",
+      "changes": [
+        "useAuthStore import 추가",
+        "logout 함수 destructuring",
+        "showLogoutConfirm 상태 추가",
+        "로그아웃 버튼 onClick 핸들러 추가",
+        "확인 모달 컴포넌트 추가"
+      ]
+    }
+  ],
+
+  "code_changes": {
+    "imports": {
+      "before": "import { useUIStore } from '@/store';",
+      "after": "import { useUIStore, useAuthStore } from '@/store';"
+    },
+    "state_additions": [
+      "const { logout } = useAuthStore();",
+      "const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);"
+    ],
+    "button_handler": {
+      "before": "<motion.button whileTap={{ scale: 0.98 }} className=\"...\">",
+      "after": "<motion.button whileTap={{ scale: 0.98 }} onClick={() => setShowLogoutConfirm(true)} className=\"...\">"
+    },
+    "modal_component": {
+      "description": "확인 모달 UI 추가",
+      "features": [
+        "반투명 배경 오버레이",
+        "중앙 정렬된 모달 카드",
+        "애니메이션 (scale + opacity)",
+        "취소/로그아웃 버튼"
+      ]
+    }
+  },
+
+  "verification": {
+    "build_check": {
+      "command": "npm run build",
+      "expected": "Build successful with no errors",
+      "status": "passed",
+      "result": "Static pages generated successfully",
+      "executed_at": "2026-01-06"
+    },
+    "type_check": {
+      "command": "npx tsc --noEmit",
+      "expected": "No type errors",
+      "status": "passed",
+      "result": "Tool ran without output or errors",
+      "executed_at": "2026-01-06"
+    },
+    "manual_test": {
+      "steps": [
+        "1. 앱 실행 후 설정 페이지로 이동",
+        "2. 로그아웃 버튼 클릭",
+        "3. 확인 모달이 표시되는지 확인",
+        "4. '취소' 클릭 시 모달이 닫히는지 확인",
+        "5. '로그아웃' 클릭 시 LoginPage로 이동하는지 확인"
+      ]
+    }
+  },
+
+  "success_criteria": [
+    "로그아웃 버튼 클릭 시 확인 모달 표시됨",
+    "취소 버튼 클릭 시 모달 닫힘",
+    "로그아웃 확인 시 LoginPage로 이동됨",
+    "사용자 상태 초기화됨 (isAuthenticated = false)",
+    "빌드 에러 없음",
+    "타입 에러 없음"
+  ]
+}

@@ -1,12 +1,13 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Settings, ChevronRight, Award, Flame, Calendar, Star, LogOut } from 'lucide-react';
 import HankiMascot from '@/components/HankiMascot';
 import { LevelBadge, XPProgressBar } from '@/components/Gamification';
 import { NutritionBar } from '@/components/NutritionProgress';
 import { LEVEL_DATA, STREAK_MILESTONES, Badge } from '@/types';
-import { useUserStore, getLevelInfo, useHankiStore } from '@/store';
+import { useUserStore, getLevelInfo, useHankiStore, useUIStore, useAuthStore } from '@/store';
 import ProfileTabs from '@/components/profile/ProfileTabs';
 
 // Mock badges
@@ -19,6 +20,9 @@ const MOCK_BADGES: Badge[] = [
 export default function ProfilePage() {
     const user = useUserStore((state) => state.user);
     const { evolutionStage } = useHankiStore();
+    const { setActiveTab } = useUIStore();
+    const { logout } = useAuthStore();
+    const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
     // Mock user data
     const mockUser = {
@@ -53,12 +57,15 @@ export default function ProfilePage() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-coral-50/50 to-white pb-24">
+        <div className="min-h-screen bg-gradient-to-b from-green-50/50 to-white pb-24">
             {/* Header */}
-            <div className="bg-gradient-to-r from-coral-500 to-coral-600 text-white p-6 pb-20 rounded-b-3xl">
+            <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 pb-20 rounded-b-3xl">
                 <div className="flex items-center justify-between mb-6">
                     <h1 className="text-2xl font-bold">프로필</h1>
-                    <button className="p-2 hover:bg-white/20 rounded-xl transition-colors">
+                    <button
+                        onClick={() => setActiveTab('settings')}
+                        className="p-2 hover:bg-white/20 rounded-xl transition-colors"
+                    >
                         <Settings className="w-6 h-6" />
                     </button>
                 </div>
@@ -73,7 +80,7 @@ export default function ProfilePage() {
                     </motion.div>
                     <div>
                         <h2 className="text-xl font-bold">{displayUser.name}</h2>
-                        <p className="text-coral-100 text-sm">{displayUser.email}</p>
+                        <p className="text-green-100 text-sm">{displayUser.email}</p>
                         <div className="flex items-center gap-2 mt-1">
                             <LevelBadge level={displayUser.gamification.level} title={levelInfo.title} showTitle={false} />
                             <span className="text-sm">{levelInfo.title}</span>
@@ -91,10 +98,10 @@ export default function ProfilePage() {
                 >
                     <div className="flex items-center justify-between mb-4">
                         <h3 className="text-lg font-bold text-text-primary flex items-center gap-2">
-                            <Star className="w-5 h-5 text-coral-500" />
+                            <Star className="w-5 h-5 text-green-500" />
                             레벨 & XP
                         </h3>
-                        <span className="text-2xl font-bold text-coral-500">
+                        <span className="text-2xl font-bold text-green-500">
                             {displayUser.gamification.xp} XP
                         </span>
                     </div>
@@ -116,7 +123,7 @@ export default function ProfilePage() {
                     </div>
 
                     {/* Hanki Evolution */}
-                    <div className="flex items-center gap-4 p-3 bg-coral-50 rounded-xl">
+                    <div className="flex items-center gap-4 p-3 bg-green-50 rounded-xl">
                         <span className="text-3xl">🍚</span>
                         <div className="flex-1">
                             <div className="font-medium text-text-primary">한끼 성장 단계</div>
@@ -175,27 +182,27 @@ export default function ProfilePage() {
                             <div
                                 key={milestone.days}
                                 className={`flex items-center justify-between p-2 rounded-xl ${displayUser.gamification.streak >= milestone.days
-                                    ? 'bg-sage-50'
+                                    ? 'bg-blue-50'
                                     : 'bg-gray-50'
                                     }`}
                             >
                                 <div className="flex items-center gap-2">
                                     <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${displayUser.gamification.streak >= milestone.days
-                                        ? 'bg-sage-500 text-white'
+                                        ? 'bg-blue-500 text-white'
                                         : 'bg-gray-300 text-gray-600'
                                         }`}>
                                         {displayUser.gamification.streak >= milestone.days ? '✓' : milestone.days}
                                     </span>
                                     <span className={
                                         displayUser.gamification.streak >= milestone.days
-                                            ? 'text-sage-700 font-medium'
+                                            ? 'text-blue-700 font-medium'
                                             : 'text-text-secondary'
                                     }>
                                         {milestone.badge}
                                     </span>
                                 </div>
                                 <span className={`text-sm ${displayUser.gamification.streak >= milestone.days
-                                    ? 'text-sage-500'
+                                    ? 'text-blue-500'
                                     : 'text-text-muted'
                                     }`}>
                                     +{milestone.xp} XP
@@ -268,7 +275,7 @@ export default function ProfilePage() {
                             <div className="text-sm text-text-secondary">총 기록</div>
                         </div>
                         <div className="bg-surface-secondary rounded-xl p-4 text-center">
-                            <div className="text-2xl font-bold text-sage-500">{stats.goalAchievementRate}%</div>
+                            <div className="text-2xl font-bold text-blue-500">{stats.goalAchievementRate}%</div>
                             <div className="text-sm text-text-secondary">목표 달성률</div>
                         </div>
                     </div>
@@ -293,13 +300,14 @@ export default function ProfilePage() {
                     transition={{ delay: 0.4 }}
                 >
                     {[
-                        { icon: '⚙️', label: '목표 설정', description: '칼로리, 영양소 목표 수정' },
-                        { icon: '🔔', label: '알림 설정', description: '리마인더, 푸시 알림 설정' },
-                        { icon: '👤', label: '계정 관리', description: '프로필 정보 수정' },
-                        { icon: '❓', label: '도움말', description: '사용 방법, FAQ' },
+                        { icon: '🤖', label: 'AI 코치', description: '식단 & 영양 상담', tab: 'coach' as const },
+                        { icon: '🛍️', label: '포인트 상점', description: '배지, 스킨, 기프트 구매', tab: 'shop' as const },
+                        { icon: '⚙️', label: '설정', description: '계정, 알림, 목표 설정', tab: 'settings' as const },
+                        { icon: '❓', label: '도움말', description: '사용 방법, FAQ', tab: null },
                     ].map((item, index) => (
                         <button
                             key={index}
+                            onClick={() => item.tab && setActiveTab(item.tab)}
                             className="w-full flex items-center gap-4 p-4 hover:bg-surface-secondary transition-colors border-b border-gray-100 last:border-0"
                         >
                             <span className="text-2xl">{item.icon}</span>
@@ -313,11 +321,54 @@ export default function ProfilePage() {
                 </motion.div>
 
                 {/* Logout */}
-                <button className="w-full flex items-center justify-center gap-2 text-red-500 font-medium py-3">
+                <button
+                    onClick={() => setShowLogoutConfirm(true)}
+                    className="w-full flex items-center justify-center gap-2 text-red-500 font-medium py-3"
+                >
                     <LogOut className="w-5 h-5" />
                     로그아웃
                 </button>
             </div>
+
+            {/* Logout Confirmation Modal */}
+            {showLogoutConfirm && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+                    <motion.div
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        className="bg-white rounded-2xl p-6 w-full max-w-sm"
+                    >
+                        <div className="text-center mb-6">
+                            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <LogOut className="w-6 h-6 text-red-500" />
+                            </div>
+                            <h3 className="text-lg font-bold text-gray-900 mb-2">
+                                로그아웃 하시겠습니까?
+                            </h3>
+                            <p className="text-sm text-gray-500">
+                                로그아웃하면 다시 로그인해야 합니다.
+                            </p>
+                        </div>
+                        <div className="flex gap-3">
+                            <button
+                                onClick={() => setShowLogoutConfirm(false)}
+                                className="flex-1 py-3 px-4 bg-gray-100 text-gray-700 font-medium rounded-xl hover:bg-gray-200 transition-colors"
+                            >
+                                취소
+                            </button>
+                            <button
+                                onClick={() => {
+                                    logout();
+                                    setShowLogoutConfirm(false);
+                                }}
+                                className="flex-1 py-3 px-4 bg-red-500 text-white font-medium rounded-xl hover:bg-red-600 transition-colors"
+                            >
+                                로그아웃
+                            </button>
+                        </div>
+                    </motion.div>
+                </div>
+            )}
         </div>
     );
 }
