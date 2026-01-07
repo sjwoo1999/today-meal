@@ -1,0 +1,272 @@
+{
+    "prompt_metadata": {
+        "name": "TodayMeal PC 버전 디자인 점검 지시서",
+        "version": "1.0",
+        "target_agent": "Antigravity (AI Coding Agent)",
+        "project": "오늘한끼 (TodayMeal)",
+        "repository": "https://github.com/sjwoo1999/today-meal",
+        "focus": "PC/Desktop 레이아웃 UI/UX 점검 및 개선"
+    },
+    "project_context": {
+        "current_state": {
+            "description": "반응형 레이아웃 구현 완료 상태, PC 버전 디자인 정합성 점검 필요",
+            "breakpoints": {
+                "mobile": "< 768px",
+                "tablet": "768px - 1024px",
+                "desktop": ">= 1024px"
+            },
+            "pc_layout_structure": {
+                "sidebar": "좌측 네비게이션 (고정)",
+                "main_content": "중앙 메인 콘텐츠 영역",
+                "widgets": "우측 위젯 영역 (한끼 마스코트, 퀵액션 등)"
+            }
+        },
+        "pc_specific_components": [
+            "src/components/pc/Sidebar.tsx",
+            "src/components/pc/PCContent.tsx",
+            "src/components/pc/ReversePlanner.tsx",
+            "src/components/pc/NearbyRestaurants.tsx",
+            "src/components/pc/HankiWidget.tsx",
+            "src/components/ResponsiveApp.tsx"
+        ],
+        "design_requirements": {
+            "layout": {
+                "min_width": "1024px",
+                "max_width": "1440px (컨텐츠), 100% (배경)",
+                "sidebar_width": "240px - 280px",
+                "main_content_min_width": "600px",
+                "widget_area_width": "320px - 360px"
+            },
+            "spacing": {
+                "page_padding": "24px - 32px",
+                "card_gap": "16px - 24px",
+                "section_gap": "32px"
+            },
+            "typography": {
+                "base_size": "16px",
+                "heading_scale": "1.25 ratio",
+                "line_height": "1.5 - 1.7"
+            }
+        }
+    },
+    "review_checklist": {
+        "layout_consistency": [
+            {
+                "id": "L-01",
+                "item": "사이드바 고정 및 스크롤 동작",
+                "check_points": [
+                    "스크롤 시 사이드바 고정 유지",
+                    "활성 메뉴 아이템 하이라이트",
+                    "호버 상태 피드백"
+                ]
+            },
+            {
+                "id": "L-02",
+                "item": "3단 레이아웃 비율",
+                "check_points": [
+                    "사이드바 : 메인 : 위젯 비율 적절성",
+                    "최소 너비에서 레이아웃 깨짐 여부",
+                    "최대 너비에서 과도한 여백 여부"
+                ]
+            },
+            {
+                "id": "L-03",
+                "item": "카드/섹션 정렬",
+                "check_points": [
+                    "카드 간 간격 일관성",
+                    "섹션 헤더 정렬",
+                    "그리드 시스템 준수"
+                ]
+            }
+        ],
+        "component_review": [
+            {
+                "id": "C-01",
+                "component": "Sidebar",
+                "check_points": [
+                    "로고 표시 및 크기",
+                    "네비게이션 아이템 스타일",
+                    "프로필 섹션 레이아웃",
+                    "하단 설정 버튼 위치"
+                ]
+            },
+            {
+                "id": "C-02",
+                "component": "ReversePlanner (PC)",
+                "check_points": [
+                    "타임라인 가로 배치 적절성",
+                    "메뉴 카드 크기 및 여백",
+                    "식당 추천 섹션 레이아웃",
+                    "스크롤 동작"
+                ]
+            },
+            {
+                "id": "C-03",
+                "component": "NearbyRestaurants",
+                "check_points": [
+                    "지도 영역 크기",
+                    "식당 리스트 스크롤",
+                    "카드 호버 효과",
+                    "가격/거리 정보 표시"
+                ]
+            },
+            {
+                "id": "C-04",
+                "component": "HankiWidget",
+                "check_points": [
+                    "마스코트 이미지 품질",
+                    "말풍선 위치 및 크기",
+                    "위젯 카드 그림자/테두리"
+                ]
+            },
+            {
+                "id": "C-05",
+                "component": "NutritionDashboard",
+                "check_points": [
+                    "원형 차트 크기 PC 최적화",
+                    "영양소 바 너비",
+                    "수치 가독성"
+                ]
+            }
+        ],
+        "visual_polish": [
+            {
+                "id": "V-01",
+                "item": "색상 일관성",
+                "check_points": [
+                    "Soft & Readable v3.1 팔레트 준수",
+                    "호버/액티브 상태 색상",
+                    "그라데이션 강도"
+                ]
+            },
+            {
+                "id": "V-02",
+                "item": "그림자 및 깊이",
+                "check_points": [
+                    "카드 그림자 일관성",
+                    "레이어 깊이 표현 (z-index)",
+                    "모달/드롭다운 오버레이"
+                ]
+            },
+            {
+                "id": "V-03",
+                "item": "타이포그래피",
+                "check_points": [
+                    "폰트 크기 계층 구조",
+                    "줄 길이 (45-75자 권장)",
+                    "한글 폰트 렌더링"
+                ]
+            },
+            {
+                "id": "V-04",
+                "item": "아이콘 및 이미지",
+                "check_points": [
+                    "아이콘 크기 일관성",
+                    "이미지 해상도 (2x 대응)",
+                    "placeholder 처리"
+                ]
+            }
+        ],
+        "interaction_review": [
+            {
+                "id": "I-01",
+                "item": "마우스 인터랙션",
+                "check_points": [
+                    "호버 효과 피드백",
+                    "클릭 영역 크기 (최소 44px)",
+                    "커서 스타일 적절성"
+                ]
+            },
+            {
+                "id": "I-02",
+                "item": "키보드 네비게이션",
+                "check_points": [
+                    "Tab 순서 논리성",
+                    "Focus 링 표시",
+                    "Enter/Space 동작"
+                ]
+            },
+            {
+                "id": "I-03",
+                "item": "애니메이션",
+                "check_points": [
+                    "트랜지션 부드러움",
+                    "로딩 상태 표시",
+                    "과도한 애니메이션 여부"
+                ]
+            }
+        ]
+    },
+    "review_process": {
+        "step_1": {
+            "name": "브라우저 창 크기 조정",
+            "action": "1440px, 1280px, 1024px 너비에서 각각 스크린샷 캡처",
+            "tools": [
+                "browser_subagent",
+                "capture_browser_screenshot"
+            ]
+        },
+        "step_2": {
+            "name": "각 페이지 순회",
+            "pages": [
+                "/ (홈 - 대시보드)",
+                "/feed (피드)",
+                "/record (식단 기록)",
+                "/squad (스쿼드)",
+                "/profile (마이페이지)"
+            ],
+            "action": "각 페이지에서 레이아웃, 컴포넌트, 상호작용 확인"
+        },
+        "step_3": {
+            "name": "이슈 문서화",
+            "action": "발견된 문제점을 severity (high/medium/low) 기준으로 정리"
+        },
+        "step_4": {
+            "name": "수정 적용",
+            "priority": "high > medium > low",
+            "action": "CSS/컴포넌트 수정 후 재확인"
+        }
+    },
+    "expected_output": {
+        "screenshots": [
+            "pc_home_1440px.png",
+            "pc_home_1280px.png",
+            "pc_home_1024px.png",
+            "pc_feed_page.png",
+            "pc_record_page.png",
+            "pc_planner_page.png"
+        ],
+        "issue_report": {
+            "format": "markdown",
+            "sections": [
+                "발견된 이슈",
+                "수정 내용",
+                "Before/After 비교"
+            ]
+        }
+    },
+    "priority_fixes": {
+        "high": [
+            "레이아웃 깨짐 (overflow, 요소 겹침)",
+            "기능 동작 불가",
+            "텍스트 잘림/가독성 문제"
+        ],
+        "medium": [
+            "간격 불일치",
+            "색상/스타일 불일치",
+            "애니메이션 버벅임"
+        ],
+        "low": [
+            "미세 정렬 조정",
+            "호버 효과 개선",
+            "아이콘 교체"
+        ]
+    },
+    "notes_for_agent": [
+        "PC 버전은 마우스/키보드 중심 UX 고려",
+        "1024px 최소 너비에서 레이아웃 안정성 우선",
+        "모바일과 동일한 기능이지만 정보 밀도 높게",
+        "스크린샷 캡처 후 문제점 정리 → 수정 → 재확인 순서",
+        "수정 시 기존 모바일 레이아웃 영향 없는지 확인"
+    ]
+}
