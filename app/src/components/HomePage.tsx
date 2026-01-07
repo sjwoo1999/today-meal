@@ -7,6 +7,7 @@ import { MacroCircles } from '@/components/NutritionProgress';
 import { StreakBadge, LevelBadge } from '@/components/Gamification';
 import DailyQuests from '@/components/DailyQuests';
 import { TodayWorkoutCard } from '@/components/workout/TodayWorkoutCard';
+import { RecommendedProducts } from '@/components/purchase/RecommendedProducts';
 import { useUserStore, useNutritionStore, useQuestStore, useHankiStore, useUIStore, getLevelInfo, getXPProgress } from '@/store';
 import { useWorkouts } from '@/hooks/workout/useWorkouts';
 import { Quest } from '@/types';
@@ -204,6 +205,14 @@ export default function HomePage() {
                 >
                     <DailyQuests quests={quests} onQuestComplete={handleQuestComplete} />
                 </motion.div>
+
+                {/* Recommended Products */}
+                <RecommendedProducts
+                    title={workoutSummary.hasWorkout ? '💪 운동 후 추천' : '🥗 오늘의 추천'}
+                    type={workoutSummary.hasWorkout ? 'post-workout' : 'high-protein'}
+                    maxItems={4}
+                    compact
+                />
 
                 {/* Quick Actions */}
                 <motion.div

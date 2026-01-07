@@ -15,6 +15,7 @@ import {
     type PopularMenuItem
 } from '@/data';
 import StaticMap from '@/components/common/StaticMap';
+import { RecommendedProducts } from '@/components/purchase/RecommendedProducts';
 
 // Menu categories - aligned with FoodCategory
 type MenuCategory = 'all' | 'snack' | 'korean' | 'western' | 'japanese' | 'chinese' | 'cafe';
@@ -536,6 +537,16 @@ export default function ReversePlanner({
                             >
                                 새 플랜 만들기
                             </button>
+
+                            {/* 편의점 간편식 추천 */}
+                            <div className="mt-6">
+                                <RecommendedProducts
+                                    title="🏪 간편하게 챙겨먹기"
+                                    type="high-protein"
+                                    maxItems={3}
+                                    compact
+                                />
+                            </div>
                         </motion.div>
                     )}
                 </AnimatePresence>
