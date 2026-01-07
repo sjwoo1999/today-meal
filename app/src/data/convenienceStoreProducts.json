@@ -1,0 +1,322 @@
+{
+    "version": "1.0.0",
+    "lastUpdated": "2026-01-07",
+    "categories": [
+        "protein",
+        "salad",
+        "drink",
+        "snack",
+        "meal",
+        "supplement"
+    ],
+    "stores": [
+        {
+            "id": "cu",
+            "name": "CU",
+            "logo": "/images/stores/cu.png",
+            "appScheme": "cuapp://",
+            "webUrl": "https://cu.bgfretail.com"
+        },
+        {
+            "id": "gs25",
+            "name": "GS25",
+            "logo": "/images/stores/gs25.png",
+            "appScheme": "gs25app://",
+            "webUrl": "https://gs25.gsretail.com"
+        },
+        {
+            "id": "seveneleven",
+            "name": "세븐일레븐",
+            "logo": "/images/stores/7eleven.png",
+            "appScheme": "sevenelevenapp://",
+            "webUrl": "https://www.7-eleven.co.kr"
+        },
+        {
+            "id": "emart24",
+            "name": "이마트24",
+            "logo": "/images/stores/emart24.png",
+            "appScheme": "emart24app://",
+            "webUrl": "https://www.emart24.co.kr"
+        },
+        {
+            "id": "coupang",
+            "name": "쿠팡",
+            "logo": "/images/stores/coupang.png",
+            "appScheme": "coupang://",
+            "webUrl": "https://www.coupang.com"
+        },
+        {
+            "id": "kurly",
+            "name": "마켓컬리",
+            "logo": "/images/stores/kurly.png",
+            "appScheme": "kurly://",
+            "webUrl": "https://www.kurly.com"
+        }
+    ],
+    "products": [
+        {
+            "id": "protein-chicken-breast-cu",
+            "nameKr": "CU 닭가슴살",
+            "nameEn": "CU Chicken Breast",
+            "category": "protein",
+            "storeId": "cu",
+            "price": 2500,
+            "nutrition": {
+                "calories": 120,
+                "protein": 25,
+                "carbs": 1,
+                "fat": 2
+            },
+            "weight": 100,
+            "imageUrl": "/images/products/cu-chicken.jpg",
+            "tags": [
+                "고단백",
+                "저탄수",
+                "다이어트"
+            ],
+            "available": true
+        },
+        {
+            "id": "protein-egg-gs25",
+            "nameKr": "GS25 구운란 2개입",
+            "nameEn": "GS25 Roasted Eggs",
+            "category": "protein",
+            "storeId": "gs25",
+            "price": 1800,
+            "nutrition": {
+                "calories": 140,
+                "protein": 12,
+                "carbs": 1,
+                "fat": 10
+            },
+            "weight": 100,
+            "imageUrl": "/images/products/gs25-eggs.jpg",
+            "tags": [
+                "고단백",
+                "간편식"
+            ],
+            "available": true
+        },
+        {
+            "id": "salad-chicken-cu",
+            "nameKr": "CU 닭가슴살 샐러드",
+            "nameEn": "CU Chicken Salad",
+            "category": "salad",
+            "storeId": "cu",
+            "price": 4500,
+            "nutrition": {
+                "calories": 180,
+                "protein": 20,
+                "carbs": 8,
+                "fat": 6
+            },
+            "weight": 200,
+            "imageUrl": "/images/products/cu-salad.jpg",
+            "tags": [
+                "고단백",
+                "저칼로리",
+                "샐러드"
+            ],
+            "available": true
+        },
+        {
+            "id": "salad-tuna-gs25",
+            "nameKr": "GS25 참치 샐러드",
+            "nameEn": "GS25 Tuna Salad",
+            "category": "salad",
+            "storeId": "gs25",
+            "price": 4200,
+            "nutrition": {
+                "calories": 160,
+                "protein": 18,
+                "carbs": 6,
+                "fat": 7
+            },
+            "weight": 180,
+            "imageUrl": "/images/products/gs25-tuna-salad.jpg",
+            "tags": [
+                "고단백",
+                "오메가3",
+                "샐러드"
+            ],
+            "available": true
+        },
+        {
+            "id": "drink-protein-shake-cu",
+            "nameKr": "CU 프로틴 쉐이크 초코",
+            "nameEn": "CU Protein Shake Chocolate",
+            "category": "drink",
+            "storeId": "cu",
+            "price": 2800,
+            "nutrition": {
+                "calories": 150,
+                "protein": 25,
+                "carbs": 5,
+                "fat": 3
+            },
+            "weight": 250,
+            "imageUrl": "/images/products/cu-protein-shake.jpg",
+            "tags": [
+                "고단백",
+                "음료",
+                "운동후"
+            ],
+            "available": true
+        },
+        {
+            "id": "drink-protein-gs25",
+            "nameKr": "GS25 단백질 음료",
+            "nameEn": "GS25 Protein Drink",
+            "category": "drink",
+            "storeId": "gs25",
+            "price": 2500,
+            "nutrition": {
+                "calories": 130,
+                "protein": 22,
+                "carbs": 4,
+                "fat": 2
+            },
+            "weight": 250,
+            "imageUrl": "/images/products/gs25-protein-drink.jpg",
+            "tags": [
+                "고단백",
+                "음료"
+            ],
+            "available": true
+        },
+        {
+            "id": "snack-protein-bar-cu",
+            "nameKr": "CU 프로틴바 피넛버터",
+            "nameEn": "CU Protein Bar Peanut Butter",
+            "category": "snack",
+            "storeId": "cu",
+            "price": 2200,
+            "nutrition": {
+                "calories": 200,
+                "protein": 20,
+                "carbs": 15,
+                "fat": 8
+            },
+            "weight": 60,
+            "imageUrl": "/images/products/cu-protein-bar.jpg",
+            "tags": [
+                "고단백",
+                "간식",
+                "운동전"
+            ],
+            "available": true
+        },
+        {
+            "id": "snack-greek-yogurt-gs25",
+            "nameKr": "GS25 그릭요거트 플레인",
+            "nameEn": "GS25 Greek Yogurt Plain",
+            "category": "snack",
+            "storeId": "gs25",
+            "price": 2000,
+            "nutrition": {
+                "calories": 100,
+                "protein": 10,
+                "carbs": 5,
+                "fat": 5
+            },
+            "weight": 120,
+            "imageUrl": "/images/products/gs25-greek-yogurt.jpg",
+            "tags": [
+                "고단백",
+                "간식",
+                "프로바이오틱스"
+            ],
+            "available": true
+        },
+        {
+            "id": "meal-lunch-box-cu",
+            "nameKr": "CU 닭가슴살 도시락",
+            "nameEn": "CU Chicken Breast Lunchbox",
+            "category": "meal",
+            "storeId": "cu",
+            "price": 5500,
+            "nutrition": {
+                "calories": 450,
+                "protein": 35,
+                "carbs": 50,
+                "fat": 10
+            },
+            "weight": 350,
+            "imageUrl": "/images/products/cu-lunchbox.jpg",
+            "tags": [
+                "고단백",
+                "도시락",
+                "한끼"
+            ],
+            "available": true
+        },
+        {
+            "id": "meal-kimbap-gs25",
+            "nameKr": "GS25 단백질 김밥",
+            "nameEn": "GS25 Protein Kimbap",
+            "category": "meal",
+            "storeId": "gs25",
+            "price": 3500,
+            "nutrition": {
+                "calories": 350,
+                "protein": 18,
+                "carbs": 45,
+                "fat": 8
+            },
+            "weight": 230,
+            "imageUrl": "/images/products/gs25-kimbap.jpg",
+            "tags": [
+                "단백질",
+                "김밥",
+                "간편식"
+            ],
+            "available": true
+        },
+        {
+            "id": "supplement-omega3-coupang",
+            "nameKr": "종근당 오메가3",
+            "nameEn": "Chong Kun Dang Omega-3",
+            "category": "supplement",
+            "storeId": "coupang",
+            "price": 15000,
+            "nutrition": {
+                "calories": 10,
+                "protein": 0,
+                "carbs": 0,
+                "fat": 1
+            },
+            "weight": 50,
+            "imageUrl": "/images/products/omega3.jpg",
+            "tags": [
+                "영양제",
+                "오메가3",
+                "건강"
+            ],
+            "purchaseUrl": "https://www.coupang.com/vp/products/123456",
+            "available": true
+        },
+        {
+            "id": "supplement-protein-powder-coupang",
+            "nameKr": "마이프로틴 웨이 프로틴",
+            "nameEn": "Myprotein Whey Protein",
+            "category": "supplement",
+            "storeId": "coupang",
+            "price": 35000,
+            "nutrition": {
+                "calories": 120,
+                "protein": 24,
+                "carbs": 2,
+                "fat": 2
+            },
+            "weight": 1000,
+            "imageUrl": "/images/products/myprotein.jpg",
+            "tags": [
+                "프로틴",
+                "보충제",
+                "근성장"
+            ],
+            "purchaseUrl": "https://www.coupang.com/vp/products/789012",
+            "available": true
+        }
+    ]
+}

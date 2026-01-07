@@ -5,7 +5,7 @@ import { useUIStore } from '@/store';
 import {
     Flame, Camera, Wrench, User,
     ChevronLeft, ChevronRight,
-    Settings, HelpCircle, MessageSquare, MapPin
+    Settings, HelpCircle, MessageSquare, MapPin, Dumbbell
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -22,6 +22,7 @@ const navItems = [
         ]
     },
     { id: 'record', label: '기록하기', icon: Camera, path: '/record' },
+    { id: 'workout', label: '운동 기록', icon: Dumbbell, path: '/record?tab=workout' },
     {
         id: 'tools', label: '도구', icon: Wrench, path: '/tools',
         submenu: [
@@ -29,6 +30,7 @@ const navItems = [
             { id: 'tools-dashboard', label: '📊 영양 대시보드', path: '/tools/dashboard' },
             { id: 'tools-analysis', label: '📈 분석', path: '/tools/analysis' },
             { id: 'tools-hanki', label: '🤖 한끼 AI', path: '/tools/hanki' },
+            { id: 'tools-workout', label: '💪 운동 통계', path: '/tools/workout' },
         ]
     },
     { id: 'nearby', label: '주변 식당', icon: MapPin, path: '/nearby' },

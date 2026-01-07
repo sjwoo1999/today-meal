@@ -1,0 +1,88 @@
+{
+    "prompt_metadata": {
+        "name": "TodayMeal 신규 기능 UI 통합 가이드",
+        "version": "1.0",
+        "target_agent": "Antigravity (AI Coding Agent)",
+        "purpose": "운동 스크린샷 인식 + 구매 링크 연동 기능을 기존 MVP UI와 완벽하게 통합",
+        "approach": "기존 구조 분석 → 연결 포인트 파악 → 단계별 통합 → 테스트"
+    },
+    "phases_summary": {
+        "phase_0": {
+            "title": "사전 준비",
+            "duration": "0.5일",
+            "focus": "폴더 구조, 타입 정의"
+        },
+        "phase_1": {
+            "title": "운동 스크린샷 코어",
+            "duration": "2일",
+            "focus": "Gemini 추출, 업로더, 결과 UI"
+        },
+        "phase_2": {
+            "title": "운동 UI 통합",
+            "duration": "1.5일",
+            "focus": "RecordPage, HomePage, Sidebar"
+        },
+        "phase_3": {
+            "title": "구매 링크 코어",
+            "duration": "2일",
+            "focus": "메뉴 DB, 딥링크, 추천 카드"
+        },
+        "phase_4": {
+            "title": "구매 UI 통합",
+            "duration": "1.5일",
+            "focus": "ReversePlanner, HomePage"
+        },
+        "phase_5": {
+            "title": "테스트 및 마무리",
+            "duration": "1일",
+            "focus": "E2E 테스트, 문서화"
+        }
+    },
+    "new_files_to_create": [
+        "app/src/types/workout.ts",
+        "app/src/types/menu.ts",
+        "app/src/types/purchase.ts",
+        "app/src/lib/workout/workoutExtractor.ts",
+        "app/src/lib/purchase/linkGenerator.ts",
+        "app/src/lib/purchase/deepLinkHandler.ts",
+        "app/src/lib/purchase/purchaseTracking.ts",
+        "app/src/hooks/workout/useWorkouts.ts",
+        "app/src/components/workout/WorkoutScreenshotUploader.tsx",
+        "app/src/components/workout/WorkoutExtractionResult.tsx",
+        "app/src/components/workout/TodayWorkoutCard.tsx",
+        "app/src/components/workout/WorkoutWidget.tsx",
+        "app/src/components/purchase/RecommendationCard.tsx",
+        "app/src/components/purchase/RecommendationList.tsx",
+        "app/src/components/purchase/PurchaseButton.tsx",
+        "app/src/data/menuDatabase.json"
+    ],
+    "files_to_modify": [
+        "app/src/store/index.ts",
+        "app/src/components/RecordPage.tsx",
+        "app/src/components/HomePage.tsx",
+        "app/src/components/HankiMascot.tsx",
+        "app/src/components/pc/Sidebar.tsx",
+        "app/src/components/pc/Dashboard.tsx",
+        "app/src/components/pc/ReversePlanner.tsx",
+        "app/src/components/ReversePlanner.tsx"
+    ],
+    "integration_points": {
+        "mobile": {
+            "RecordPage": "식단/운동 탭 추가",
+            "HomePage": "오늘 운동 카드 + 오늘 추천 섹션",
+            "ReversePlanner": "추천에 구매 버튼 추가"
+        },
+        "pc": {
+            "Sidebar": "운동 메뉴 추가 (단축키 W)",
+            "Dashboard": "운동 위젯 추가",
+            "ReversePlanner": "3컬럼에 구매 버튼 추가"
+        }
+    },
+    "estimated_timeline": {
+        "total": "7일 (병렬 시 5일)",
+        "parallel_work": [
+            "Phase 1 + Phase 3",
+            "Phase 2 + Phase 4"
+        ]
+    }
+}

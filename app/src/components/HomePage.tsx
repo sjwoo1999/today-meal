@@ -6,7 +6,9 @@ import HankiMascot from '@/components/HankiMascot';
 import { MacroCircles } from '@/components/NutritionProgress';
 import { StreakBadge, LevelBadge } from '@/components/Gamification';
 import DailyQuests from '@/components/DailyQuests';
+import { TodayWorkoutCard } from '@/components/workout/TodayWorkoutCard';
 import { useUserStore, useNutritionStore, useQuestStore, useHankiStore, useUIStore, getLevelInfo, getXPProgress } from '@/store';
+import { useWorkouts } from '@/hooks/workout/useWorkouts';
 import { Quest } from '@/types';
 
 // Mock data
@@ -22,6 +24,8 @@ export default function HomePage() {
     const { dailyQuests, completeQuest } = useQuestStore();
     const { setActiveTab } = useUIStore();
     const hankiState = useHankiStore();
+    const { getTodaySummary } = useWorkouts();
+    const workoutSummary = getTodaySummary();
 
     // Use mock data if no real data
     const quests = dailyQuests.length > 0 ? dailyQuests : MOCK_QUESTS;
@@ -179,6 +183,16 @@ export default function HomePage() {
                         </div>
                     )}
                 </motion.div>
+
+                {/* Today Workout Card */}
+                <TodayWorkoutCard
+                    hasWorkout={workoutSummary.hasWorkout}
+                    totalCaloriesBurned={workoutSummary.totalCaloriesBurned}
+                    totalDurationMinutes={workoutSummary.totalDurationMinutes}
+                    primaryType={workoutSummary.primaryType}
+                    workoutCount={workoutSummary.workouts.length}
+                    onRecordWorkout={() => setActiveTab('record')}
+                />
 
                 {/* Daily Quests */}
                 <motion.div
