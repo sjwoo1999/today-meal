@@ -63,7 +63,7 @@ export default function HomePage() {
     return (
         <div className="min-h-screen bg-gradient-to-b from-green-50/50 to-white pb-24">
             {/* Header */}
-            <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 pb-20 rounded-b-3xl">
+            <div className="bg-gradient-to-r from-green-400 to-green-500 text-white p-6 pb-20 rounded-b-3xl">
                 <div className="flex items-center justify-between mb-4">
                     <div>
                         <h1 className="text-2xl font-bold">
@@ -117,7 +117,7 @@ export default function HomePage() {
                             ) : (
                                 <button
                                     onClick={() => setActiveTab('planner')}
-                                    className="flex items-center gap-1 text-sm text-green-500 font-medium hover:underline"
+                                    className="flex items-center gap-1 text-sm text-green-600 font-medium hover:underline"
                                 >
                                     오늘 저녁 계획 세우기
                                     <ChevronRight className="w-4 h-4" />
@@ -131,7 +131,7 @@ export default function HomePage() {
                 {!reversePlan && (
                     <motion.button
                         onClick={() => setActiveTab('planner')}
-                        className="card-interactive w-full bg-gradient-to-r from-green-500 to-green-600 text-white"
+                        className="card-interactive w-full bg-gradient-to-r from-green-400 to-green-500 text-white"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
@@ -240,7 +240,7 @@ export default function HomePage() {
                             </div>
                             <div className="text-right text-sm">
                                 <div className="text-text-muted">스트릭 프리즈</div>
-                                <div className="font-bold text-green-500">
+                                <div className="font-bold text-green-600">
                                     {displayUser.gamification.streakFreezes}개 보유
                                 </div>
                             </div>

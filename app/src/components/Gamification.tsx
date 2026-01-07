@@ -28,7 +28,7 @@ export function XPPopup() {
                 >
                     <div className="flex flex-col items-center gap-1">
                         <motion.div
-                            className="text-4xl font-bold text-green-500 flex items-center gap-2"
+                            className="text-4xl font-bold text-green-600 flex items-center gap-2"
                             animate={{ scale: [1, 1.2, 1] }}
                             transition={{ duration: 0.3 }}
                         >
@@ -47,7 +47,7 @@ export function XPPopup() {
 
 // Confetti Effect
 function Confetti() {
-    const colors = ['#FF9500', '#22C55E', '#3B82F6', '#A855F7', '#EC4899', '#FFD700'];
+    const colors = ['#F5B849', '#4ADE80', '#60A5FA', '#C084FC', '#F472B6', '#FBBF24'];
     const confettiPieces = Array.from({ length: 50 });
 
     return (
@@ -216,10 +216,10 @@ interface LevelBadgeProps {
 
 export function LevelBadge({ level, title, showTitle = true }: LevelBadgeProps) {
     const getBgColor = () => {
-        if (level >= 10) return 'from-yellow-400 to-yellow-600';
-        if (level >= 7) return 'from-purple-400 to-purple-600';
-        if (level >= 4) return 'from-blue-400 to-blue-600';
-        return 'from-green-400 to-green-600';
+        if (level >= 10) return 'from-yellow-300 to-yellow-500';
+        if (level >= 7) return 'from-purple-300 to-purple-500';
+        if (level >= 4) return 'from-blue-300 to-blue-500';
+        return 'from-green-300 to-green-500';
     };
 
     return (
@@ -262,7 +262,7 @@ export function XPProgressBar({ currentXP, currentLevelXP, nextLevelXP }: XPProg
             </div>
             <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                 <motion.div
-                    className="h-full bg-gradient-to-r from-green-400 to-green-600 rounded-full"
+                    className="h-full bg-gradient-to-r from-green-300 to-green-500 rounded-full"
                     initial={{ width: 0 }}
                     animate={{ width: `${percentage}%` }}
                     transition={{ duration: 0.5, ease: 'easeOut' }}

@@ -34,7 +34,7 @@ export default function BottomNav() {
                                 className="relative -mt-6"
                             >
                                 <motion.div
-                                    className="w-14 h-14 bg-gradient-to-br from-green-400 to-green-600
+                                    className="w-14 h-14 bg-gradient-to-br from-green-300 to-green-500
                                      rounded-full flex items-center justify-center shadow-lg shadow-glow"
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.95 }}
@@ -64,10 +64,10 @@ export default function BottomNav() {
                             )}
                             <div className="relative">
                                 <Icon
-                                    className={`w-6 h-6 relative z-10 ${isActive ? 'text-green-500' : ''}`}
+                                    className={`w-6 h-6 relative z-10 ${isActive ? 'text-green-600' : ''}`}
                                 />
                             </div>
-                            <span className={`text-xs mt-1 relative z-10 ${isActive ? 'font-semibold text-green-500' : ''}`}>
+                            <span className={`text-xs mt-1 relative z-10 ${isActive ? 'font-semibold text-green-600' : ''}`}>
                                 {item.label}
                             </span>
                         </button>

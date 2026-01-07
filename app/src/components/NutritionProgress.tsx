@@ -149,7 +149,7 @@ export function MacroCircles({ calories, protein, carbs, fat }: MacroCirclesProp
                     max={calories.goal}
                     size={140}
                     strokeWidth={14}
-                    color="#FF9500"
+                    color="#F5B849"
                     unit="kcal"
                     label="칼로리"
                 />
@@ -163,7 +163,7 @@ export function MacroCircles({ calories, protein, carbs, fat }: MacroCirclesProp
                         max={protein.goal}
                         size={50}
                         strokeWidth={6}
-                        color="#22C55E"
+                        color="#4ADE80"
                         showValue={false}
                     />
                     <div className="text-sm">
@@ -178,7 +178,7 @@ export function MacroCircles({ calories, protein, carbs, fat }: MacroCirclesProp
                         max={carbs.goal}
                         size={50}
                         strokeWidth={6}
-                        color="#3B82F6"
+                        color="#60A5FA"
                         showValue={false}
                     />
                     <div className="text-sm">
@@ -193,7 +193,7 @@ export function MacroCircles({ calories, protein, carbs, fat }: MacroCirclesProp
                         max={fat.goal}
                         size={50}
                         strokeWidth={6}
-                        color="#A855F7"
+                        color="#C084FC"
                         showValue={false}
                     />
                     <div className="text-sm">
